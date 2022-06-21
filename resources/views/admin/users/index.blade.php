@@ -2,6 +2,15 @@
 
 @section('content')
     <div class="container">
+        @if (session('success'))
+            <div class="alert alert-success">
+                <p class="text-center">{{ session('success') }}</p>
+            </div>
+        @elseif (session('failed'))
+            <div class="alert alert-error">
+                <p class="text-center">{{ session('failed') }}</p>
+            </div>
+        @endif
         <table class="table">
             <thead class="thead-light">
                 <tr>

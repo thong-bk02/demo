@@ -89,7 +89,11 @@ class UserController extends Controller
             'department' => $input['department']
         ];
 
-        User::upd($user, $profile, $id);
+        if ( User::upd($user, $profile, $id) == true) {
+            return redirect()->route('admin.user')->with('success', 'Sửa thành công !');
+        } else {
+            return redirect()->route('admin.user')->with('failed', 'Lỗi sửa thông tin nhân viên !');
+        }
     }
 
     /**

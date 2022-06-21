@@ -5,8 +5,9 @@
         <h2 class="text-center">
             Thông tin nhân viên:
         </h2>
-        <form action="" method="post">
-            @foreach ($users as $user)
+        @foreach ($users as $user)
+            <form action="{{ route('admin.user.update', $user->id) }}" method="post">
+                @csrf
                 <div class="row mx-lg-5 mx-2">
                     <div class="col-sm-6">
                         <div class="form-group">
@@ -16,7 +17,7 @@
                         </div>
                         <div class="form-group">
                             <label for="code">Mã nhân viên</label>
-                            <input type="text" class="form-control" name="code" id="code"
+                            <input type="text" class="form-control" name="user_code" id="code"
                                 placeholder="Mã nhân viên" value="{{ $user->user_code }}">
                         </div>
                         <div class="form-group">
@@ -26,7 +27,7 @@
                         </div>
                         <div class="form-group">
                             <label for="hometown">Quê quán</label>
-                            <input type="text" class="form-control" name="hometown" id="hometown" placeholder="Quê quán"
+                            <input type="text" class="form-control" name="address" id="hometown" placeholder="Quê quán"
                                 value="{{ $user->address }}">
                         </div>
                         <div>
@@ -57,21 +58,21 @@
                                 value="{{ $user->position }}">
                         </div>
                         <div class="form-group">
-                            <label for="personnel">Phòng ban</label>
-                            <input type="text" class="form-control" name="personnel" id="personnel"
+                            <label for="department">Phòng ban</label>
+                            <input type="text" class="form-control" name="department" id="department"
                                 placeholder="Phòng ban" value="{{ $user->department }}">
                         </div>
                         <div class="form-group">
                             <div><label for="">tình trạng làm việc</label></div>
                             <div class="d-flex align-item-center">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="status" id="op1" value="1"
-                                        {{ $user->status == 1 ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="status" id="op1"
+                                        value="1" {{ $user->status == 1 ? 'checked' : '' }}>
                                     <label class="form-check-label" for="op1">đang làm</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="status" id="op2" value="0"
-                                        {{ $user->status == 0 ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="radio" name="status" id="op2"
+                                        value="0" {{ $user->status == 0 ? 'checked' : '' }}>
                                     <label class="form-check-label" for="op2">đã nghỉ</label>
                                 </div>
                             </div>
@@ -83,7 +84,8 @@
                     <input type="submit" class="btn btn-primary mx-3" value="Lưu">
                     <a href="{{ route('admin.user') }}" class="btn btn-secondary mx-3">Thoát</a>
                 </div>
-            @endforeach
-        </form>
+
+            </form>
+        @endforeach
     </div>
 @endsection
