@@ -6,7 +6,7 @@
             Thông tin nhân viên:
         </h2>
         @foreach ($users as $user)
-            <form action="{{ route('admin.user.update', $user->id) }}" method="post">
+            <form action="{{ route('admin.user.update', $user->user_id) }}" method="post">
                 @csrf
                 <div class="row mx-lg-5 mx-2">
                     <div class="col-sm-6">
@@ -53,29 +53,31 @@
                                 placeholder="email@example.com" value="{{ $user->email }}">
                         </div>
                         <div class="form-group">
-                            <label for="position">Chức vụ</label>
-                            <input type="text" class="form-control" name="position" id="position" placeholder="Chức vụ"
-                                value="{{ $user->position }}">
+                            <label for="">Chức vụ</label>
+                            <select class="form-control" name="position">
+                                @foreach ($positions as $position)
+                                    <option value="{{ $position->id }}"
+                                        {{ $position->id == $user->position ? 'selected' : '' }}>
+                                        {{ $position->position }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="department">Phòng ban</label>
-                            <input type="text" class="form-control" name="department" id="department"
-                                placeholder="Phòng ban" value="{{ $user->department }}">
+                            <label for="">Phòng ban</label>
+                            <select class="form-control" name="department">
+                                @foreach ($departments as $department)
+                                    <option value="{{ $department->id }}"
+                                        {{ $department->id == $user->department ? 'selected' : '' }}>
+                                        {{ $department->department }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
-                            <div><label for="">tình trạng làm việc</label></div>
-                            <div class="d-flex align-item-center">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="status" id="op1"
-                                        value="1" {{ $user->status == 1 ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="op1">đang làm</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="status" id="op2"
-                                        value="0" {{ $user->status == 0 ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="op2">đã nghỉ</label>
-                                </div>
-                            </div>
+                            <label for="">tình trạng làm việc</label>
+                            <select name="status" class="form-control">
+                                <option value="1" {{ $user->status == 1 ? 'selected' : '' }}>đang làm</option>
+                                <option value="0" {{ $user->status == 0 ? 'selected' : '' }}>đã nghỉ</option>
+                            </select>
                         </div>
                     </div>
                 </div>

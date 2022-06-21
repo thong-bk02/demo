@@ -56,7 +56,7 @@
             <tbody>
                 @foreach ($users as $user)
                     <tr class="border-bottom border-dark">
-                        <th scope="row">{{ $user->id }}</th>
+                        <th scope="row">{{ $user->user_id }}</th>
                         <td>
                             {{ $user->user_code }}
                         </td>
@@ -70,7 +70,7 @@
                             {{ $user->department }}
                         </td>
                         <td>
-                            <a href="{{ route('admin.user.show', $user->id) }}" class="mx-1"><i
+                            <a href="{{ route('admin.user.show', $user->user_id) }}" class="mx-1"><i
                                     class="fa-solid fa-eye"></i></a>
                             <a href="" class="mx-1" onclick="return confirmDelete()"><i
                                     class="fa-solid fa-trash-can"></i></a>

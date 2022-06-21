@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
+use App\Models\Position;
 use App\Models\Power;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -50,7 +52,9 @@ class UserController extends Controller
     {
         $users = User::getUser($id);
         $powers = Power::all();
-        return view('admin.users.show', compact('users', 'powers'));
+        $positions = Position::all();
+        $departments = Department::all();
+        return view('admin.users.show', compact('users', 'powers','positions','departments'));
     }
 
     /**

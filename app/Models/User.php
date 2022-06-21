@@ -5,6 +5,7 @@ namespace App\Models;
 use Exception;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +14,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -53,6 +55,7 @@ class User extends Authenticatable
             ->join('positions', 'profile_users.position', '=', 'positions.id')
             ->join('departments', 'profile_users.department', '=', 'departments.id')
             ->select('users.*', 'profile_users.*', 'positions.*', 'departments.*')
+            ->orderBy('user_id')
             ->get();
         return $users;
     }
@@ -61,10 +64,10 @@ class User extends Authenticatable
     {
         $users = DB::table('profile_users')
             ->join('users', 'profile_users.user_id', '=', 'users.id')
-            ->join('positions', 'profile_users.position', '=', 'positions.id')
-            ->join('departments', 'profile_users.department', '=', 'departments.id')
-            ->select('users.*', 'profile_users.*', 'positions.*', 'departments.*')
-            ->where('users.id', '=', $id)
+            // ->join('positions', 'profile_users.position', '=', 'positions.id')
+            // ->join('departments', 'profile_users.department', '=', 'departments.id')
+            ->select('users.*', 'profile_users.*')
+            ->where('profile_users.user_id', '=', $id)
             ->get();
         return $users;
     }
@@ -78,7 +81,8 @@ class User extends Authenticatable
                 ->update($profile);
             return true;
         } catch (Exception $ex) {
-            return false;
+            // return false;
+            throw $ex;
         }
     }
 }
