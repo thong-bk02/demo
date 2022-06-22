@@ -11,7 +11,7 @@
                 <span>{{ session('failed') }}</span>
             </div>
         @endif
-        <table class="table">
+        {{-- <table class="table">
             <thead class="thead-light">
                 <tr>
                     <th scope="col">Họ và Tên</th>
@@ -52,37 +52,37 @@
                     </form>
                 </tr>
             </tbody>
-        </table>
+        </table> --}}
 
         <table class="table">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Id</th>
-                    <th scope="col">Mã nhân viên</th>
-                    <th scope="col">Tên nhân viên</th>
-                    <th scope="col">Chức vụ</th>
-                    <th scope="col">Phòng ban</th>
+                    <th scope="col">Tên dự án</th>
+                    <th scope="col">Quản lí dự án</th>
+                    <th scope="col">ngày bắt đầu</th>
+                    <th scope="col">Thời gian dự kiến</th>
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($users as $user)
+                @foreach ($projects as $project)
                     <tr class="border-bottom border-dark">
-                        <th scope="row">{{ $user->user_id }}</th>
+                        <th scope="row">{{ $project->id }}</th>
                         <td>
-                            {{ $user->user_code }}
+                            {{ $project->project_name }}
                         </td>
                         <td>
-                            {{ $user->name }}
+                            {{ $project->project_manager }}
                         </td>
                         <td>
-                            {{ $user->position }}
+                            {{ $project->start_date }}
                         </td>
                         <td>
-                            {{ $user->department }}
+                            {{ $project->intend_time }}
                         </td>
                         <td>
-                            <a href="{{ route('admin.user.show', $user->user_id) }}" class="mx-1"><i
+                            <a href="" class="mx-1"><i
                                     class="fa-solid fa-eye"></i></a>
                             <a href="" class="mx-1" onclick="return confirmDelete()"><i
                                     class="fa-solid fa-trash-can"></i></a>

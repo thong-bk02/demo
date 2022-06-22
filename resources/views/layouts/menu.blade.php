@@ -6,36 +6,35 @@
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('admin.user') }}" class="nav-link {{ Request::is('admin/user') ? 'active' : '' }}">
+    <a href="{{ route('admin.user') }}" class="nav-link {{ Request::is('admin/users') ? 'active' : '' }}">
         <i class="nav-icon fa-solid fa-users"></i>
         <p>Quản lí nhân sự</p>
-        
     </a>
 </li>
 
 <li class="nav-item">
-    <a href="" class="nav-link {{ Request::is('admin/user') ? 'active' : '' }}">
+    <a href="{{ route('admin.position') }}" class="nav-link {{ Request::is('admin/position') ? 'active' : '' }}">
         <i class="nav-icon fa-solid fa-address-card"></i>
         <p>Quản lí chức vụ</p>
     </a>
 </li>
 
 <li class="nav-item">
-    <a href="" class="nav-link {{ Request::is('admin/departments') ? 'active' : '' }}">
+    <a href="{{ route('admin.department') }}" class="nav-link {{ Request::is('admin/department') ? 'active' : '' }}">
         <i class="nav-icon fa-solid fa-city"></i>
         <p>Quản lí phòng ban</p>
     </a>
 </li>
 
 <li class="nav-item">
-    <a href="" class="nav-link {{ Request::is('admin/user') ? 'active' : '' }}">
+    <a href="{{ route('admin.access-rights') }}" class="nav-link {{ Request::is('admin/access-rights') ? 'active' : '' }}">
         <i class="nav-icon fa-solid fa-eye-low-vision"></i>
         <p>Quản lí quyền</p>
     </a>
 </li>
 
 <li class="nav-item">
-    <a href="" class="nav-link {{ Request::is('admin/user') ? 'active' : '' }}">
+    <a href="{{ route('admin.projects') }}" class="nav-link {{ Request::is('admin/projects') ? 'active' : '' }}">
         <i class="nav-icon fa-solid fa-diagram-project"></i>
         <p>Quản lí dự án</p>
     </a>

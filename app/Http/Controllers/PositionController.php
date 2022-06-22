@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Department;
 use App\Models\Position;
-use App\Models\Power;
-use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class PositionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::getAll();
         $positions = Position::all();
-        $departments = Department::all();
-        return view('admin.users.index', compact('users','positions','departments'));
+        return view('admin.position.index', compact('positions'));
     }
 
     /**
@@ -30,9 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $positions = Position::all();
-        $departments = Department::all();
-        return view('admin.users.create', compact('positions', 'departments'));
+        //
     }
 
     /**
@@ -54,10 +47,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $users = User::getUser($id);
-        $positions = Position::all();
-        $departments = Department::all();
-        return view('admin.users.show', compact('users', 'positions', 'departments'));
+        //
     }
 
     /**
@@ -80,27 +70,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $input = $request->all();
-        $user = [
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'power' => $input['power'],
-            'status' => $input['status']
-        ];
-        $profile = [
-            'user_code' => $input['user_code'],
-            'address' => $input['address'],
-            'phone' => $input['phone'],
-            'birthday' => $input['birthday'],
-            'position' => $input['position'],
-            'department' => $input['department']
-        ];
-
-        if ( User::upd($user, $profile, $id) == true) {
-            return redirect()->route('admin.user')->with('success', 'Sửa thành công nhân sự: '.$input['name'] );
-        } else {
-            return redirect()->route('admin.user')->with('failed', 'Lỗi sửa thông tin nhân viên !');
-        }
+        //
     }
 
     /**

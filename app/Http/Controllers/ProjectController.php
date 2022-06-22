@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Position;
-use App\Models\Power;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
-class PowerController extends Controller
+class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,8 @@ class PowerController extends Controller
      */
     public function index()
     {
-        $access_rights = Power::getAll();
-        return view('admin.access-rights.index',compact('access_rights'));
+        $projects = Project::all();
+        return view('admin.project.index', compact('projects'));
     }
 
     /**
@@ -26,8 +25,7 @@ class PowerController extends Controller
      */
     public function create()
     {
-        $positions = Position::all();
-        return view('admin.access-rights.create', compact('positions'));
+        //
     }
 
     /**
@@ -49,8 +47,7 @@ class PowerController extends Controller
      */
     public function show($id)
     {
-        $access_rights= Power::find($id);
-        return view('admin.access-rights.show',compact('access_rights'));
+        //
     }
 
     /**

@@ -72,9 +72,9 @@
         </div>
 
         <!-- Main Footer -->
-        <footer class="main-footer bg-secondary">
+        {{-- <footer class="main-footer bg-secondary">
             chỗ này là footer
-        </footer>
+        </footer> --}}
     </div>
 
     <script src="{{ mix('js/app.js') }}" defer></script>
