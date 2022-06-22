@@ -28,7 +28,7 @@
                     <tr class="border-bottom border-dark">
                         <th scope="row">{{ $access_right->id }}</th>
                         <td>
-                            {{ $access_right->position }}
+                            {{ $access_right->position_name }}
                         </td>
                         <td  style="max-width:30rem;">
                             {!! $access_right->users == 1 ? '<a class="btn btn-primary btn-sm my-1 disabled">Quản lí nhân sự</a>' : '' !!}

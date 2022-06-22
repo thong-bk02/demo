@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Project extends Model
+class Timekeeping extends Model
 {
     use HasFactory;
 
     protected static function getAll(){
-        $projects = DB::table('projects')
-            ->join('users', 'projects.project_manager', '=', 'users.id')
-            ->select('users.*', 'projects.*')
+        $timekeeping = DB::table('timekeepings')
+            ->join('users', 'timekeepings.user_id', '=', 'users.id')
+            ->select('users.name', 'timekeepings.*')
             ->get();
-        return $projects;
+        return $timekeeping;
     }
 }

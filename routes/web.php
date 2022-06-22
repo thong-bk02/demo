@@ -7,6 +7,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\PowerController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskListController;
+use App\Http\Controllers\TimekeepingController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -57,3 +59,14 @@ Route::get('/admin/projects/show/{id}', [ProjectController::class, 'show'])->nam
 Route::post('/admin/projects/update/{id}', [ProjectController::class, 'update'])->name('admin.projects.update');
 Route::get('/admin/projects/create', [ProjectController::class, 'create'])->name('admin.projects.create');
 
+//quản lí công việc
+Route::get('/admin/task-lists', [TaskListController::class, 'index'])->name('admin.task-lists');
+Route::get('/admin/task-lists/show/{id}', [TaskListController::class, 'show'])->name('admin.task-lists.show');
+Route::post('/admin/task-lists/update/{id}', [TaskListController::class, 'update'])->name('admin.task-lists.update');
+Route::get('/admin/task-lists/create', [TaskListController::class, 'create'])->name('admin.task-lists.create');
+
+//quản lí chấm công
+Route::get('/admin/timekeeping', [TimekeepingController::class, 'index'])->name('admin.timekeeping');
+Route::get('/admin/timekeeping/show/{id}', [TimekeepingController::class, 'show'])->name('admin.timekeeping.show');
+Route::post('/admin/timekeeping/update/{id}', [TimekeepingController::class, 'update'])->name('admin.timekeeping.update');
+Route::get('/admin/timekeeping/create', [TimekeepingController::class, 'create'])->name('admin.timekeeping.create');

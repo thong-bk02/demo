@@ -47,7 +47,7 @@
                             @foreach ($positions as $position)
                                 <option value="{{ $position->id }}"
                                     {{ $position->id == $user->position ? 'selected' : '' }}>
-                                    {{ $position->position }}</option>
+                                    {{ $position->position_name }}</option>
                             @endforeach
                         </select>
                     </div>

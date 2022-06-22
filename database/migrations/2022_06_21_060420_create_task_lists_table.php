@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('project_id');
+            $table->string('title');
             $table->string('content');
             $table->date('start_date');
             $table->date('intend_time');

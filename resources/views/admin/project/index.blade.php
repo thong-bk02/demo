@@ -11,12 +11,11 @@
                 <span>{{ session('failed') }}</span>
             </div>
         @endif
-        {{-- <table class="table">
+        <table class="table">
             <thead class="thead-light">
                 <tr>
-                    <th scope="col">Họ và Tên</th>
-                    <th scope="col">Chức vụ</th>
-                    <th scope="col">Phòng ban</th>
+                    <th scope="col">Họ Tên Quản Lí</th>
+                    <th scope="col">Tên Dự án</th>
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
@@ -24,26 +23,10 @@
                 <tr>
                     <form action="" method="">
                         <td>
-                            <input type="text" name="name" id="name" placeholder="Họ và tên" class="form-control">
+                            <input type="text" name="project_manager" id="name" placeholder="Họ và tên" class="form-control">
                         </td>
                         <td>
-                            <select class="form-control" name="position">
-                                <option value="0" selected>tất cả</option>
-                                @foreach ($positions as $position)
-                                    <option value="{{ $position->id }}">
-                                        {{ $position->position }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td>
-                            <select class="form-control" name="department">
-                                <option value="0" selected>tất cả</option>
-                                @foreach ($departments as $department)
-                                    <option value="{{ $department->id }}">
-                                        {{ $department->department }}</option>
-                                @endforeach
-                            </select>
-
+                            <input type="text" name="project_name" id="name" placeholder="Tên dự án" class="form-control">
                         </td>
                         <td>
                             <button type="submit" class="btn btn-primary">Search</button>
@@ -52,7 +35,7 @@
                     </form>
                 </tr>
             </tbody>
-        </table> --}}
+        </table>
 
         <table class="table">
             <thead class="thead-dark">
@@ -73,7 +56,7 @@
                             {{ $project->project_name }}
                         </td>
                         <td>
-                            {{ $project->project_manager }}
+                            {{ $project->name }}
                         </td>
                         <td>
                             {{ $project->start_date }}

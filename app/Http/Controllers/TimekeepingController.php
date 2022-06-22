@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Project;
+use App\Models\Timekeeping;
 use Illuminate\Http\Request;
 
-class ProjectController extends Controller
+class TimekeepingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::getAll();
-        return view('admin.project.index', compact('projects'));
+        $timekeepings = Timekeeping::getAll();
+        return view('admin.timekeeping.index', compact('timekeepings'));
     }
 
     /**

@@ -46,7 +46,7 @@
                             <select class="form-control" name="position">
                                 @foreach ($positions as $position)
                                     <option value="{{ $position->id }}">
-                                        {{ $position->position }}</option>
+                                        {{ $position->position_name }}</option>
                                 @endforeach
                             </select>
                         </div>

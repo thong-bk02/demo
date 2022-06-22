@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\TaskList;
+use App\Models\Timekeeping;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -26,6 +28,9 @@ class DatabaseSeeder extends Seeder
             DepartmentSeeder::class,
             UserSeeder::class,
             ProfileUserSeeder::class,
+            ProjectSeeder::class,
+            TaskList::class,
+            Timekeeping::class,
         ]);
     }
 }

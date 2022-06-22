@@ -33,7 +33,7 @@
                             {{ $position->position_code }}
                         </td>
                         <td>
-                            {{ $position->position }}
+                            {{ $position->position_name }}
                         </td>
                         <td>
                             {{ $position->created_at }}

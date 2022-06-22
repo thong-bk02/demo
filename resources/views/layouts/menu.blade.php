@@ -41,14 +41,14 @@
 </li>
 
 <li class="nav-item">
-    <a href="" class="nav-link {{ Request::is('admin/user') ? 'active' : '' }}">
+    <a href="{{ route('admin.task-lists') }}" class="nav-link {{ Request::is('admin/task-lists') ? 'active' : '' }}">
         <i class="nav-icon fa-solid fa-list-check"></i>
         <p>Quản lí công việc</p>
     </a>
 </li>
 
 <li class="nav-item">
-    <a href="" class="nav-link {{ Request::is('admin/timekeeping') ? 'active' : '' }}">
+    <a href="{{ route('admin.timekeeping') }}" class="nav-link {{ Request::is('admin/timekeeping') ? 'active' : '' }}">
         <i class="nav-icon fa-solid fa-calendar-plus"></i>
         <p>Quản lí chấm công</p>
     </a>

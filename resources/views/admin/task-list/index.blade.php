@@ -14,9 +14,9 @@
         <table class="table">
             <thead class="thead-light">
                 <tr>
-                    <th scope="col">Họ và Tên</th>
-                    <th scope="col">Chức vụ</th>
-                    <th scope="col">Phòng ban</th>
+                    <th scope="col">Tên dự án</th>
+                    <th scope="col">Ngày báo cáo</th>
+                    <th scope="col">Nhân viên</th>
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
@@ -24,30 +24,22 @@
                 <tr>
                     <form action="" method="">
                         <td>
-                            <input type="text" name="name" id="name" placeholder="Họ và tên" class="form-control">
-                        </td>
-                        <td>
                             <select class="form-control" name="position">
-                                <option value="0" selected>tất cả</option>
-                                @foreach ($positions as $position)
-                                    <option value="{{ $position->id }}">
-                                        {{ $position->position }}</option>
+                                @foreach ($projects as $project)
+                                    <option value="{{ $project->id }}">
+                                        {{ $project->project_name }}</option>
                                 @endforeach
                             </select>
                         </td>
                         <td>
-                            <select class="form-control" name="department">
-                                <option value="0" selected>tất cả</option>
-                                @foreach ($departments as $department)
-                                    <option value="{{ $department->id }}">
-                                        {{ $department->department }}</option>
-                                @endforeach
-                            </select>
-
+                            <input type="date" name="Day_report" class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" name="staff" class="form-control">
                         </td>
                         <td>
                             <button type="submit" class="btn btn-primary">Search</button>
-                            <a href="{{ route('admin.user.create') }}" class="btn btn-primary">Thêm nhân sự</a>
+                            <a href="{{ route('admin.user.create') }}" class="btn btn-primary">Thêm báo cáo</a>
                         </td>
                     </form>
                 </tr>
@@ -57,32 +49,40 @@
         <table class="table">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Mã nhân viên</th>
-                    <th scope="col">Tên nhân viên</th>
-                    <th scope="col">Chức vụ</th>
-                    <th scope="col">Phòng ban</th>
+                    <th scope="col">Stt</th>
+                    <th scope="col">Tên dự án</th>
+                    <th scope="col">Tiêu đề</th>
+                    <th scope="col">Nội dung</th>
+                    <th scope="col">ngày báo cáo</th>
+                    <th scope="col">Tiến độ</th>
+                    <th scope="col">Nhân viên</th>
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($users as $user)
+                @foreach ($task_lists as $task_list)
                     <tr class="border-bottom border-dark">
-                        <th scope="row">{{ $user->user_id }}</th>
+                        <th scope="row">{{ $task_list->id }}</th>
                         <td>
-                            {{ $user->user_code }}
+                            {{ $task_list->project_name }}
                         </td>
                         <td>
-                            {{ $user->name }}
+                            {{ $task_list->title }}
                         </td>
                         <td>
-                            {{ $user->position_name }}
+                            {{ $task_list->content }}
                         </td>
                         <td>
-                            {{ $user->department }}
+                            {{ $task_list->start_date }}
                         </td>
                         <td>
-                            <a href="{{ route('admin.user.show', $user->user_id) }}" class="mx-1"><i
+                            {{ $task_list->progress }}%
+                        </td>
+                        <td>
+                            {{ $task_list->name }}
+                        </td>
+                        <td>
+                            <a href="" class="mx-1"><i
                                     class="fa-solid fa-eye"></i></a>
                             <a href="" class="mx-1" onclick="return confirmDelete()"><i
                                     class="fa-solid fa-trash-can"></i></a>

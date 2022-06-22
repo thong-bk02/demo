@@ -14,9 +14,7 @@
         <table class="table">
             <thead class="thead-light">
                 <tr>
-                    <th scope="col">Họ và Tên</th>
-                    <th scope="col">Chức vụ</th>
-                    <th scope="col">Phòng ban</th>
+                    <th scope="col">Tên nhân viên</th>
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
@@ -24,30 +22,11 @@
                 <tr>
                     <form action="" method="">
                         <td>
-                            <input type="text" name="name" id="name" placeholder="Họ và tên" class="form-control">
-                        </td>
-                        <td>
-                            <select class="form-control" name="position">
-                                <option value="0" selected>tất cả</option>
-                                @foreach ($positions as $position)
-                                    <option value="{{ $position->id }}">
-                                        {{ $position->position }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td>
-                            <select class="form-control" name="department">
-                                <option value="0" selected>tất cả</option>
-                                @foreach ($departments as $department)
-                                    <option value="{{ $department->id }}">
-                                        {{ $department->department }}</option>
-                                @endforeach
-                            </select>
-
+                            <input type="text" name="staff" class="form-control">
                         </td>
                         <td>
                             <button type="submit" class="btn btn-primary">Search</button>
-                            <a href="{{ route('admin.user.create') }}" class="btn btn-primary">Thêm nhân sự</a>
+                            <a href="{{ route('admin.timekeeping.create') }}" class="btn btn-primary">Thêm chấm công</a>
                         </td>
                     </form>
                 </tr>
@@ -57,32 +36,32 @@
         <table class="table">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Mã nhân viên</th>
-                    <th scope="col">Tên nhân viên</th>
-                    <th scope="col">Chức vụ</th>
-                    <th scope="col">Phòng ban</th>
+                    <th scope="col">Stt</th>
+                    <th scope="col">Tên nhân sự</th>
+                    <th scope="col">Ngày bắt đầu</th>
+                    <th scope="col">Hiện tại</th>
+                    <th scope="col">Tổng số ngày làm</th>
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($users as $user)
+                @foreach ($timekeepings as $timekeeping)
                     <tr class="border-bottom border-dark">
-                        <th scope="row">{{ $user->user_id }}</th>
+                        <th scope="row">{{ $timekeeping->id }}</th>
                         <td>
-                            {{ $user->user_code }}
+                            {{ $timekeeping->name }}
                         </td>
                         <td>
-                            {{ $user->name }}
+                            {{ $timekeeping->from_date }}
                         </td>
                         <td>
-                            {{ $user->position_name }}
+                            {{ $timekeeping->to_date }}
                         </td>
                         <td>
-                            {{ $user->department }}
+                            {{ $timekeeping->working_days }}
                         </td>
                         <td>
-                            <a href="{{ route('admin.user.show', $user->user_id) }}" class="mx-1"><i
+                            <a href="" class="mx-1"><i
                                     class="fa-solid fa-eye"></i></a>
                             <a href="" class="mx-1" onclick="return confirmDelete()"><i
                                     class="fa-solid fa-trash-can"></i></a>

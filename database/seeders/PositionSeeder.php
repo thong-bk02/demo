@@ -18,37 +18,37 @@ class PositionSeeder extends Seeder
         DB::table('positions')->insert([
             [
                 'id' => 1,
-                'position' => "nhân viên",
+                'position_name' => "nhân viên",
                 'position_code' => "nv",
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ], [
                 'id' => 2,
-                'position' => "quản lí",
+                'position_name' => "quản lí",
                 'position_code' => "ql",
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ], [
                 'id' => 3,
-                'position' => "hành chính",
+                'position_name' => "hành chính",
                 'position_code' => "hc",
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ], [
                 'id' => 4,
-                'position' => "nhân sự",
+                'position_name' => "nhân sự",
                 'position_code' => "ns",
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ], [
                 'id' => 5,
-                'position' => "kế toán",
+                'position_name' => "kế toán",
                 'position_code' => "kt",
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ], [
                 'id' => 6,
-                'position' => "giám đốc",
+                'position_name' => "giám đốc",
                 'position_code' => "gd",
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
