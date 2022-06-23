@@ -30,11 +30,11 @@ class DatabaseSeeder extends Seeder
             TaskListSeeder::class,
             TimekeepingSeeder::class,
             GenreSeeder::class,
-            RewardAndDisciplineSeeder::class,
             BasicSalarySeeder::class,
+            RewardAndDisciplineSeeder::class,
             IncomeTaxSeeder::class,
             PaymentSeeder::class,
-            SalarySeeder::class,
+            // SalarySeeder::class,
         ]);
     }
 }
