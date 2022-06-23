@@ -15,6 +15,7 @@
             <thead class="thead-light">
                 <tr>
                     <th scope="col">Tên nhân viên</th>
+                    <th scope="col">Ngày phạt</th>
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
@@ -25,8 +26,11 @@
                             <input type="text" name="staff" class="form-control">
                         </td>
                         <td>
+                            <input type="date" name="date_created" class="form-control">
+                        </td>
+                        <td>
                             <button type="submit" class="btn btn-primary">Search</button>
-                            <a href="{{ route('admin.timekeeping.create') }}" class="btn btn-primary">Thêm chấm công</a>
+                            <a href="" class="btn btn-primary">Thêm Thưởng phạt</a>
                         </td>
                     </form>
                 </tr>
@@ -37,31 +41,35 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Stt</th>
-                    <th scope="col">Tên nhân sự</th>
-                    <th scope="col">Ngày bắt đầu</th>
-                    <th scope="col">Hiện tại</th>
-                    <th scope="col">Tổng số ngày làm</th>
+                    <th scope="col">Tên nhân viên</th>
+                    <th scope="col">Hình thức</th>
+                    <th scope="col">Lí do</th>
+                    <th scope="col">Số tiền</th>
+                    <th scope="col">Ngày quyết định</th>
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($timekeepings as $timekeeping)
+                @foreach ($rads as $rad)
                     <tr class="border-bottom border-dark">
-                        <th scope="row">{{ $timekeeping->id }}</th>
+                        <th scope="row">{{ $rad->id }}</th>
                         <td>
-                            {{ $timekeeping->name }}
+                            {{ $rad->name }}
                         </td>
                         <td>
-                            {{ $timekeeping->from_date }}
+                            {{ $rad->genre }}
                         </td>
                         <td>
-                            {{ $timekeeping->to_date }}
+                            {{ $rad->reasion }}
                         </td>
                         <td>
-                            {{ $timekeeping->working_days }}
+                            {{ $rad->money }}
                         </td>
                         <td>
-                            <a href="{{ route('admin.timekeeping.show', $timekeeping->user_id) }}" class="mx-1"><i
+                            {{ $rad->date_create }}
+                        </td>
+                        <td>
+                            <a href="{{ route('admin.reward-discipline.show', $rad->user_id) }}" class="mx-1"><i
                                     class="fa-solid fa-eye"></i></a>
                             <a href="" class="mx-1" onclick="return confirmDelete()"><i
                                     class="fa-solid fa-trash-can"></i></a>

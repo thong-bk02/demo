@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h2 class="text-center">
-            Thông tin nhân viên:
+            Danh sách lương
         </h2>
         @foreach ($users as $user)
             <form action="{{ route('admin.user.update', $user->user_id) }}" method="post">

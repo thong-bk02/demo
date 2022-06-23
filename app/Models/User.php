@@ -63,8 +63,6 @@ class User extends Authenticatable
     {
         $users = DB::table('profile_users')
             ->join('users', 'profile_users.user_id', '=', 'users.id')
-            // ->join('positions', 'profile_users.position', '=', 'positions.id')
-            // ->join('departments', 'profile_users.department', '=', 'departments.id')
             ->select('users.*', 'profile_users.*')
             ->where('profile_users.user_id', '=', $id)
             ->get();

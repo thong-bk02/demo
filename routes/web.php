@@ -7,6 +7,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\PowerController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\RewardAndDisciplineController;
+use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\TaskListController;
 use App\Http\Controllers\TimekeepingController;
 use App\Http\Controllers\UserController;
@@ -70,3 +72,15 @@ Route::get('/admin/timekeeping', [TimekeepingController::class, 'index'])->name(
 Route::get('/admin/timekeeping/show/{id}', [TimekeepingController::class, 'show'])->name('admin.timekeeping.show');
 Route::post('/admin/timekeeping/update/{id}', [TimekeepingController::class, 'update'])->name('admin.timekeeping.update');
 Route::get('/admin/timekeeping/create', [TimekeepingController::class, 'create'])->name('admin.timekeeping.create');
+
+//quản lí thưởng phạt
+Route::get('/admin/reward-discipline', [RewardAndDisciplineController::class, 'index'])->name('admin.reward-discipline');
+Route::get('/admin/reward-discipline/show/{id}', [RewardAndDisciplineController::class, 'show'])->name('admin.reward-discipline.show');
+Route::post('/admin/reward-discipline/update/{id}', [RewardAndDisciplineController::class, 'update'])->name('admin.reward-discipline.update');
+Route::get('/admin/reward-discipline/create', [RewardAndDisciplineController::class, 'create'])->name('admin.reward-discipline.create');
+
+//quản lí lương
+Route::get('/admin/salary', [SalaryController::class, 'index'])->name('admin.salary');
+Route::get('/admin/salary/show/{id}', [SalaryController::class, 'show'])->name('admin.salary.show');
+Route::post('/admin/salary/update/{id}', [SalaryController::class, 'update'])->name('admin.salary.update');
+Route::get('/admin/salary/create', [SalaryController::class, 'create'])->name('admin.salary.create');

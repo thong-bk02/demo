@@ -17,12 +17,13 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('user_id');
-            $table->smallInteger('type')->comment("0: discipline, 1: reward");
+            $table->unsignedBigInteger('type');
             $table->string('reasion');
             $table->string('note')->nullable();
             $table->double('money');
             $table->date('date_create');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('type')->references('id')->on('genre');
 
             $table->timestamps();
         });

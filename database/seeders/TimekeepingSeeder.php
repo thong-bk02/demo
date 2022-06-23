@@ -19,7 +19,7 @@ class TimekeepingSeeder extends Seeder
             [
                 'id' => 1,
                 'user_id' => 1,
-                'from_date' => 	2022-06-01,
+                'from_date' => '2022-06-01',
                 'to_date' => date('Y-m-d'),
                 'working_days' => 20,
                 'arrive_late' => 1,
@@ -31,7 +31,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 2,
                 'user_id' => 2,
-                'from_date' => 2022-06-01,
+                'from_date' => '2022-06-01',
                 'to-date' => date('Y-m-d'),
                 'working_days' => 20,
                 'arrive_late' => 2,
@@ -43,7 +43,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 3,
                 'user_id' => 3,
-                'from_date' => 2022-06-01,
+                'from_date' => '2022-06-01',
                 'to-date' => date('Y-m-d'),
                 'working_days' => 20,
                 'arrive_late' => 3,
@@ -55,7 +55,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 4,
                 'user_id' => 4,
-                'from_date' => 2022-06-01,
+                'from_date' => '2022-06-01',
                 'to-date' => date('Y-m-d'),
                 'working_days' => 20,
                 'arrive_late' => 4,

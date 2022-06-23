@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\TaskList;
-use App\Models\Timekeeping;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -23,14 +21,20 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([
-            PowerSeeder::class,
             PositionSeeder::class,
             DepartmentSeeder::class,
+            PowerSeeder::class,
             UserSeeder::class,
             ProfileUserSeeder::class,
             ProjectSeeder::class,
-            TaskList::class,
-            Timekeeping::class,
+            TaskListSeeder::class,
+            TimekeepingSeeder::class,
+            GenreSeeder::class,
+            RewardAndDisciplineSeeder::class,
+            BasicSalarySeeder::class,
+            IncomeTaxSeeder::class,
+            PaymentSeeder::class,
+            SalarySeeder::class,
         ]);
     }
 }

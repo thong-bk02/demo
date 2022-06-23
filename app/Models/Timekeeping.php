@@ -17,4 +17,13 @@ class Timekeeping extends Model
             ->get();
         return $timekeeping;
     }
+
+    protected static function fetchOne($id){
+        $timekeepings = DB::table('timekeepings')
+            ->join('users','timekeepings.user_id', '=', 'users.id')
+            ->select('users.name','timekeepings.*')
+            ->where('timekeepings.user_id','=',$id)
+            ->get();
+        return $timekeepings;
+    }
 }

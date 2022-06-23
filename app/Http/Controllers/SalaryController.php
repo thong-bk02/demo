@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Timekeeping;
+use App\Models\Salary;
 use Illuminate\Http\Request;
 
-class TimekeepingController extends Controller
+class SalaryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class TimekeepingController extends Controller
      */
     public function index()
     {
-        $timekeepings = Timekeeping::getAll();
-        return view('admin.timekeeping.index', compact('timekeepings'));
+        $salarys = Salary::getAll();
+        return view('admin.salary.index', compact('salarys'));
     }
 
     /**
@@ -47,8 +47,7 @@ class TimekeepingController extends Controller
      */
     public function show($id)
     {
-        $timekeepings = Timekeeping::fetchOne($id);
-        return view('admin.timekeeping.show', compact('timekeepings'));
+        //
     }
 
     /**

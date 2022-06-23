@@ -84,7 +84,6 @@ class UserController extends Controller
         $user = [
             'name' => $input['name'],
             'email' => $input['email'],
-            'power' => $input['power'],
             'status' => $input['status']
         ];
         $profile = [

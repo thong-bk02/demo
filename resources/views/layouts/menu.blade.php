@@ -48,21 +48,21 @@
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('admin.timekeeping') }}" class="nav-link {{ Request::is('admin/timekeeping') ? 'active' : '' }}">
+    <a href="{{ route('admin.timekeeping') }}" class="nav-link {{ Request::is('admin/timekeeping') ? 'active' : '' }} {{ Request::is('admin/timekeeping/*') ? 'active' : '' }}">
         <i class="nav-icon fa-solid fa-calendar-plus"></i>
         <p>Quản lí chấm công</p>
     </a>
 </li>
 
 <li class="nav-item">
-    <a href="" class="nav-link {{ Request::is('admin/fine') ? 'active' : '' }}">
+    <a href="{{ route('admin.reward-discipline') }}" class="nav-link {{ Request::is('admin/reward-discipline') ? 'active' : '' }}">
         <i class="nav-icon fa-solid fa-sack-dollar"></i>
         <p>Quản lí thưởng-phạt</p>
     </a>
 </li>
 
 <li class="nav-item">
-    <a href="" class="nav-link {{ Request::is('admin/salary') ? 'active' : '' }}">
+    <a href="{{ route('admin.salary') }}" class="nav-link {{ Request::is('admin/salary') ? 'active' : '' }}">
         <i class="nav-icon fa-solid fa-money-bill-1-wave"></i>
         <p>Quản lí lương</p>
     </a>
