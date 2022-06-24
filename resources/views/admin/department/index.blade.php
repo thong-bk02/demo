@@ -12,32 +12,32 @@
             </div>
         @endif
         <div class="my-3">
-            <a href="" class="btn btn-primary"  data-toggle="modal" data-target="#add-department">Thêm phòng ban</a>
+            <a href="" class="btn btn-primary" data-toggle="modal" data-target="#add-department">Thêm phòng ban</a>
 
-            <div class="modal fade" id="add-department" data-backdrop="static"
-                data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="add-department" data-backdrop="static" data-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form action="" method="">
+                        <form action="{{ route('admin.department.store') }}" method="post">
+                            @csrf
                             <div class="modal-header">
                                 <h5 class="modal-title" id="staticBackdropLabel">Thêm phòng ban</h5>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="position">Mã phòng ban</label>
-                                    <input type="text" class="form-control" name="position" id="position"
+                                    <label>Mã phòng ban</label>
+                                    <input type="text" class="form-control" name="department_code"
                                         placeholder="Mã phòng ban">
                                 </div>
                                 <div class="form-group">
-                                    <label for="position_code">Tên phòng ban</label>
-                                    <input type="text" class="form-control" name="position_code"
-                                        id="position_code" placeholder="Tên phòng ban">
+                                    <label>Tên phòng ban</label>
+                                    <input type="text" class="form-control" name="department"
+                                        placeholder="Tên phòng ban">
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Lưu</button>
-                                <button type="button" class="btn btn-secondary"
-                                    data-dismiss="modal">Đóng</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                             </div>
                         </form>
                     </div>
@@ -76,28 +76,29 @@
                                 data-target="#staticBackdrop{{ $department->id }}">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
-                            <a href="" class="mx-1" onclick="return confirmDelete()"><i
+                            <a href="{{ route('admin.department.delete',$department->id) }}" class="mx-1" onclick="return confirmDelete()"><i
                                     class="fa-solid fa-trash-can"></i></a>
                         </td>
                         <div class="modal fade" id="staticBackdrop{{ $department->id }}" data-backdrop="static"
                             data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <form action="" method="">
+                                    <form action="{{ route('admin.department.update', $department->id) }}"
+                                        method="post">
+                                        @csrf
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="staticBackdropLabel">Thông tin phòng ban:
                                                 {{ $department->department }}</h5>
                                         </div>
                                         <div class="modal-body">
                                             <div class="form-group">
-                                                <label for="position">Mã phòng ban</label>
-                                                <input type="text" class="form-control" name="position" id="position"
-                                                    placeholder="Mã chức vụ" value="{{ $department->department_code }}">
+                                                <label>Mã phòng ban</label>
+                                                <input type="text" class="form-control" name="department_code"
+                                                    value="{{ $department->department_code }}">
                                             </div>
                                             <div class="form-group">
-                                                <label for="position_code">Tên phòng ban</label>
-                                                <input type="text" class="form-control" name="position_code"
-                                                    id="position_code" placeholder="Tên chức vụ"
+                                                <label>Tên phòng ban</label>
+                                                <input type="text" class="form-control" name="department"
                                                     value="{{ $department->department }}">
                                             </div>
                                         </div>
@@ -119,7 +120,7 @@
 
     <script>
         function confirmDelete() {
-            if (confirm("xóa người nhân viên này ?") == true) {
+            if (confirm("xóa người phòng ban này ?") == true) {
                 return true;
             } else {
                 return false;
