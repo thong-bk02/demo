@@ -13,7 +13,7 @@
                     <select class="form-control w-50" name="position">
                         @foreach ($positions as $position)
                             <option value="{{ $position->id }}" class="text-center">
-                                {{ $position->position }}
+                                {{ $position->position_name }}
                             </option>
                         @endforeach
                     </select>

@@ -22,24 +22,28 @@
             </thead>
             <tbody>
                 <tr>
-                    <form action="" method="">
+                    <form action="{{ route('admin.users.search') }}" method="post">
+                        @csrf
                         <td>
-                            <input type="text" name="name" id="name" placeholder="Họ và tên" class="form-control">
+                            <input type="text" name="name" id="name" placeholder="Họ và tên" value="@if (isset($input['name'])) {{ $input['name'] }} @endif"
+                                class="form-control">
                         </td>
                         <td>
                             <select class="form-control" name="position">
-                                <option value="0" selected>tất cả</option>
+                                <option value="0">tất cả</option>
                                 @foreach ($positions as $position)
-                                    <option value="{{ $position->id }}">
-                                        {{ $position->position }}</option>
+                                    <option value="{{ $position->id }}"
+                                        @if (isset($input['position'])) {{ $position->id == $input['position'] ? 'selected' : '' }} @endif>
+                                        {{ $position->position_name }}</option>
                                 @endforeach
                             </select>
                         </td>
                         <td>
                             <select class="form-control" name="department">
-                                <option value="0" selected>tất cả</option>
+                                <option value="0">tất cả</option>
                                 @foreach ($departments as $department)
-                                    <option value="{{ $department->id }}">
+                                    <option value="{{ $department->id }}"
+                                        @if (isset($input['department'])) {{ $department->id == $input['department'] ? 'selected' : '' }} @endif>
                                         {{ $department->department }}</option>
                                 @endforeach
                             </select>
@@ -84,7 +88,7 @@
                         <td>
                             <a href="{{ route('admin.user.show', $user->user_id) }}" class="mx-1"><i
                                     class="fa-solid fa-eye"></i></a>
-                            <a href="" class="mx-1" onclick="return confirmDelete()"><i
+                            <a href="{{ route('admin.user.delete', $user->user_id) }}" class="mx-1" onclick="return confirmDelete()"><i
                                     class="fa-solid fa-trash-can"></i></a>
                         </td>
                     </tr>

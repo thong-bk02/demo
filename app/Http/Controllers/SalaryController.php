@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
+use App\Models\Payment;
+use App\Models\Position;
+use App\Models\RewardAndDiscipline;
 use App\Models\Salary;
+use App\Models\Timekeeping;
 use Illuminate\Http\Request;
 
 class SalaryController extends Controller
@@ -15,7 +20,10 @@ class SalaryController extends Controller
     public function index()
     {
         $salarys = Salary::getAll();
-        return view('admin.salary.index', compact('salarys'));
+        $positions = Position::all();
+        $departments = Department::all();
+        // dd($salarys);
+        return view('admin.salary.index', compact('salarys','positions','departments'));
     }
 
     /**
@@ -47,7 +55,10 @@ class SalaryController extends Controller
      */
     public function show($id)
     {
-        //
+        $salarys = Salary::getOne($id);
+        $payments = Payment::all();
+        $rads = Salary::getRad($id);
+        return view('admin.salary.show', compact('salarys','payments','rads'));
     }
 
     /**

@@ -38,6 +38,9 @@ Route::get('/admin/users', [UserController::class, 'index'])->name('admin.user')
 Route::get('/admin/users/show/{id}', [UserController::class, 'show'])->name('admin.user.show');
 Route::post('/admin/users/update/{id}', [UserController::class, 'update'])->name('admin.user.update');
 Route::get('/admin/users/create', [UserController::class, 'create'])->name('admin.user.create');
+Route::post('/admin/users/create', [UserController::class,'store'])->name('admin.users.store');
+Route::post('/admin/users/search', [UserController::class,'search'])->name('admin.users.search');
+Route::get('/admin/users/delete/{id}', [UserController::class, 'destroy'])->name('admin.user.delete');
 
 //quản lí chức vụ
 Route::get('/admin/position', [PositionController::class, 'index'])->name('admin.position');
