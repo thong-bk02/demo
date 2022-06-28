@@ -7,6 +7,7 @@ use App\Models\Position;
 use App\Models\Power;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -21,7 +22,7 @@ class UserController extends Controller
         $users = User::getAll();
         $positions = Position::all();
         $departments = Department::all();
-        return view('admin.users.index', compact('users','positions','departments'));
+        return view('admin.users.index', compact('users', 'positions', 'departments'));
     }
 
     /**
@@ -61,8 +62,8 @@ class UserController extends Controller
             'date_start' => date('Y-m-d')
         ];
 
-        if ( User::newUser($user, $profile) == true) {
-            return redirect()->route('admin.user')->with('success', 'Thêm nhân sự '.$input['name'].' thành công ' );
+        if (User::newUser($user, $profile) == true) {
+            return redirect()->route('admin.user')->with('success', 'Thêm nhân sự ' . $input['name'] . ' thành công ');
         } else {
             return redirect()->route('admin.user')->with('failed', 'Không thêm được nhân sự');
         }
@@ -117,8 +118,8 @@ class UserController extends Controller
             'department' => $input['department']
         ];
 
-        if ( User::upd($user, $profile, $id) == true) {
-            return redirect()->route('admin.user')->with('success', 'Sửa thành công nhân sự: '.$input['name'] );
+        if (User::upd($user, $profile, $id) == true) {
+            return redirect()->route('admin.user')->with('success', 'Sửa thành công nhân sự: ' . $input['name']);
         } else {
             return redirect()->route('admin.user')->with('failed', 'Lỗi sửa thông tin nhân viên !');
         }
@@ -136,15 +137,34 @@ class UserController extends Controller
         return redirect()->route('admin.user')->with('success', 'Xóa thành công !');
     }
 
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         $input = $request->all();
         // dd($input);
         $users = User::search($input);
         $positions = Position::all();
         $departments = Department::all();
-        if ( $users == false) {
+        if ($users == false) {
             return redirect()->route('admin.user');
         }
-        return view('admin.users.index', compact('users', 'positions', 'departments','input'));
+        return view('admin.users.index', compact('users', 'positions', 'departments', 'input'));
+    }
+
+    public function searchAjax(Request $request)
+    {
+        if ($request->get('query')) {
+            $query = $request->get('query');
+            $data = DB::table('users')
+                ->where('name', 'LIKE', "%{$query}%")
+                ->get();
+            $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
+            foreach ($data as $row) {
+                $output .= '
+               <li class="border-bottom"><a class="ml-5" style="cursor: pointer;">' . $row->name. '</a></li>
+               ';
+            }
+            $output .= '</ul>';
+            echo $output;
+        }
     }
 }

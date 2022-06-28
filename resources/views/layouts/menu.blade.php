@@ -1,5 +1,5 @@
 <li class="nav-item">
-    <a href="" class="nav-link {{ Request::is('admin') ? 'active' : '' }}">
+    <a href="{{ route('home') }}" class="nav-link {{ Request::is('home') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Dashbroad</p>
     </a>
@@ -30,20 +30,6 @@
     <a href="{{ route('admin.access-rights') }}" class="nav-link {{ Request::is('admin/access-rights') ? 'active' : '' }} {{ Request::is('admin/access-rights/*') ? 'active' : '' }}">
         <i class="nav-icon fa-solid fa-eye-low-vision"></i>
         <p>Quản lí quyền</p>
-    </a>
-</li>
-
-<li class="nav-item">
-    <a href="{{ route('admin.projects') }}" class="nav-link {{ Request::is('admin/projects') ? 'active' : '' }} {{ Request::is('admin/projects/*') ? 'active' : '' }}">
-        <i class="nav-icon fa-solid fa-diagram-project"></i>
-        <p>Quản lí dự án</p>
-    </a>
-</li>
-
-<li class="nav-item">
-    <a href="{{ route('admin.task-lists') }}" class="nav-link {{ Request::is('admin/task-lists') ? 'active' : '' }} {{ Request::is('admin/task-lists/*') ? 'active' : '' }}">
-        <i class="nav-icon fa-solid fa-list-check"></i>
-        <p>Quản lí công việc</p>
     </a>
 </li>
 

@@ -16,6 +16,7 @@ class RewardAndDiscipline extends Model
             ->join('users', 'reward_and_disciplines.user_id', '=', 'users.id')
             ->join('genre','reward_and_disciplines.type', '=', 'genre.id')
             ->select('users.name', 'reward_and_disciplines.*','genre.genre')
+            ->orderBy('id')
             ->get();
         return $rads;
     }

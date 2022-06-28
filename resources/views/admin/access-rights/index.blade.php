@@ -41,8 +41,6 @@
                             {!! $access_right->absence == 1 ? '<a class="btn btn-primary btn-sm my-1 disabled">Quản lí vắng mặt</a>' : '' !!}
                             {!! $access_right->reward_and_disciplines == 1 ? '<a class="btn btn-primary btn-sm my-1 disabled">Thưởng phạt</a>' : '' !!}
                             {!! $access_right->timekeeping == 1 ? '<a class="btn btn-primary btn-sm my-1 disabled">Quản lí chấm công</a>' : '' !!}
-                            {!! $access_right->project == 1 ? '<a class="btn btn-primary btn-sm my-1 disabled">Quản lí dự án</a>' : '' !!}
-                            {!! $access_right->task_list == 1 ? '<a class="btn btn-primary btn-sm my-1 disabled">Quản lí công việc</a>' : '' !!}
                         </td>
                         <td class="text-center" >
                             <a href="{{ route('admin.access-rights.show', $access_right->id) }}" class="mx-1">

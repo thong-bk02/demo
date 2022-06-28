@@ -6,12 +6,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\PowerController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RewardAndDisciplineController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\TaskListController;
 use App\Http\Controllers\TimekeepingController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +42,7 @@ Route::post('/admin/users/update/{id}', [UserController::class, 'update'])->name
 Route::get('/admin/users/create', [UserController::class, 'create'])->name('admin.user.create');
 Route::post('/admin/users/create', [UserController::class,'store'])->name('admin.users.store');
 Route::post('/admin/users/search', [UserController::class,'search'])->name('admin.users.search');
+Route::post('/admin/users/search/name', [UserController::class,'searchAjax'])->name('admin.users.searchAjax');
 Route::get('/admin/users/delete/{id}', [UserController::class, 'destroy'])->name('admin.user.delete');
 
 //quản lí chức vụ
@@ -87,3 +90,10 @@ Route::get('/admin/salary', [SalaryController::class, 'index'])->name('admin.sal
 Route::get('/admin/salary/show/{id}', [SalaryController::class, 'show'])->name('admin.salary.show');
 Route::post('/admin/salary/update/{id}', [SalaryController::class, 'update'])->name('admin.salary.update');
 Route::get('/admin/salary/create', [SalaryController::class, 'create'])->name('admin.salary.create');
+
+//thông tin cá nhân
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+
+
+Route::get('search', [SearchController::class, 'getSearch']);
+Route::post('search/name', [SearchController::class, 'getSearchAjax'])->name('search');
