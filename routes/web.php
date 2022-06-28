@@ -48,12 +48,15 @@ Route::get('/admin/users/delete/{id}', [UserController::class, 'destroy'])->name
 //quản lí chức vụ
 Route::get('/admin/position', [PositionController::class, 'index'])->name('admin.position');
 Route::post('/admin/position/update/{id}', [PositionController::class, 'update'])->name('admin.position.update');
-Route::get('/admin/position/create', [PositionController::class, 'create'])->name('admin.position.create');
+Route::post('/admin/position/create', [PositionController::class, 'store'])->name('admin.position.store');
+Route::get('/admin/position/delete/{id}', [PositionController::class, 'destroy'])->name('admin.position.delete');
 
 //quản lí phòng ban
 Route::get('/admin/department', [DepartmentController::class, 'index'])->name('admin.department');
 Route::post('/admin/department/update/{id}', [DepartmentController::class, 'update'])->name('admin.department.update');
-Route::get('/admin/department/create', [DepartmentController::class, 'create'])->name('admin.department.create');
+Route::post('/admin/department/create', [DepartmentController::class, 'store'])->name('admin.department.store');
+Route::get('/admin/department/delete/{id}', [DepartmentController::class, 'destroy'])->name('admin.department.delete');
+
 
 //quản lí quyền
 Route::get('/admin/access-rights', [PowerController::class, 'index'])->name('admin.access-rights');

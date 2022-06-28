@@ -23,7 +23,7 @@ class ProfileUserSeeder extends Seeder
                 'address' => "address 1",
                 'phone' => '123123123',
                 'birthday' => date('Y-m-d'),
-                'position' => '1',
+                'position' => '6',
                 'department' => '1',
                 'date_start' => date('Y-m-d'),
                 'created_at' => date('Y-m-d H:i:s'),

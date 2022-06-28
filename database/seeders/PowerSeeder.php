@@ -27,7 +27,7 @@ class PowerSeeder extends Seeder
                 'salary' => '0',
                 'overtime' => '1',
                 'absence' => '1',
-                'timekeeping' => '1',
+                'timekeeping' => '0',
                 'reward_and_disciplines' => '0',
                 'project' => '0',
                 'task_list' => '1',
