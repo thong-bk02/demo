@@ -41,7 +41,7 @@ Route::get('/admin/users/show/{id}', [UserController::class, 'show'])->name('adm
 Route::post('/admin/users/update/{id}', [UserController::class, 'update'])->name('admin.user.update');
 Route::get('/admin/users/create', [UserController::class, 'create'])->name('admin.user.create');
 Route::post('/admin/users/create', [UserController::class,'store'])->name('admin.users.store');
-Route::post('/admin/users/search', [UserController::class,'search'])->name('admin.users.search');
+Route::post('/admin/users', [UserController::class,'search'])->name('admin.users.search');
 Route::post('/admin/users/search/name', [UserController::class,'searchAjax'])->name('admin.users.searchAjax');
 Route::get('/admin/users/delete/{id}', [UserController::class, 'destroy'])->name('admin.user.delete');
 

@@ -3,44 +3,30 @@
 @section('content')
     <div class="container">
         <h2 class="text-center">
-            Thêm nhân viên:
+            Thêm nhân viên
         </h2>
         <form action="{{ route('admin.users.store') }}" method="post">
             @csrf
             <div class="row mx-lg-5 mx-2">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="name">Tên nhân viên</label>
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Họ tên"
-                            value="" required>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-6">
-                            <label for="code">Mã nhân viên</label>
-                            <input type="text" class="form-control" name="user_code" placeholder="Mã nhân viên"
-                                value="" required>
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="birthday">Ngày sinh</label>
-                            <input type="date" class="form-control" name="birthday" placeholder="Họ tên" value="" required>
-                        </div>
+                        <label for="name">Họ và tên</label>
+                        {{-- <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+                            placeholder="@if ($errors->has('name')) {{ $errors->first('name') }} @else Họ tên @endif"
+                            value="{{ old('name') }}"> --}}
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+                            placeholder="Họ tên" value="{{ old('name') }}">
+                        @error('name')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label for="hometown">Quê quán</label>
-                        <input type="text" class="form-control" name="address" placeholder="Quê quán" value="" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Số điện thoại</label>
-                        <input type="number" class="form-control" name="phone" id="phone" placeholder="Số điện thoại"
-                            value="" minlength="10" required>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" name="email" id="email"
-                            placeholder="email@example.com" value="" required>
+                        <label for="birthday">Ngày sinh</label>
+                        <input type="text" class="form-control @error('birthday') is-invalid @enderror" name="birthday"
+                            placeholder="" value="{{ old('birthday') }}" onfocus="(this.type='date')" onblur="(this.type='text')">
+                        @error('birthday')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="">Chức vụ</label>
@@ -52,6 +38,34 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="phone">Số điện thoại</label>
+                        <input type="number" class="form-control @error('phone') is-invalid @enderror" name="phone"
+                            id="phone" placeholder="Số điện thoại" value="{{ old('phone') }}">
+                        @error('phone')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+
+                    </div>
+                </div>
+                <div class="col-sm-6">
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+                            placeholder="email@example.com" value="{{ old('email') }}">
+                        @error('email')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="hometown">Quê quán</label>
+                        <input type="text" class="form-control @error('address') is-invalid @enderror" name="address"
+                            placeholder="Quê quán" value="{{ old('address') }}">
+                        @error('address')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label for="">Phòng ban</label>
                         <select class="form-control" name="department">
                             @foreach ($departments as $department)
@@ -61,15 +75,20 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="phone">Mật khẩu</label>
-                        <input type="text" class="form-control" name="password"  required>
+                        <label for="password">Mật khẩu</label>
+                        <input type="text" class="form-control @error('password') is-invalid @enderror" name="password"
+                            placeholder="********" value="{{ old('password') }}" autocomplete="off">
+                        @error('password')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+
                     </div>
                 </div>
             </div>
 
             <div class="mx-lg-5 m-2">
                 <input type="submit" class="btn btn-primary mx-3" value="Lưu">
-                <a href="{{ route('admin.user') }}" class="btn btn-secondary mx-3">Thoát</a>
+                <a href="{{ redirect()->getUrlGenerator()->previous() }}" class="btn btn-secondary mx-3">Thoát</a>
             </div>
 
         </form>

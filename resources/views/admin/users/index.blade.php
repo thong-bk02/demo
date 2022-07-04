@@ -7,7 +7,7 @@
                 <span>{{ session('success') }}</span>
             </div>
         @elseif (session('failed'))
-            <div class="alert alert-error" role="alert">
+            <div class="alert alert-danger" role="alert">
                 <span>{{ session('failed') }}</span>
             </div>
         @endif
@@ -26,7 +26,7 @@
                         @csrf
                         <td>
                             <input type="text" name="name" id="user_name" placeholder="Họ và tên"
-                                value="@if (isset($input['name'])) {{ $input['name'] }} @endif"
+                                value="@if (isset($dataSearch['name'])) {{ $dataSearch['name'] }} @endif"
                                 class="form-control" autocomplete = "off">
                             <p  id="user_list"></p>
                         </td>
@@ -35,7 +35,7 @@
                                 <option value="0">tất cả</option>
                                 @foreach ($positions as $position)
                                     <option value="{{ $position->id }}"
-                                        @if (isset($input['position'])) {{ $position->id == $input['position'] ? 'selected' : '' }} @endif>
+                                        @if (isset($dataSearch['position'])) {{ $position->id == $dataSearch['position'] ? 'selected' : '' }} @endif>
                                         {{ $position->position_name }}</option>
                                 @endforeach
                             </select>
@@ -45,7 +45,7 @@
                                 <option value="0">tất cả</option>
                                 @foreach ($departments as $department)
                                     <option value="{{ $department->id }}"
-                                        @if (isset($input['department'])) {{ $department->id == $input['department'] ? 'selected' : '' }} @endif>
+                                        @if (isset($dataSearch['department'])) {{ $department->id == $dataSearch['department'] ? 'selected' : '' }} @endif>
                                         {{ $department->department }}</option>
                                 @endforeach
                             </select>
@@ -60,10 +60,10 @@
             </tbody>
         </table>
 
-        <table class="table">
+        <table class="table  table-hover table-sm">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">Id</th>
+                    <th scope="col">Stt</th>
                     <th scope="col">Mã nhân viên</th>
                     <th scope="col">Tên nhân viên</th>
                     <th scope="col">Chức vụ</th>
@@ -72,9 +72,10 @@
                 </tr>
             </thead>
             <tbody>
+                @php $no = 1; @endphp
                 @foreach ($users as $user)
                     <tr class="border-bottom border-dark">
-                        <th scope="row">{{ $user->user_id }}</th>
+                        <th scope="row">{{ $no }} @php $no++ @endphp</th>
                         <td>
                             {{ $user->user_code }}
                         </td>
@@ -97,7 +98,9 @@
                 @endforeach
             </tbody>
             {{ csrf_field() }}
+            
         </table>
+        {{ $users->links() }}
     </div>
     <script>
         function confirmDelete() {
@@ -109,6 +112,7 @@
         }
     </script>
 
+    {{-- tìm kiếm --}}
     <script>
         $(document).ready(function() {
 

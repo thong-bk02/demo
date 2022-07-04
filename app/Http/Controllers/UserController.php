@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequest;
 use App\Models\Department;
 use App\Models\Position;
-use App\Models\Power;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -43,8 +44,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
+        $input = $request->validated();
         $input = $request->all();
         $user = [
             'name' => $input['name'],
@@ -53,13 +55,13 @@ class UserController extends Controller
         ];
         $profile = [
             'user_id' => null,
-            'user_code' => $input['user_code'],
+            'user_code' => null,
             'address' => $input['address'],
             'phone' => $input['phone'],
-            'birthday' => $input['birthday'],
+            'birthday' => $input['birthday'], 
             'position' => $input['position'],
             'department' => $input['department'],
-            'date_start' => date('Y-m-d')
+            'date_start' => Carbon::now('Asia/Saigon')
         ];
 
         if (User::newUser($user, $profile) == true) {
@@ -139,15 +141,17 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
-        $input = $request->all();
-        // dd($input);
-        $users = User::search($input);
+        $dataSearch = $request->all();
+
+        $name = $request['name'];
+        $position = $request['position'];
+        $department = $request['department'];
+        $users = User::search($name, $position, $department);
+        
+
         $positions = Position::all();
         $departments = Department::all();
-        if ($users == false) {
-            return redirect()->route('admin.user');
-        }
-        return view('admin.users.index', compact('users', 'positions', 'departments', 'input'));
+        return view('admin.users.index', compact('users', 'positions', 'departments','dataSearch'));
     }
 
     public function searchAjax(Request $request)
@@ -157,7 +161,7 @@ class UserController extends Controller
             $data = DB::table('users')
                 ->where('name', 'LIKE', "%{$query}%")
                 ->get();
-            $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
+            $output = '<ul class="dropdown-menu" >';
             foreach ($data as $row) {
                 $output .= '
                <li class="border-bottom"><a class="ml-5" style="cursor: pointer;">' . $row->name. '</a></li>
