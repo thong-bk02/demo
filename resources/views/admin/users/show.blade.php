@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    <title>Tài khoản</title>
+@endsection
+
 @section('content')
     <div class="container">
         <h2 class="text-center">
@@ -15,11 +19,11 @@
                             <input type="text" class="form-control" name="name" id="name" placeholder="Họ tên"
                                 value="{{ $user->name }}">
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="code">Mã nhân viên</label>
                             <input type="text" class="form-control" name="user_code" id="code"
                                 placeholder="Mã nhân viên" value="{{ $user->user_code }}">
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <label for="birthday">Ngày sinh</label>
                             <input type="date" class="form-control" name="birthday" id="birthday" placeholder="Họ tên"

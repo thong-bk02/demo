@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Project;
-use App\Models\TaskList;
 use Illuminate\Http\Request;
 
-class TaskListController extends Controller
+class RulesAndRegulationsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +13,7 @@ class TaskListController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
-        $task_lists = TaskList::getAll();
-        return view('admin.task-list.index', compact('task_lists','projects'));
+        //
     }
 
     /**

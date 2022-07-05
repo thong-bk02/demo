@@ -20,10 +20,18 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::getAll();
+        // dd(request());
+        
         $positions = Position::all();
         $departments = Department::all();
-        return view('admin.users.index', compact('users', 'positions', 'departments'));
+
+        $request = request()->all();
+        $name = request()->name;
+        $position = request()->position;
+        $department = request()->department;
+
+        $users = User::search($name, $position, $department);
+        return view('admin.users.index', compact('users', 'positions', 'departments', 'request'));
     }
 
     /**
@@ -51,7 +59,7 @@ class UserController extends Controller
         $user = [
             'name' => $input['name'],
             'email' => $input['email'],
-            'password' => Hash::make($input['password'])
+            'password' => Hash::make($input['pword'])
         ];
         $profile = [
             'user_id' => null,
@@ -105,6 +113,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $input = $request->all();
         $user = [
             'name' => $input['name'],
@@ -112,7 +121,7 @@ class UserController extends Controller
             'status' => $input['status']
         ];
         $profile = [
-            'user_code' => $input['user_code'],
+            // 'user_code' => $input['user_code'],
             'address' => $input['address'],
             'phone' => $input['phone'],
             'birthday' => $input['birthday'],
@@ -139,33 +148,18 @@ class UserController extends Controller
         return redirect()->route('admin.user')->with('success', 'Xóa thành công !');
     }
 
-    public function search(Request $request)
-    {
-        $dataSearch = $request->all();
-
-        $name = $request['name'];
-        $position = $request['position'];
-        $department = $request['department'];
-        $users = User::search($name, $position, $department);
-        
-
-        $positions = Position::all();
-        $departments = Department::all();
-        return view('admin.users.index', compact('users', 'positions', 'departments','dataSearch'));
-    }
-
     public function searchAjax(Request $request)
     {
         if ($request->get('query')) {
             $query = $request->get('query');
             $data = DB::table('users')
                 ->where('name', 'LIKE', "%{$query}%")
+                ->select('users.name')
+                ->distinct()
                 ->get();
-            $output = '<ul class="dropdown-menu" >';
+            $output = '<div class="dropdown-menu" style="display:block; position: relative;">';
             foreach ($data as $row) {
-                $output .= '
-               <li class="border-bottom"><a class="ml-5" style="cursor: pointer;">' . $row->name. '</a></li>
-               ';
+                $output .= '<a class="dropdown-item" style="cursor: pointer;">' . $row->name. '</a>';
             }
             $output .= '</ul>';
             echo $output;

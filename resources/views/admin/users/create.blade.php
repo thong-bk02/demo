@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    <title>Tài khoản</title>
+@endsection
+
 @section('content')
     <div class="container">
         <h2 class="text-center">
@@ -22,8 +26,8 @@
                     </div>
                     <div class="form-group">
                         <label for="birthday">Ngày sinh</label>
-                        <input type="text" class="form-control @error('birthday') is-invalid @enderror" name="birthday"
-                            placeholder="" value="{{ old('birthday') }}" onfocus="(this.type='date')" onblur="(this.type='text')">
+                        <input type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday"
+                            placeholder="" value="{{ old('birthday') }}">
                         @error('birthday')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -39,8 +43,8 @@
                     </div>
                     <div class="form-group">
                         <label for="phone">Số điện thoại</label>
-                        <input type="number" class="form-control @error('phone') is-invalid @enderror" name="phone"
-                            id="phone" placeholder="Số điện thoại" value="{{ old('phone') }}">
+                        <input type="text" class="form-control @error('phone') is-invalid @enderror" name="phone"
+                            id="phone" placeholder="03******** / +84*********" value="{{ old('phone') }}" pattern="(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b"> 
                         @error('phone')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -75,20 +79,19 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="password">Mật khẩu</label>
-                        <input type="text" class="form-control @error('password') is-invalid @enderror" name="password"
-                            placeholder="********" value="{{ old('password') }}" autocomplete="off">
-                        @error('password')
+                        <label for="pword">Mật khẩu</label>
+                        <input type="text" class="form-control @error('pword') is-invalid @enderror" name="pword"
+                            value="{{ old('pword') }}" autocomplete="off">
+                        @error('pword')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
-
                     </div>
                 </div>
             </div>
 
             <div class="mx-lg-5 m-2">
                 <input type="submit" class="btn btn-primary mx-3" value="Lưu">
-                <a href="{{ redirect()->getUrlGenerator()->previous() }}" class="btn btn-secondary mx-3">Thoát</a>
+                <a href="{{ route('admin.user') }}" class="btn btn-secondary mx-3">Thoát</a>
             </div>
 
         </form>

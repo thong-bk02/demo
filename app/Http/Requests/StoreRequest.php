@@ -25,12 +25,11 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'required|max:50',
-            // 'user_code' => 'required|unique:profile_users',
             'email' => 'required|unique:users|email',
             'birthday' => 'required',
             'address' => 'required|max:255',
-            'phone' => 'required|unique:profile_users|max:12',
-            'password' => 'required|min:8|max:15'
+            'phone' => 'required|unique:profile_users|max:12|min:10',
+            'pword' => 'required|min:8|max:15'
         ];
     }
 
@@ -39,8 +38,6 @@ class StoreRequest extends FormRequest
         return [
             'name.required' => ':attribute không được bỏ trống !',
             'name.max' => ':attribute quá dài',
-            // 'user_code.required' => ':attribute không được bỏ trống !',
-            // 'user_code.unique' => ':attribute đã tồn tại',
             'email.required' => ':attribute không được bỏ trống !',
             'email.unique' => ':attribute đã tồn tại',
             'email.email' => ':attribute không đúng định dạng',
@@ -50,9 +47,10 @@ class StoreRequest extends FormRequest
             'phone.required' => ':attribute không được bỏ trống !',
             'phone.unique' => ':attribute đã tồn tại',
             'phone.max' => ':attribute không quá :max số',
-            'password.required' => ':attribute không được bỏ trống !',
-            'password.min' => ':attribute phải có tối thiểu :min kí tự',
-            'password.max' => ':attribute có tối đa :max kí tự',
+            'phone.min' => ':attribute phải có tối thiểu :min số',
+            'pword.required' => ':attribute không được bỏ trống !',
+            'pword.min' => ':attribute phải có tối thiểu :min kí tự',
+            'pword.max' => ':attribute có tối đa :max kí tự',
         ];
     }
 
@@ -60,12 +58,11 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'Tên',
-            // 'user_code' => 'Mã nhân viên',
             'email' => 'Email',
             'birthday' => 'Ngày sinh',
             'address' => 'Địa chỉ',
             'phone' => 'Số điện thoại',
-            'password' => 'Mật khẩu'
+            'pword' => 'Mật khẩu'
         ];
     }
 }

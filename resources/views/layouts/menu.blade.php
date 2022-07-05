@@ -1,7 +1,7 @@
 <li class="nav-item">
     <a href="{{ route('home') }}" class="nav-link {{ Request::is('home') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
-        <p>Dashbroad</p>
+        <p>Trang chủ</p>
     </a>
 </li>
 
@@ -58,5 +58,12 @@
     <a href="" class="nav-link {{ Request::is('admin/calendar') ? 'active' : '' }} {{ Request::is('admin/calendar/*') ? 'active' : '' }}">
         <i class="nav-icon fa-solid fa-calendar-days"></i>
         <p>Sự kiện</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="" class="nav-link {{ Request::is('admin/calendar') ? 'active' : '' }} {{ Request::is('admin/calendar/*') ? 'active' : '' }}">
+        <i class="nav-icon fa-solid fa-scale-balanced"></i>
+        <p>Nội quy, Chế tài</p>
     </a>
 </li>

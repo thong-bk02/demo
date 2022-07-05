@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('rules_and_regulations', function (Blueprint $table) {
             $table->id();
 
-            $table->string('project_name');
-            $table->unsignedBigInteger('project_manager');
-            $table->date('start_date');
-            $table->date('intend_time');
-            $table->foreign('project_manager')->references('id')->on('users');
+            $table->string('title');
+            $table->string('content');
+            $table->unsignedSmallInteger('status')->default(1)->comment("0: inactive, 1: active");
 
             $table->timestamps();
         });
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('rules_and_regulations');
     }
 };

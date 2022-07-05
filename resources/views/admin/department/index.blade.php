@@ -120,7 +120,7 @@
 
     <script>
         function confirmDelete() {
-            if (confirm("xóa người phòng ban này ?") == true) {
+            if (confirm("xóa phòng ban này ?") == true) {
                 return true;
             } else {
                 return false;
