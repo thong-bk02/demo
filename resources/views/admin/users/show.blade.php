@@ -16,49 +16,59 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="name">Tên nhân viên</label>
-                            <input type="text" class="form-control" name="name" id="name" placeholder="Họ tên"
-                                value="{{ $user->name }}">
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+                                id="name" placeholder="Họ tên" value="{{old('name', $user->name)}}">
+                            @error('name')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
-                        {{-- <div class="form-group">
-                            <label for="code">Mã nhân viên</label>
-                            <input type="text" class="form-control" name="user_code" id="code"
-                                placeholder="Mã nhân viên" value="{{ $user->user_code }}">
-                        </div> --}}
                         <div class="form-group">
                             <label for="birthday">Ngày sinh</label>
-                            <input type="date" class="form-control" name="birthday" id="birthday" placeholder="Họ tên"
-                                value="{{ $user->birthday }}">
+                            <input type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday"
+                                id="birthday" placeholder="Họ tên" value="{{old('birthday', $user->birthday)}}">
+                            @error('birthday')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <label for="hometown">Quê quán</label>
-                            <input type="text" class="form-control" name="address" id="hometown" placeholder="Quê quán"
-                                value="{{ $user->address }}">
+                            <label for="address">Quê quán</label>
+                            <input type="text" class="form-control @error('address') is-invalid @enderror" name="address"
+                                id="address" placeholder="Quê quán" value="{{old('address', $user->address)}}">
+                            @error('address')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="">tình trạng làm việc</label>
                             <select name="status" class="form-control">
-                                <option value="1" {{ $user->status == 1 ? 'selected' : '' }}>đang làm</option>
-                                <option value="0" {{ $user->status == 0 ? 'selected' : '' }}>đã nghỉ</option>
+                                <option value="1" {{ old('status', $user->status) == 1 ? 'selected' : '' }}>đang làm</option>
+                                <option value="0" {{ old('status', $user->status) == 0 ? 'selected' : '' }}>đã nghỉ</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="phone">Số điện thoại</label>
-                            <input type="number" class="form-control" name="phone" id="phone"
-                                placeholder="Số điện thoại" value="{{ $user->phone }}">
+                            <input type="text" class="form-control @error('phone') is-invalid @enderror" name="phone"
+                                id="phone" placeholder="Số điện thoại" value="{{old('phone', $user->phone)}}" pattern="(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b">
+                            @error('phone')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control" name="email" id="email"
-                                placeholder="email@example.com" value="{{ $user->email }}">
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+                                id="email" placeholder="email@example.com" value="{{old('email', $user->email)}}">
+                            @error('email')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="">Chức vụ</label>
                             <select class="form-control" name="position">
                                 @foreach ($positions as $position)
                                     <option value="{{ $position->id }}"
-                                        {{ $position->id == $user->position ? 'selected' : '' }}>
+                                        {{ $position->id == old('position', $user->position) ? 'selected' : '' }}>
                                         {{ $position->position_name }}</option>
                                 @endforeach
                             </select>
@@ -68,7 +78,7 @@
                             <select class="form-control" name="department">
                                 @foreach ($departments as $department)
                                     <option value="{{ $department->id }}"
-                                        {{ $department->id == $user->department ? 'selected' : '' }}>
+                                        {{ $department->id == old('department', $user->department) ? 'selected' : '' }}>
                                         {{ $department->department }}</option>
                                 @endforeach
                             </select>

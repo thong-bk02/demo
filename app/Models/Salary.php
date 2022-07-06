@@ -10,6 +10,8 @@ class Salary extends Model
 {
     use HasFactory;
 
+    protected $table = 'salarys';
+
     protected static function getAll()
     {
         $salarys = DB::table('salarys')

@@ -15,9 +15,6 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="name">Họ và tên</label>
-                        {{-- <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                            placeholder="@if ($errors->has('name')) {{ $errors->first('name') }} @else Họ tên @endif"
-                            value="{{ old('name') }}"> --}}
                         <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
                             placeholder="Họ tên" value="{{ old('name') }}">
                         @error('name')

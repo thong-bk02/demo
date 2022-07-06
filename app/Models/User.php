@@ -5,7 +5,6 @@ namespace App\Models;
 use Exception;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
@@ -72,28 +71,28 @@ class User extends Authenticatable
         }
     }
 
-    // tìm kiếm
-    protected static function search($name, $position, $department)
+    // tìm kiếm nhân sự
+    protected static function search($request)
     {
         try {
             $users = DB::table('profile_users')
                 ->join('users', 'profile_users.user_id', 'users.id')
                 ->join('positions', 'profile_users.position', 'positions.id')
                 ->join('departments', 'profile_users.department', 'departments.id')
-                ->select('users.*', 'profile_users.*', 'positions.position_name', 'departments.department');
-
-            if (isset($position) && $position > 0) {
-                $users->where('profile_users.position', $position);
-            }
-
-            if (isset($department) && $department > 0) {
-                $users->where('profile_users.department', $department);
-            }
-
-            if (!blank($name)) {
-                $users->where('users.name', 'like', '%' . $name . '%');
-            }
-            return $users->orderBy('user_id')->paginate(10);
+                ->select('users.*', 'profile_users.*', 'positions.position_name', 'departments.department')
+                ->when($request->has("name"), function ($q) use ($request) {
+                    $q->where("name", "like", "%" . $request->get("name") . "%");
+                })
+                ->when($request->get('position'), function ($q) use ($request) {
+                    $q->where("profile_users.position", $request->get("position"));
+                })
+                ->when($request->get('department'), function ($q) use ($request) {
+                    $q->where('profile_users.department', $request->get('department'));
+                })
+                ->when($request->get('status'), function ($q) use ($request) {
+                    $q->where('users.status', $request->get('status'));
+                });
+            return $users->orderBy('name')->paginate(8);
         } catch (Exception $ex) {
             throw $ex;
         }
@@ -116,10 +115,19 @@ class User extends Authenticatable
         }
     }
 
-    // xóa nhân sự bằng cách set status
+    // xóa nhân sự -
     protected static function dlt($id)
     {
-        User::where('id', $id)
-            ->update(['status' => 0]);
+
+        DB::beginTransaction();
+        try {
+            ProfileUser::where('user_id', $id)->delete();
+            User::where('id', $id)->delete();
+            DB::commit();
+            return true;
+        } catch (Exception $ex) {
+            DB::rollBack();
+            return false;
+        }
     }
 }

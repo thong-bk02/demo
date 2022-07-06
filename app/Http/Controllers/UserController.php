@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRequest;
+use App\Http\Requests\UpdateRequest;
 use App\Models\Department;
 use App\Models\Position;
 use App\Models\User;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
+use Exception;
 
 class UserController extends Controller
 {
@@ -18,20 +20,18 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // dd(request());
-        
+
         $positions = Position::all();
         $departments = Department::all();
+        $users = User::search($request);
 
-        $request = request()->all();
-        $name = request()->name;
-        $position = request()->position;
-        $department = request()->department;
+        if ($request->ajax()) {
+            return view('admin.users.pagination_data', compact('users', 'positions', 'departments'));
+        }
 
-        $users = User::search($name, $position, $department);
-        return view('admin.users.index', compact('users', 'positions', 'departments', 'request'));
+        return view('admin.users.index', compact('users', 'positions', 'departments'));
     }
 
     /**
@@ -62,11 +62,9 @@ class UserController extends Controller
             'password' => Hash::make($input['pword'])
         ];
         $profile = [
-            'user_id' => null,
-            'user_code' => null,
             'address' => $input['address'],
             'phone' => $input['phone'],
-            'birthday' => $input['birthday'], 
+            'birthday' => $input['birthday'],
             'position' => $input['position'],
             'department' => $input['department'],
             'date_start' => Carbon::now('Asia/Saigon')
@@ -87,10 +85,14 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $users = User::getUser($id);
         $positions = Position::all();
         $departments = Department::all();
-        return view('admin.users.show', compact('users', 'positions', 'departments'));
+        try{
+            $users = User::getUser($id);
+            return view('admin.users.show', compact('users', 'positions', 'departments'));
+        } catch(Exception $ex){
+            throw $ex;
+        }
     }
 
     /**
@@ -111,8 +113,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
+        $input = $request->validated();
         
         $input = $request->all();
         $user = [
@@ -121,7 +124,6 @@ class UserController extends Controller
             'status' => $input['status']
         ];
         $profile = [
-            // 'user_code' => $input['user_code'],
             'address' => $input['address'],
             'phone' => $input['phone'],
             'birthday' => $input['birthday'],
@@ -144,25 +146,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::dlt($id);
-        return redirect()->route('admin.user')->with('success', 'Xóa thành công !');
-    }
-
-    public function searchAjax(Request $request)
-    {
-        if ($request->get('query')) {
-            $query = $request->get('query');
-            $data = DB::table('users')
-                ->where('name', 'LIKE', "%{$query}%")
-                ->select('users.name')
-                ->distinct()
-                ->get();
-            $output = '<div class="dropdown-menu" style="display:block; position: relative;">';
-            foreach ($data as $row) {
-                $output .= '<a class="dropdown-item" style="cursor: pointer;">' . $row->name. '</a>';
-            }
-            $output .= '</ul>';
-            echo $output;
+        try{
+            User::dlt($id);
+            return redirect()->route('admin.user')->with('success', 'Xóa thành công !');
+        } catch (Exception $ex) {
+            return redirect()->route('admin.user')->with('failed', 'Lỗi !');
         }
     }
 }
