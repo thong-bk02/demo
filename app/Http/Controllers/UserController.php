@@ -8,7 +8,6 @@ use App\Models\Department;
 use App\Models\Position;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use Exception;
@@ -27,11 +26,13 @@ class UserController extends Controller
         $departments = Department::all();
         $users = User::search($request);
 
-        if ($request->ajax()) {
-            return view('admin.users.pagination_data', compact('users', 'positions', 'departments'));
-        }
+        
 
-        return view('admin.users.index', compact('users', 'positions', 'departments'));
+        if ($request->ajax()) {
+            session(['search_name' => $request['name']], ['position' => $request['position']], ['department' => $request['department']], ['status' => $request['status']]);
+            return view('admin.users.pagination_data', compact('users', 'positions', 'departments', 'request'));
+        }
+        return view('admin.users.index', compact('users', 'positions', 'departments', 'request'));
     }
 
     /**
@@ -69,13 +70,12 @@ class UserController extends Controller
             'department' => $input['department'],
             'date_start' => Carbon::now('Asia/Saigon')
         ];
-        $url = $input['url'];
 
-        try{
+        try {
             User::newUser($user, $profile);
-            return redirect($url)->with('success', 'Thêm nhân sự ' . $input['name'] . ' thành công ');
+            return redirect()->route('admin.user')->with('success', 'Thêm nhân sự ' . $input['name'] . ' thành công ');
         } catch (Exception $ex) {
-            return redirect($url)->back()->with('failed', 'Không thêm được nhân sự');
+            return redirect()->route('admin.user')->with('failed', 'Không thêm được nhân sự');
         }
     }
 
@@ -89,10 +89,10 @@ class UserController extends Controller
     {
         $positions = Position::all();
         $departments = Department::all();
-        try{
+        try {
             $users = User::getUser($id);
             return view('admin.users.show', compact('users', 'positions', 'departments'));
-        } catch(Exception $ex){
+        } catch (Exception $ex) {
             throw $ex;
         }
     }
@@ -118,7 +118,7 @@ class UserController extends Controller
     public function update(UpdateRequest $request, $id)
     {
         $input = $request->validated();
-        
+
         $input = $request->all();
         $user = [
             'name' => $input['name'],
@@ -132,13 +132,12 @@ class UserController extends Controller
             'position' => $input['position'],
             'department' => $input['department']
         ];
-        $url = $input['url'];
 
-        try{
+        try {
             User::upd($user, $profile, $id);
-            return redirect($url)->with('success', 'Sửa thành công nhân sự: ' . $input['name']);
+            return redirect()->route('admin.user')->with('success', 'Sửa thành công nhân sự: ' . $input['name']);
         } catch (Exception $ex) {
-            return redirect()->back()->with('failed', 'Lỗi sửa thông tin nhân viên !');
+            return redirect()->route('admin.user')->with('failed', 'Lỗi sửa thông tin nhân viên !');
         }
     }
 
@@ -150,7 +149,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        try{
+        try {
             User::dlt($id);
             return redirect()->back()->withInput()->with('success', 'Xóa thành công !');
         } catch (Exception $ex) {

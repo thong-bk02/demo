@@ -30,7 +30,8 @@
                         <td>
                             <span class="deleteicon">
                                 <input type="text" name="name" id="user_name" placeholder="Họ và tên"
-                                    value="{{ request()->get('name', '') }}" class="form-control" autocomplete="off">
+                                    value="{{ Session('search_name') }}"
+                                    class="form-control" autocomplete="off">
                                 <span
                                     onclick="var input = this.previousElementSibling; input.value = ''; input.focus();">X</span>
                             </span>
@@ -40,7 +41,7 @@
                                 <option value="">tất cả</option>
                                 @foreach ($positions as $position)
                                     <option value="{{ $position->id }}"
-                                        {{ request()->get('position') == $position->id ? 'selected' : '' }}>
+                                        @isset($request) {{ $request['position'] == $position->id ? 'selected' : '' }} @endisset>
                                         {{ $position->position_name }}</option>
                                 @endforeach
                             </select>
@@ -50,18 +51,24 @@
                                 <option value="">tất cả</option>
                                 @foreach ($departments as $department)
                                     <option value="{{ $department->id }}"
-                                        {{ request()->get('department') == $department->id ? 'selected' : '' }}>
+                                        @isset($request) {{ $request['department'] == $department->id ? 'selected' : '' }} @endisset>
                                         {{ $department->department }}</option>
                                 @endforeach
                             </select>
                         </td>
                         <td>
                             <select class="form-control" name="status" id="status">
-                                <option value="" {{ request()->get('status') == '' ? 'selected' : '' }}>tất cả
+                                <option value=""
+                                    @isset($request) {{ $request['status'] == '' ? 'selected' : '' }} @endisset>
+                                    tất cả
                                 </option>
-                                <option value="1" {{ request()->get('status') == 1 ? 'selected' : '' }}>đang làm
+                                <option value="1"
+                                    @isset($request) {{ $request['status'] == 1 ? 'selected' : '' }} @endisset>
+                                    đang làm
                                 </option>
-                                <option value="2" {{ request()->get('status') == 2 ? 'selected' : '' }}>đã nghỉ
+                                <option value="2"
+                                    @isset($request) {{ $request['status'] == 2 ? 'selected' : '' }} @endisset>
+                                    đã nghỉ
                                 </option>
                             </select>
                         </td>

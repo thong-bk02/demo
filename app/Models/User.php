@@ -46,6 +46,33 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected static function search($request)
+    {
+        try {
+            $users = DB::table('profile_users')
+                ->join('users', 'profile_users.user_id', 'users.id')
+                ->join('positions', 'profile_users.position', 'positions.id')
+                ->join('departments', 'profile_users.department', 'departments.id')
+                ->select('users.*', 'profile_users.*', 'positions.position_name', 'departments.department')
+                ->where('name', '<>', Auth::user()->name)
+                ->when($request->has("name"), function ($q) use ($request) {
+                    $q->where("name", "like", "%" . $request->get("name") . "%");
+                })
+                ->when($request->get('position'), function ($q) use ($request) {
+                    $q->where("profile_users.position", $request->get("position"));
+                })
+                ->when($request->get('department'), function ($q) use ($request) {
+                    $q->where('profile_users.department', $request->get('department'));
+                })
+                ->when($request->get('status'), function ($q) use ($request) {
+                    $q->where('users.status', $request->get('status'));
+                });
+            return $users->orderBy('name')->paginate(8);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
     // lấy thông tin người dùng có id = $id
     protected static function getUser($id)
     {
@@ -78,32 +105,7 @@ class User extends Authenticatable
     }
 
     // tìm kiếm nhân sự
-    protected static function search($request)
-    {
-        try {
-            $users = DB::table('profile_users')
-                ->join('users', 'profile_users.user_id', 'users.id')
-                ->join('positions', 'profile_users.position', 'positions.id')
-                ->join('departments', 'profile_users.department', 'departments.id')
-                ->select('users.*', 'profile_users.*', 'positions.position_name', 'departments.department')
-                ->where('name', '<>', Auth::user()->name)
-                ->when($request->has("name"), function ($q) use ($request) {
-                    $q->where("name", "like", "%" . $request->get("name") . "%");
-                })
-                ->when($request->get('position'), function ($q) use ($request) {
-                    $q->where("profile_users.position", $request->get("position"));
-                })
-                ->when($request->get('department'), function ($q) use ($request) {
-                    $q->where('profile_users.department', $request->get('department'));
-                })
-                ->when($request->get('status'), function ($q) use ($request) {
-                    $q->where('users.status', $request->get('status'));
-                });
-            return $users->orderBy('name')->paginate(8);
-        } catch (Exception $ex) {
-            throw $ex;
-        }
-    }
+   
 
     // tạo nhân sự mới
     protected static function newUser($user, $profile)
