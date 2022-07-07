@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -48,25 +49,30 @@ class User extends Authenticatable
     // lấy thông tin người dùng có id = $id
     protected static function getUser($id)
     {
-        $users = DB::table('profile_users')
-            ->join('users', 'profile_users.user_id', 'users.id')
-            ->select('users.*', 'profile_users.*')
-            ->where('profile_users.user_id', $id)
-            ->get();
-        return $users;
+        try {
+            $users = DB::table('profile_users')
+                ->join('users', 'profile_users.user_id', 'users.id')
+                ->select('users.*', 'profile_users.*')
+                ->where('profile_users.user_id', $id)
+                ->get();
+            return $users;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
     }
 
     // cập nhật thông tin người dùng có id = $id
     protected static function upd($user, $profile, $id)
     {
+        DB::beginTransaction();
         try {
             User::where('id', $id)
                 ->update($user);
             ProfileUser::where('user_id', $id)
                 ->update($profile);
-            return true;
+            DB::commit();
         } catch (Exception $ex) {
-            // return false;
+            DB::rollBack();
             throw $ex;
         }
     }
@@ -80,6 +86,7 @@ class User extends Authenticatable
                 ->join('positions', 'profile_users.position', 'positions.id')
                 ->join('departments', 'profile_users.department', 'departments.id')
                 ->select('users.*', 'profile_users.*', 'positions.position_name', 'departments.department')
+                ->where('name', '<>', Auth::user()->name)
                 ->when($request->has("name"), function ($q) use ($request) {
                     $q->where("name", "like", "%" . $request->get("name") . "%");
                 })
@@ -108,26 +115,21 @@ class User extends Authenticatable
             $profile['user_code'] = (string)$id . "-" . $profile['position'] . "-" . $profile['department'];
             ProfileUser::create($profile);
             DB::commit();
-            return true;
         } catch (Exception $ex) {
             DB::rollBack();
-            throw $ex;
         }
     }
 
     // xóa nhân sự -
     protected static function dlt($id)
     {
-
         DB::beginTransaction();
         try {
             ProfileUser::where('user_id', $id)->delete();
-            User::where('id', $id)->delete();
+            User::find($id)->delete();
             DB::commit();
-            return true;
         } catch (Exception $ex) {
             DB::rollBack();
-            return false;
         }
     }
 }

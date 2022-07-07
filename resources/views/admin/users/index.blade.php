@@ -39,7 +39,8 @@
                             <select class="form-control" name="position" id="position">
                                 <option value="">tất cả</option>
                                 @foreach ($positions as $position)
-                                    <option value="{{ $position->id }}">
+                                    <option value="{{ $position->id }}"
+                                        {{ request()->get('position') == $position->id ? 'selected' : '' }}>
                                         {{ $position->position_name }}</option>
                                 @endforeach
                             </select>
@@ -48,16 +49,20 @@
                             <select class="form-control" name="department" id="department">
                                 <option value="">tất cả</option>
                                 @foreach ($departments as $department)
-                                    <option value="{{ $department->id }}">
+                                    <option value="{{ $department->id }}"
+                                        {{ request()->get('department') == $department->id ? 'selected' : '' }}>
                                         {{ $department->department }}</option>
                                 @endforeach
                             </select>
                         </td>
                         <td>
                             <select class="form-control" name="status" id="status">
-                                <option value="">tất cả</option>
-                                <option value="1">đang làm</option>
-                                <option value="0">đã nghỉ</option>
+                                <option value="" {{ request()->get('status') == '' ? 'selected' : '' }}>tất cả
+                                </option>
+                                <option value="1" {{ request()->get('status') == 1 ? 'selected' : '' }}>đang làm
+                                </option>
+                                <option value="2" {{ request()->get('status') == 2 ? 'selected' : '' }}>đã nghỉ
+                                </option>
                             </select>
                         </td>
                         <td>

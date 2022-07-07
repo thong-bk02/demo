@@ -42,7 +42,7 @@
                             <label for="">tình trạng làm việc</label>
                             <select name="status" class="form-control">
                                 <option value="1" {{ old('status', $user->status) == 1 ? 'selected' : '' }}>đang làm</option>
-                                <option value="0" {{ old('status', $user->status) == 0 ? 'selected' : '' }}>đã nghỉ</option>
+                                <option value="2" {{ old('status', $user->status) == 2 ? 'selected' : '' }}>đã nghỉ</option>
                             </select>
                         </div>
                     </div>
@@ -83,12 +83,15 @@
                                 @endforeach
                             </select>
                         </div>
+
+                        {{-- lấy url trước --}}
+                        <input type="hidden" name="url" value="{{ URL::previous() }}">
                     </div>
                 </div>
 
                 <div class="mx-lg-5 m-2">
                     <input type="submit" class="btn btn-primary mx-3" value="Lưu">
-                    <a href="{{ route('admin.user') }}" class="btn btn-secondary mx-3">Thoát</a>
+                    <a href="{{ URL::previous() }}" class="btn btn-secondary mx-3">Thoát</a>
                 </div>
 
             </form>

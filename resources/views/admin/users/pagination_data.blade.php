@@ -36,9 +36,9 @@
                     {{ $user->department }}
                 </td>
                 <td>
-                    @if ($user->status == 0)
+                    @if ($user->status == 2)
                         <span class="badge badge-secondary">đã nghỉ</span>
-                    @else
+                    @elseif ($user->status == 1)
                         <span class="badge badge-success">đang làm</span>
                     @endif
                 </td>

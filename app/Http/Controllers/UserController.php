@@ -69,11 +69,13 @@ class UserController extends Controller
             'department' => $input['department'],
             'date_start' => Carbon::now('Asia/Saigon')
         ];
+        $url = $input['url'];
 
-        if (User::newUser($user, $profile) == true) {
-            return redirect()->route('admin.user')->with('success', 'Thêm nhân sự ' . $input['name'] . ' thành công ');
-        } else {
-            return redirect()->route('admin.user')->with('failed', 'Không thêm được nhân sự');
+        try{
+            User::newUser($user, $profile);
+            return redirect($url)->with('success', 'Thêm nhân sự ' . $input['name'] . ' thành công ');
+        } catch (Exception $ex) {
+            return redirect($url)->back()->with('failed', 'Không thêm được nhân sự');
         }
     }
 
@@ -130,11 +132,13 @@ class UserController extends Controller
             'position' => $input['position'],
             'department' => $input['department']
         ];
+        $url = $input['url'];
 
-        if (User::upd($user, $profile, $id) == true) {
-            return redirect()->route('admin.user')->with('success', 'Sửa thành công nhân sự: ' . $input['name']);
-        } else {
-            return redirect()->route('admin.user')->with('failed', 'Lỗi sửa thông tin nhân viên !');
+        try{
+            User::upd($user, $profile, $id);
+            return redirect($url)->with('success', 'Sửa thành công nhân sự: ' . $input['name']);
+        } catch (Exception $ex) {
+            return redirect()->back()->with('failed', 'Lỗi sửa thông tin nhân viên !');
         }
     }
 
@@ -148,7 +152,7 @@ class UserController extends Controller
     {
         try{
             User::dlt($id);
-            return redirect()->route('admin.user')->with('success', 'Xóa thành công !');
+            return redirect()->back()->withInput()->with('success', 'Xóa thành công !');
         } catch (Exception $ex) {
             return redirect()->route('admin.user')->with('failed', 'Lỗi !');
         }

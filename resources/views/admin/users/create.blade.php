@@ -41,7 +41,8 @@
                     <div class="form-group">
                         <label for="phone">Số điện thoại</label>
                         <input type="text" class="form-control @error('phone') is-invalid @enderror" name="phone"
-                            id="phone" placeholder="03******** / +84*********" value="{{ old('phone') }}" pattern="(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b"> 
+                            id="phone" placeholder="03******** / +84*********" value="{{ old('phone') }}"
+                            pattern="(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b">
                         @error('phone')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -86,9 +87,12 @@
                 </div>
             </div>
 
+            {{-- lấy url trước --}}
+            <input type="hidden" name="url" value="{{ URL::previous() }}">
+
             <div class="mx-lg-5 m-2">
                 <input type="submit" class="btn btn-primary mx-3" value="Lưu">
-                <a href="{{ route('admin.user') }}" class="btn btn-secondary mx-3">Thoát</a>
+                <a href="{{ URL::previous() }}" class="btn btn-secondary mx-3">Thoát</a>
             </div>
 
         </form>

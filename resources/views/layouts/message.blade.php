@@ -2,17 +2,27 @@
     <div class="alert alert-success" role="alert" id="alert">
         <span>{{ session('success') }}</span>
     </div>
+    <script>
+        const myTimeout = setTimeout(myGreeting, 3000);
+    
+        function myGreeting() {
+            document.getElementById("alert").innerHTML = "";
+            var alert = document.getElementById("alert");
+            alert.classList.remove("alert");
+        }
+    </script>
 @elseif (session('failed'))
     <div class="alert alert-danger" role="alert" id="alert">
         <span>{{ session('failed') }}</span>
     </div>
+    <script>
+        const myTimeout = setTimeout(myGreeting, 3000);
+    
+        function myGreeting() {
+            document.getElementById("alert").innerHTML = "";
+            var alert = document.getElementById("alert");
+            alert.classList.remove("alert");
+        }
+    </script>
 @endif
-<script>
-    const myTimeout = setTimeout(myGreeting, 3000);
 
-    function myGreeting() {
-        document.getElementById("alert").innerHTML = "";
-        var alert = document.getElementById("alert");
-        alert.classList.remove("alert");
-    }
-</script>

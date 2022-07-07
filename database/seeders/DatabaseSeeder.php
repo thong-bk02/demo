@@ -26,8 +26,6 @@ class DatabaseSeeder extends Seeder
             PowerSeeder::class,
             UserSeeder::class,
             ProfileUserSeeder::class,
-            ProjectSeeder::class,
-            TaskListSeeder::class,
             TimekeepingSeeder::class,
             GenreSeeder::class,
             BasicSalarySeeder::class,
