@@ -21,12 +21,9 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-
         $positions = Position::all();
         $departments = Department::all();
         $users = User::search($request);
-
-        
 
         if ($request->ajax()) {
             session(['search_name' => $request['name']], ['position' => $request['position']], ['department' => $request['department']], ['status' => $request['status']]);

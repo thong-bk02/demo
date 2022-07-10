@@ -63,8 +63,15 @@ Route::get('/admin/access-rights/create', [PowerController::class, 'create'])->n
 //quản lí chấm công
 Route::get('/admin/timekeeping', [TimekeepingController::class, 'index'])->name('admin.timekeeping');
 Route::get('/admin/timekeeping/show/{id}', [TimekeepingController::class, 'show'])->name('admin.timekeeping.show');
-Route::post('/admin/timekeeping/update/{id}', [TimekeepingController::class, 'update'])->name('admin.timekeeping.update');
+Route::post('/admin/timekeeping/show/{id}', [TimekeepingController::class, 'update'])->name('admin.timekeeping.update');
 Route::get('/admin/timekeeping/create', [TimekeepingController::class, 'create'])->name('admin.timekeeping.create');
+Route::post('/admin/timekeeping', [TimekeepingController::class, 'store'])->name('admin.timekeeping.store');
+Route::controller(TimekeepingController::class)->group(function(){
+    Route::get('/admin/timekeeping', 'index')->name('admin.timekeeping');
+    Route::get('/admin/timekeeping-export', 'export')->name('admin.timekeeping.export');
+    Route::post('/admin/timekeeping-import', 'import')->name('admin.timekeeping.import');
+});
+Route::get('/admin/timekeeping/delete/{id}', [TimekeepingController::class, 'destroy'])->name('admin.timekeeping.delete');
 
 //quản lí thưởng phạt
 Route::get('/admin/reward-discipline', [RewardAndDisciplineController::class, 'index'])->name('admin.reward-discipline');

@@ -26,7 +26,9 @@
             <tbody>
                 @foreach ($access_rights as $access_right)
                     <tr class="border-bottom border-dark">
-                        <th scope="row">{{ $access_right->id }}</th>
+                        <th scope="row">
+                            {{ $loop->iteration }}
+                        </th>
                         <td>
                             {{ $access_right->position_name }}
                         </td>

@@ -2,82 +2,120 @@
 
 @section('content')
     <div class="container">
-        @if (session('success'))
-            <div class="alert alert-success" role="alert">
-                <span>{{ session('success') }}</span>
-            </div>
-        @elseif (session('failed'))
-            <div class="alert alert-error" role="alert">
-                <span>{{ session('failed') }}</span>
-            </div>
-        @endif
+        {{-- Thông báo --}}
+        @include('layouts.message')
+
         <table class="table">
             <thead class="thead-light">
                 <tr>
                     <th scope="col">Tên nhân viên</th>
+                    <th scope="col">Ngày chấm công</th>
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <form action="" method="">
+                    <form id="searchform" name="searchform">
+                        @csrf
                         <td>
-                            <input type="text" name="staff" class="form-control">
+                            <input type="text" name="name" class="form-control" value="{{ $request['name'] }}" required>
                         </td>
                         <td>
-                            <button type="submit" class="btn btn-primary">Search</button>
-                            <a href="{{ route('admin.timekeeping.create') }}" class="btn btn-primary">Thêm chấm công</a>
+                            <input type="date" name="date" class="form-control" value="{{ $request['date'] }}" required>
+                        </td>
+                        <td>
+                            <a class='btn btn-primary' href='{{ url('admin/timekeeping') }}' id='search_btn'>
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </a>
+                            <a href="" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">Thêm
+                                chấm công</a>
+                            <a class="btn btn-warning float-end" href="{{ route('admin.timekeeping.export') }}">Xuất
+                                file</a>
+                            
                         </td>
                     </form>
+                    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false"
+                                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form action="{{ route('admin.timekeeping.store') }}" method="post">
+                                            @csrf
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel">Thêm chấm công</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <select class="form-control" name="user_id" id="user_id">
+                                                        <option value="">Nhân sự</option>
+                                                        @foreach ($users as $user)
+                                                            <option value="{{ $user->id }}">
+                                                                {{ $user->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="from_date">Ngày bắt đầu</label>
+                                                    <input type="date" class="form-control" name="from_date"
+                                                        value="">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input type="submit" class="btn btn-primary" value="Lưu">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Đóng</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                 </tr>
             </tbody>
         </table>
 
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Stt</th>
-                    <th scope="col">Tên nhân sự</th>
-                    <th scope="col">Ngày bắt đầu</th>
-                    <th scope="col">Hiện tại</th>
-                    <th scope="col">Tổng số ngày làm</th>
-                    <th scope="col">Thao tác</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($timekeepings as $timekeeping)
-                    <tr class="border-bottom border-dark">
-                        <th scope="row">{{ $timekeeping->id }}</th>
-                        <td>
-                            {{ $timekeeping->name }}
-                        </td>
-                        <td>
-                            {{ $timekeeping->from_date }}
-                        </td>
-                        <td>
-                            {{ $timekeeping->to_date }}
-                        </td>
-                        <td>
-                            {{ $timekeeping->working_days }}
-                        </td>
-                        <td>
-                            <a href="{{ route('admin.timekeeping.show', $timekeeping->user_id) }}" class="mx-1"><i
-                                    class="fa-solid fa-eye"></i></a>
-                            <a href="" class="mx-1" onclick="return confirmDelete()"><i
-                                    class="fa-solid fa-trash-can"></i></a>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+        {{-- Kết quả tìm kiếm --}}
+        <div id="pagination_data">
+            @include('admin.timekeeping.pagination_data', ['timekeepings' => $timekeepings])
+        </div>
+
     </div>
+
+    <form action="{{ route('admin.timekeeping.import') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <input type="file" name="file" class="form-control">
+        <br>
+        <button class="btn btn-success">Import Data</button>
+    </form>
+
+
+
     <script>
         function confirmDelete() {
-            if (confirm("xóa người nhân viên này ?") == true) {
+            if (confirm("xóa bảng chấm công này ?") == true) {
                 return true;
             } else {
                 return false;
             }
         }
+    </script>
+
+    <script>
+        $(function() {
+            $(document).on("click", "#pagination a,#search_btn", function() {
+
+                var url = $(this).attr("href");
+                var append = url.indexOf("?") == -1 ? "?" : "&";
+                var finalURL = url + append + $("#searchform").serialize();
+
+                window.history.pushState({}, null, finalURL);
+
+                $.get(finalURL, function(data) {
+                    $("#pagination_data").html(data);
+                });
+
+                return false;
+            })
+
+        });
     </script>
 @endsection
