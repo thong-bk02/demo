@@ -30,7 +30,7 @@
                         </td>
                         <td>
                             <button type="submit" class="btn btn-primary">Search</button>
-                            <a href="" class="btn btn-primary">Thêm Thưởng phạt</a>
+                            <a href="{{ route('admin.reward-discipline.create') }}" class="btn btn-primary">Thêm Thưởng phạt</a>
                         </td>
                     </form>
                 </tr>
@@ -50,26 +50,26 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($rads as $rad)
+                @foreach ($reward_and_disciplines as $reward_and_discipline)
                     <tr class="border-bottom border-dark">
-                        <th scope="row">{{ $rad->id }}</th>
+                        <th scope="row">{{ $reward_and_discipline->id }}</th>
                         <td>
-                            {{ $rad->name }}
+                            {{ $reward_and_discipline->name }}
                         </td>
                         <td>
-                            {{ $rad->genre }}
+                            {{ $reward_and_discipline->genre }}
                         </td>
                         <td>
-                            {{ $rad->reasion }}
+                            {{ $reward_and_discipline->reasion }}
                         </td>
                         <td>
-                            {{ $rad->money }}
+                            {{ $reward_and_discipline->money }}
                         </td>
                         <td>
-                            {{ $rad->date_create }}
+                            {{ $reward_and_discipline->date_created }}
                         </td>
                         <td>
-                            <a href="{{ route('admin.reward-discipline.show', $rad->user_id) }}" class="mx-1"><i
+                            <a href="{{ route('admin.reward-discipline.show', $reward_and_discipline->user_id) }}" class="mx-1"><i
                                     class="fa-solid fa-eye"></i></a>
                             <a href="" class="mx-1" onclick="return confirmDelete()"><i
                                     class="fa-solid fa-trash-can"></i></a>

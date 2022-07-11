@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Tài khoản</title>
+    <title>Tạo tài khoản</title>
 @endsection
 
 @section('content')

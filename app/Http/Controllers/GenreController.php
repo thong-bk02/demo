@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Genre;
-use App\Models\RewardAndDiscipline;
-use App\Models\User;
 use Illuminate\Http\Request;
 
-class RewardAndDisciplineController extends Controller
+class GenreController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +13,7 @@ class RewardAndDisciplineController extends Controller
      */
     public function index()
     {
-        $reward_and_disciplines = RewardAndDiscipline::getAll();
-        return view('admin.reward-discipline.index', compact('reward_and_disciplines'));
+        //
     }
 
     /**
@@ -27,9 +23,7 @@ class RewardAndDisciplineController extends Controller
      */
     public function create()
     {
-        $genres = Genre::all();
-        $user = User::all();
-        return view('admin.reward-discipline.create', compact('user','genres'));
+        //
     }
 
     /**

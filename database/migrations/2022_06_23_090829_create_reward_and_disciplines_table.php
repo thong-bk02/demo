@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('reasion');
             $table->string('note')->nullable();
             $table->double('money');
-            $table->date('date_create');
+            $table->date('date_created');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('type')->references('id')->on('genre');
 

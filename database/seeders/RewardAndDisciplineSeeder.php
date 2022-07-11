@@ -23,7 +23,7 @@ class RewardAndDisciplineSeeder extends Seeder
                 'reasion' => 'reasion 1',
                 'note' => '',
                 'money' => 500000,
-                'date_create' => date('Y-m-d'),
+                'date_created' => date('Y-m-d'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ], [
@@ -33,7 +33,7 @@ class RewardAndDisciplineSeeder extends Seeder
                 'reasion' => 'reasion 2',
                 'note' => '',
                 'money' => 500000,
-                'date_create' => date('Y-m-d'),
+                'date_created' => date('Y-m-d'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ], [
@@ -43,7 +43,7 @@ class RewardAndDisciplineSeeder extends Seeder
                 'reasion' => 'reasion 3',
                 'note' => '',
                 'money' => 500000,
-                'date_create' => date('Y-m-d'),
+                'date_created' => date('Y-m-d'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ], [
@@ -53,7 +53,7 @@ class RewardAndDisciplineSeeder extends Seeder
                 'reasion' => 'reasion 4',
                 'note' => '',
                 'money' => 500000,
-                'date_create' => date('Y-m-d'),
+                'date_created' => date('Y-m-d'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ]

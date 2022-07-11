@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Tài khoản</title>
+    <title>Quản lí tài khoản</title>
 @endsection
 
 @section('css')
@@ -108,9 +108,8 @@
                     document.getElementById("search_btn").click();
                 }
             });
-            
-            $(document).on("click", "#pagination a,#search_btn", function() {
 
+            $(document).on("click", "#pagination a,#search_btn", function() {
                 var url = $(this).attr("href");
                 var append = url.indexOf("?") == -1 ? "?" : "&";
                 var finalURL = url + append + $("#searchform").serialize();

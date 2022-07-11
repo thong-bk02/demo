@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             IncomeTaxSeeder::class,
             PaymentSeeder::class,
             // SalarySeeder::class,
+            RulesAndRegulations::class,
         ]);
     }
 }
