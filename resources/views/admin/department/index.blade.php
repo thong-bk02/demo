@@ -47,7 +47,7 @@
         <table class="table">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">Id</th>
+                    <th scope="col">Stt</th>
                     <th scope="col">Mã phòng ban</th>
                     <th scope="col">Tên phòng ban</th>
                     <th scope="col">Ngày tạo</th>
@@ -58,7 +58,7 @@
             <tbody>
                 @foreach ($departments as $department)
                     <tr class="border-bottom border-dark">
-                        <th scope="row">{{ $department->id }}</th>
+                        <th scope="row">{{ $loop->iteration }}</th>
                         <td>
                             {{ $department->department_code }}
                         </td>

@@ -83,15 +83,12 @@
                                 @endforeach
                             </select>
                         </div>
-
-                        {{-- lấy url trước --}}
-                        <input type="hidden" name="url" value="{{ URL::previous() }}">
                     </div>
                 </div>
 
                 <div class="mx-lg-5 m-2">
                     <input type="submit" class="btn btn-primary mx-3" value="Lưu">
-                    <a href="{{ URL::previous() }}" class="btn btn-secondary mx-3">Thoát</a>
+                    <a href="{{ route('admin.user') }}" class="btn btn-secondary mx-3">Thoát</a>
                 </div>
 
             </form>

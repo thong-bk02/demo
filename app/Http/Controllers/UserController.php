@@ -26,10 +26,21 @@ class UserController extends Controller
         $users = User::search($request);
 
         if ($request->ajax()) {
-            session(['search_name' => $request['name']], ['position' => $request['position']], ['department' => $request['department']], ['status' => $request['status']]);
-            return view('admin.users.pagination_data', compact('users', 'positions', 'departments', 'request'));
+            session([
+                'search_name' => $request['name'],
+                'position' => $request['position'],
+                'department' => $request['department'],
+                'status' => $request['status'],
+                'page' => $request['page']
+            ]);
+            return view('admin.users.pagination_data', compact('users', 'positions', 'departments'));
         }
-        return view('admin.users.index', compact('users', 'positions', 'departments', 'request'));
+        return view('admin.users.index', compact('users', 'positions', 'departments'));
+    }
+
+    public function clearSession(){
+        session()->forget(['search_name', 'position', 'department', 'status', 'page']);
+        return redirect()->route('admin.user');
     }
 
     /**

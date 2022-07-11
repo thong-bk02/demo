@@ -46,7 +46,7 @@
         <table class="table">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">Id</th>
+                    <th scope="col">Stt</th>
                     <th scope="col">Mã chức vụ</th>
                     <th scope="col">Tên chức vụ</th>
                     <th scope="col">Ngày tạo</th>
@@ -57,7 +57,7 @@
             <tbody>
                 @foreach ($positions as $position)
                     <tr class="border-bottom border-dark">
-                        <th scope="row">{{ $position->id }}</th>
+                        <th scope="row">{{ $loop->iteration }}</th>
                         <td>
                             {{ $position->position_code }}
                         </td>

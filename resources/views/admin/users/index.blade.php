@@ -26,12 +26,11 @@
             </thead>
             <tbody>
                 <tr>
-                    <form id="searchform" name="searchform">
+                    <form id="searchform" name="searchform" method="post">
                         <td>
                             <span class="deleteicon">
-                                <input type="text" name="name" id="user_name" placeholder="Họ và tên"
-                                    value="{{ Session('search_name') }}"
-                                    class="form-control" autocomplete="off">
+                                <input type="text" name="name" id="search_name" placeholder="Họ và tên"
+                                    value="{{ Session('search_name') }}" class="form-control" autocomplete="off">
                                 <span
                                     onclick="var input = this.previousElementSibling; input.value = ''; input.focus();">X</span>
                             </span>
@@ -41,7 +40,7 @@
                                 <option value="">tất cả</option>
                                 @foreach ($positions as $position)
                                     <option value="{{ $position->id }}"
-                                        @isset($request) {{ $request['position'] == $position->id ? 'selected' : '' }} @endisset>
+                                        {{ Session('position') == $position->id ? 'selected' : '' }}>
                                         {{ $position->position_name }}</option>
                                 @endforeach
                             </select>
@@ -51,23 +50,20 @@
                                 <option value="">tất cả</option>
                                 @foreach ($departments as $department)
                                     <option value="{{ $department->id }}"
-                                        @isset($request) {{ $request['department'] == $department->id ? 'selected' : '' }} @endisset>
+                                        {{ Session('department') == $department->id ? 'selected' : '' }}>
                                         {{ $department->department }}</option>
                                 @endforeach
                             </select>
                         </td>
                         <td>
                             <select class="form-control" name="status" id="status">
-                                <option value=""
-                                    @isset($request) {{ $request['status'] == '' ? 'selected' : '' }} @endisset>
+                                <option value="" {{ Session('status') == '' ? 'selected' : '' }}>
                                     tất cả
                                 </option>
-                                <option value="1"
-                                    @isset($request) {{ $request['status'] == 1 ? 'selected' : '' }} @endisset>
+                                <option value="1" {{ Session('status') == 1 ? 'selected' : '' }}>
                                     đang làm
                                 </option>
-                                <option value="2"
-                                    @isset($request) {{ $request['status'] == 2 ? 'selected' : '' }} @endisset>
+                                <option value="2" {{ Session('status') == 2 ? 'selected' : '' }}>
                                     đã nghỉ
                                 </option>
                             </select>
@@ -104,21 +100,47 @@
     {{-- Search --}}
     <script>
         $(function() {
+            //sự kiện nhấn enter khi nhập tên nhân viên
+            var input = document.getElementById("search_name");
+            input.addEventListener("keypress", function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    document.getElementById("search_btn").click();
+                }
+            });
+            
             $(document).on("click", "#pagination a,#search_btn", function() {
 
                 var url = $(this).attr("href");
                 var append = url.indexOf("?") == -1 ? "?" : "&";
                 var finalURL = url + append + $("#searchform").serialize();
 
-                window.history.pushState({}, null, finalURL);
-
+                event.preventDefault();
                 $.get(finalURL, function(data) {
                     $("#pagination_data").html(data);
                 });
-
                 return false;
             })
 
         });
     </script>
+
+    @if (session(['search_name']) && session('position') && session('department') && session('status') && session('page') == null)
+    @else
+        <script>
+            $(function() {
+                var page = '{{ Session('page') }}';
+                if (page == "") {
+                    var finalURL = "users?" + $("#searchform").serialize();
+                } else {
+                    var finalURL = "users?page=" + page + "&" + $("#searchform").serialize();
+                }
+
+                $.get(finalURL, function(data) {
+                    $("#pagination_data").html(data);
+                });
+                return false;
+            });
+        </script>
+    @endif
 @endsection

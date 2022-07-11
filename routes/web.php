@@ -35,6 +35,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 //quản lí tài khoản
 Route::get('/admin/users', [UserController::class, 'index'])->name('admin.user');
+Route::get('/admin/user', [UserController::class, 'clearSession'])->name('admin.users.clearSession');
 Route::get('/admin/users/show/{id}', [UserController::class, 'show'])->name('admin.user.show');
 Route::post('/admin/users/show/{id}', [UserController::class, 'update'])->name('admin.user.update');
 Route::get('/admin/users/create', [UserController::class, 'create'])->name('admin.user.create');

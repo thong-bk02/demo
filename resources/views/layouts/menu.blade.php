@@ -6,7 +6,7 @@
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('admin.user') }}" class="nav-link {{ Request::is('admin/users') ? 'active' : '' }} {{ Request::is('admin/users/*') ? 'active' : '' }}">
+    <a href="{{ route('admin.users.clearSession') }}" class="nav-link {{ Request::is('admin/users') ? 'active' : '' }} {{ Request::is('admin/users/*') ? 'active' : '' }}">
         <i class="nav-icon fa-solid fa-users"></i>
         <p>Quản lí nhân sự</p>
     </a>
