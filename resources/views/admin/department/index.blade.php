@@ -2,16 +2,10 @@
 
 @section('content')
     <div class="container">
-        @if (session('success'))
-            <div class="alert alert-success" role="alert">
-                <span>{{ session('success') }}</span>
-            </div>
-        @elseif (session('failed'))
-            <div class="alert alert-error" role="alert">
-                <span>{{ session('failed') }}</span>
-            </div>
-        @endif
-        <div class="my-3">
+        
+        @include('layouts.message')
+
+        <div class="py-3">
             <a href="" class="btn btn-primary" data-toggle="modal" data-target="#add-department">Thêm phòng ban</a>
 
             <div class="modal fade" id="add-department" data-backdrop="static" data-keyboard="false" tabindex="-1"

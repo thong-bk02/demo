@@ -28,7 +28,7 @@
                 <tr>
                     <form id="searchform" name="searchform" method="post">
                         <td>
-                            <span class="deleteicon">
+                            <span class="deleteicon w-100">
                                 <input type="text" name="name" id="search_name" placeholder="Họ và tên"
                                     value="{{ Session('search_name') }}" class="form-control" autocomplete="off">
                                 <span

@@ -2,16 +2,10 @@
 
 @section('content')
     <div class="container">
-        @if (session('success'))
-            <div class="alert alert-success" role="alert">
-                <span>{{ session('success') }}</span>
-            </div>
-        @elseif (session('failed'))
-            <div class="alert alert-error" role="alert">
-                <span>{{ session('failed') }}</span>
-            </div>
-        @endif
-        <div class="my-3">
+        
+        @include('layouts.message')
+
+        <div class="py-3">
             <a href="{{ route('admin.access-rights.create') }}" class="btn btn-primary">Thêm Quyền</a>
         </div>
         <table class="table">

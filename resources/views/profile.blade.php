@@ -2,10 +2,13 @@
 
 @section('content')
     <div class="container">
+
+        @include('layouts.message')
+
         <h2 class="text-center">
             Thông tin tài khoản
         </h2>
-        <form action="" method="">
+        <form action="{{ route('profile.update') }}" method="post">
             @csrf
             <div class="mx-lg-5 mx-2">
                 <div>
@@ -38,7 +41,7 @@
             </div>
             <div class="mx-lg-5 m-2">
                 <input type="submit" class="btn btn-primary mr-3" value="Cập nhật">
-                <a href="{{ redirect()->getUrlGenerator()->previous() }}" class="btn btn-secondary mx-3">Thoát</a>
+                <a href="{{ route('home') }}" class="btn btn-secondary mx-3">Thoát</a>
             </div>
 
         </form>

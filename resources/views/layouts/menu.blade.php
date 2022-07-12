@@ -53,7 +53,7 @@
         <p>Quản lí lương</p>
     </a>
 </li>
-
+{{-- 
 <li class="nav-item">
     <a href="" class="nav-link {{ Request::is('admin/calendar*') ? 'active' : '' }}">
         <i class="nav-icon fa-solid fa-calendar-days"></i>
@@ -66,4 +66,4 @@
         <i class="nav-icon fa-solid fa-scale-balanced"></i>
         <p>Nội quy, Chế tài</p>
     </a>
-</li>
+</li> --}}

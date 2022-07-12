@@ -80,12 +80,12 @@
 
     </div>
 
-    <form action="{{ route('admin.timekeeping.import') }}" method="POST" enctype="multipart/form-data">
+    {{-- <form action="{{ route('admin.timekeeping.import') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="file" name="file" class="form-control">
         <br>
         <button class="btn btn-success">Import Data</button>
-    </form>
+    </form> --}}
 
 
 
@@ -106,8 +106,6 @@
                 var url = $(this).attr("href");
                 var append = url.indexOf("?") == -1 ? "?" : "&";
                 var finalURL = url + append + $("#searchform").serialize();
-
-                window.history.pushState({}, null, finalURL);
 
                 $.get(finalURL, function(data) {
                     $("#pagination_data").html(data);

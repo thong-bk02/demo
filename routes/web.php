@@ -78,7 +78,10 @@ Route::get('/admin/timekeeping/delete/{id}', [TimekeepingController::class, 'des
 Route::get('/admin/reward-discipline', [RewardAndDisciplineController::class, 'index'])->name('admin.reward-discipline');
 Route::get('/admin/reward-discipline/show/{id}', [RewardAndDisciplineController::class, 'show'])->name('admin.reward-discipline.show');
 Route::post('/admin/reward-discipline/update/{id}', [RewardAndDisciplineController::class, 'update'])->name('admin.reward-discipline.update');
-Route::get('/admin/reward-discipline/create', [RewardAndDisciplineController::class, 'create'])->name('admin.reward-discipline.create');
+Route::get('/admin/reward-discipline/{id}/create', [RewardAndDisciplineController::class, 'create'])->name('admin.reward-discipline.create');
+Route::post('/admin/reward-discipline/{id}/create', [RewardAndDisciplineController::class, 'store'])->name('admin.reward-discipline.store');
+Route::get('/admin/reward-discipline/list-users', [RewardAndDisciplineController::class, 'list'])->name('admin.reward-discipline.list');
+Route::get('/admin/reward-discipline/delete/{id}', [RewardAndDisciplineController::class, 'destroy'])->name('admin.reward-discipline.delete');
 
 //quản lí lương
 Route::get('/admin/salary', [SalaryController::class, 'index'])->name('admin.salary');
@@ -88,3 +91,6 @@ Route::get('/admin/salary/create', [SalaryController::class, 'create'])->name('a
 
 //thông tin cá nhân
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+

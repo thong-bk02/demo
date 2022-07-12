@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profile;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,9 +16,12 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $profile = Profile::getProfile(Auth::user()->id);
-        // dd($profile);
-        return view('profile',compact('profile'));
+        try {
+            $profile = Profile::getProfile(Auth::user()->id);
+            return view('profile', compact('profile'));
+        } catch (Exception $ex) {
+            throw $ex;
+        }
     }
 
     /**
@@ -70,9 +74,25 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
+        $input = $request->all();
+        $user = [
+            'name' => $input['name'],
+            'email' => $input['email']
+        ];
+        $profile = [
+            'address' => $input['address'],
+            'phone' => $input['phone'],
+            'birthday' => $input['birthday']
+        ];
+        try {
+            Profile::upd($user, $profile, Auth::user()->id);
+            return redirect()->route('profile')->with('success', 'Cập nhật thành công');
+        } catch (Exception $ex) {
+            return redirect()->route('profile')->with('failed', 'Lỗi sửa thông tin nhân viên !');
+        }
     }
 
     /**

@@ -6,16 +6,23 @@
 
 @section('content')
     <div class="container">
-        
-        @include('layouts.message')
+        @if (session('success'))
+            <div class="alert alert-success" role="alert">
+                <span>{{ session('success') }}</span>
+            </div>
+        @elseif (session('failed'))
+            <div class="alert alert-error" role="alert">
+                <span>{{ session('failed') }}</span>
+            </div>
+        @endif
 
+        {{-- Thanh tìm kiếm --}}
         <table class="table">
             <thead class="thead-light">
                 <tr>
-                    <th scope="col">Tên nhân viên</th>
+                    <th scope="col">Họ và Tên</th>
                     <th scope="col">Chức vụ</th>
                     <th scope="col">Phòng ban</th>
-                    <th scope="col">Ngày phạt</th>
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
@@ -51,14 +58,9 @@
                             </select>
                         </td>
                         <td>
-                            <input type="date" name="date_created" class="form-control" value="">
-                        </td>
-                        <td>
-                            <a class='btn btn-primary' href='{{ url('admin/reward-discipline') }}' id='search_btn'>
+                            <a class='btn btn-primary' href='{{ url('admin/reward-discipline/list-users') }}' id='search_btn'>
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </a>
-                            <a href="{{ route('admin.reward-discipline.list') }}" class="btn btn-primary">
-                                Thêm Thưởng phạt</a>
                         </td>
                     </form>
                 </tr>
@@ -67,7 +69,7 @@
 
         {{-- Kết quả tìm kiếm --}}
         <div id="pagination_data">
-            @include('admin.reward-discipline.index_page_data', ['reward_and_disciplines' => $reward_and_disciplines])
+            @include('admin.reward-discipline.list_page_data', ['users' => $users])
         </div>
     </div>
     <script>
@@ -79,8 +81,7 @@
             }
         }
     </script>
-    
-    {{-- Search --}}
+
     <script>
         $(function() {
             //sự kiện nhấn enter khi nhập tên nhân viên
