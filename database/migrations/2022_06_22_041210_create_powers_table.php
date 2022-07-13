@@ -23,12 +23,8 @@ return new class extends Migration
             $table->integer('terms_and_service');
             $table->integer('event');
             $table->integer('salary');
-            $table->integer('overtime');
-            $table->integer('absence');
             $table->integer('timekeeping');
             $table->integer('reward_and_disciplines');
-            $table->integer('project');
-            $table->integer('task_list');
             $table->foreign('position_id')->references('id')->on('positions');
 
             $table->timestamps();

@@ -14,7 +14,7 @@
             Thêm Thưởng / Phạt
         </h2>
         @foreach ($decisions as $decision)
-            <form action="{{ route('admin.reward-discipline.store', $decision->user_id) }}" method="post">
+            <form action="{{ route('admin.reward-discipline.update', $decision->user_id) }}" method="post">
                 @csrf
                 <div class="row mx-lg-5 mx-2">
                     <div class="col-sm-6">

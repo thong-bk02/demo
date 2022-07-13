@@ -35,12 +35,10 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 //quản lí tài khoản
 Route::get('/admin/users', [UserController::class, 'index'])->name('admin.user');
-Route::get('/admin/user', [UserController::class, 'clearSession'])->name('admin.users.clearSession');
 Route::get('/admin/users/show/{id}', [UserController::class, 'show'])->name('admin.user.show');
 Route::post('/admin/users/show/{id}', [UserController::class, 'update'])->name('admin.user.update');
 Route::get('/admin/users/create', [UserController::class, 'create'])->name('admin.user.create');
 Route::post('/admin/users/create', [UserController::class, 'store'])->name('admin.users.store');
-// Route::post('/admin/users/search/name', [UserController::class, 'searchAjax'])->name('admin.users.searchAjax');
 Route::get('/admin/users/delete/{id}', [UserController::class, 'destroy'])->name('admin.user.delete');
 
 //quản lí chức vụ
@@ -67,7 +65,7 @@ Route::get('/admin/timekeeping/show/{id}', [TimekeepingController::class, 'show'
 Route::post('/admin/timekeeping/show/{id}', [TimekeepingController::class, 'update'])->name('admin.timekeeping.update');
 Route::get('/admin/timekeeping/create', [TimekeepingController::class, 'create'])->name('admin.timekeeping.create');
 Route::post('/admin/timekeeping', [TimekeepingController::class, 'store'])->name('admin.timekeeping.store');
-Route::controller(TimekeepingController::class)->group(function(){
+Route::controller(TimekeepingController::class)->group(function () {
     Route::get('/admin/timekeeping', 'index')->name('admin.timekeeping');
     Route::get('/admin/timekeeping-export', 'export')->name('admin.timekeeping.export');
     Route::post('/admin/timekeeping-import', 'import')->name('admin.timekeeping.import');
@@ -93,4 +91,9 @@ Route::get('/admin/salary/create', [SalaryController::class, 'create'])->name('a
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
-
+//quản lí sự kiện
+Route::get('admin/event', [EventController::class, 'index'])->name('admin.event');
+Route::get('admin/event/show/{id}', [EventController::class, 'show'])->name('admin.event.show');
+Route::get('admin/event/create', [EventController::class, 'create'])->name('admin.event.create');
+Route::get('admin/event/delete/{id}', [EventController::class, 'destroy'])->name('admin.event.delete');
+Route::get('admin/event/update/{id}', [EventController::class, 'update'])->name('admin.event.update');

@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Position;
 use Illuminate\Http\Request;
 
-class PositionController extends Controller
+class EventController extends Controller
 {
-    public $_KEY = 'position';
     /**
      * Display a listing of the resource.
      *
@@ -15,9 +13,7 @@ class PositionController extends Controller
      */
     public function index()
     {
-        $this->clearSession(1);
-        $positions = Position::all();
-        return view('admin.position.index', compact('positions'));
+        
     }
 
     /**
@@ -27,7 +23,7 @@ class PositionController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -38,13 +34,7 @@ class PositionController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-        // dd($input);
-        if (Position::newPosition($input) == true) {
-            return redirect()->route('admin.position')->with('success', 'Thêm chức vụ ' . $input['position_name'] . ' thành công ');
-        } else {
-            return redirect()->route('admin.position')->with('failed', 'Lỗi không thêm được chức vụ');
-        }
+        //
     }
 
     /**
@@ -78,12 +68,7 @@ class PositionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $input = $request->except(['_token']);
-        if ( Position::upd($input, $id) == true) {
-            return redirect()->route('admin.position')->with('success', 'Sửa thành công !');
-        } else {
-            return redirect()->route('admin.position')->with('failed', 'Sửa không thành công !');
-        }
+        //
     }
 
     /**
@@ -94,7 +79,6 @@ class PositionController extends Controller
      */
     public function destroy($id)
     {
-        Position::where('id', $id)->delete();
-        return redirect()->route('admin.position')->with('success', 'Xóa chức vụ thành công !');
+        //
     }
 }

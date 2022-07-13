@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
+    public $_KEY = 'department';
     /**
      * Display a listing of the resource.
      *
@@ -14,6 +15,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
+        $this->clearSession(2);
         $departments = Department::all();
         return view('admin.department.index', compact('departments'));
     }

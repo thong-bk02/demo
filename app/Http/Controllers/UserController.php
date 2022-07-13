@@ -13,7 +13,9 @@ use Carbon\Carbon;
 use Exception;
 
 class UserController extends Controller
-{
+{   
+    public $_KEY = 'users';
+
     /**
      * Display a listing of the resource.
      *
@@ -21,26 +23,17 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        $this->clearSession(0);
+        
         $positions = Position::all();
         $departments = Department::all();
         $users = User::search($request);
-
+        
         if ($request->ajax()) {
-            session([
-                'search_name' => $request['name'],
-                'position' => $request['position'],
-                'department' => $request['department'],
-                'status' => $request['status'],
-                'page' => $request['page']
-            ]);
+            $this->saveSearchSeason($this->_KEY, $request->all());
             return view('admin.users.pagination_data', compact('users', 'positions', 'departments'));
         }
         return view('admin.users.index', compact('users', 'positions', 'departments'));
-    }
-
-    public function clearSession(){
-        session()->forget(['search_name', 'position', 'department', 'status', 'page']);
-        return redirect()->route('admin.user');
     }
 
     /**

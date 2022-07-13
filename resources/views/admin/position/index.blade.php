@@ -59,10 +59,10 @@
                             {{ $position->position_name }}
                         </td>
                         <td>
-                            {{ $position->created_at }}
+                            {{ date('H:i:s d/m/Y', strtotime($position->created_at)) }}
                         </td>
                         <td>
-                            {{ $position->updated_at }}
+                            {{ date('H:i:s d/m/Y', strtotime($position->updated_at)) }}
                         </td>
                         <td>
                             <a href="" class="mx-1" data-toggle="modal"

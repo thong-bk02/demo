@@ -129,4 +129,15 @@ class RewardAndDiscipline extends Model
             return false;
         }
     }
+
+    protected static function upd($request, $id)
+    {
+        try {
+            RewardAndDiscipline::where('user_id', $id)
+                ->update($request);
+            DB::commit();
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
 }

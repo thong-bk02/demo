@@ -21,7 +21,7 @@
                                 placeholder="" value="{{ $timekeeping->from_date }}">
                         </div>
                         <div class="form-group">
-                            <label for="">Ngày hiện tại</label>
+                            <label for="">Ngày kết thúc</label>
                             <input type="date" class="form-control" name="to_date"
                                 value="{{ $timekeeping->to_date }}">
                         </div>

@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container">
-        
+
         @include('layouts.message')
 
         <table class="table">
@@ -25,7 +25,8 @@
                         <td>
                             <span class="deleteicon w-100">
                                 <input type="text" name="name" id="search_name" placeholder="Họ và tên"
-                                    value="{{ Session('search_name') }}" class="form-control" autocomplete="off">
+                                    value="{{ Session('reward_and_discipline.name') }}" class="form-control"
+                                    autocomplete="off">
                                 <span
                                     onclick="var input = this.previousElementSibling; input.value = ''; input.focus();">X</span>
                             </span>
@@ -35,7 +36,7 @@
                                 <option value="">tất cả</option>
                                 @foreach ($positions as $position)
                                     <option value="{{ $position->id }}"
-                                        {{ Session('position') == $position->id ? 'selected' : '' }}>
+                                        {{ Session('reward_and_discipline.position') == $position->id ? 'selected' : '' }}>
                                         {{ $position->position_name }}</option>
                                 @endforeach
                             </select>
@@ -45,13 +46,14 @@
                                 <option value="">tất cả</option>
                                 @foreach ($departments as $department)
                                     <option value="{{ $department->id }}"
-                                        {{ Session('department') == $department->id ? 'selected' : '' }}>
+                                        {{ Session('reward_and_discipline.department') == $department->id ? 'selected' : '' }}>
                                         {{ $department->department }}</option>
                                 @endforeach
                             </select>
                         </td>
                         <td>
-                            <input type="date" name="date_created" class="form-control" value="">
+                            <input type="date" name="date_created" class="form-control"
+                                value="{{ Session('reward_and_discipline.date_created') }}">
                         </td>
                         <td>
                             <a class='btn btn-primary' href='{{ url('admin/reward-discipline') }}' id='search_btn'>
@@ -67,7 +69,9 @@
 
         {{-- Kết quả tìm kiếm --}}
         <div id="pagination_data">
-            @include('admin.reward-discipline.index_page_data', ['reward_and_disciplines' => $reward_and_disciplines])
+            @include('admin.reward-discipline.index_page_data', [
+                'reward_and_disciplines' => $reward_and_disciplines,
+            ])
         </div>
     </div>
     <script>
@@ -79,7 +83,26 @@
             }
         }
     </script>
-    
+
+    @if (blank(session('reward_and_discipline')))
+    @else
+        <script>
+            $(function() {
+                var page = '{{ Session('reward_and_discipline.page') }}';
+                if (page == "") {
+                    var finalURL = "reward-discipline?" + $("#searchform").serialize();
+                } else {
+                    var finalURL = "reward-discipline?page=" + page + "&" + $("#searchform").serialize();
+                }
+
+                $.get(finalURL, function(data) {
+                    $("#pagination_data").html(data);
+                });
+                return false;
+            });
+        </script>
+    @endif
+
     {{-- Search --}}
     <script>
         $(function() {

@@ -30,7 +30,7 @@
                         <td>
                             <span class="deleteicon w-100">
                                 <input type="text" name="name" id="search_name" placeholder="Họ và tên"
-                                    value="{{ Session('search_name') }}" class="form-control" autocomplete="off">
+                                    value="{{ Session('users.name') }}" class="form-control" autocomplete="off">
                                 <span
                                     onclick="var input = this.previousElementSibling; input.value = ''; input.focus();">X</span>
                             </span>
@@ -40,7 +40,7 @@
                                 <option value="">tất cả</option>
                                 @foreach ($positions as $position)
                                     <option value="{{ $position->id }}"
-                                        {{ Session('position') == $position->id ? 'selected' : '' }}>
+                                        {{ Session('users.position') == $position->id ? 'selected' : '' }}>
                                         {{ $position->position_name }}</option>
                                 @endforeach
                             </select>
@@ -50,20 +50,20 @@
                                 <option value="">tất cả</option>
                                 @foreach ($departments as $department)
                                     <option value="{{ $department->id }}"
-                                        {{ Session('department') == $department->id ? 'selected' : '' }}>
+                                        {{ Session('users.department') == $department->id ? 'selected' : '' }}>
                                         {{ $department->department }}</option>
                                 @endforeach
                             </select>
                         </td>
                         <td>
                             <select class="form-control" name="status" id="status">
-                                <option value="" {{ Session('status') == '' ? 'selected' : '' }}>
+                                <option value="" {{ Session('users.status') == '' ? 'selected' : '' }}>
                                     tất cả
                                 </option>
-                                <option value="1" {{ Session('status') == 1 ? 'selected' : '' }}>
+                                <option value="1" {{ Session('users.status') == 1 ? 'selected' : '' }}>
                                     đang làm
                                 </option>
-                                <option value="2" {{ Session('status') == 2 ? 'selected' : '' }}>
+                                <option value="2" {{ Session('users.status') == 2 ? 'selected' : '' }}>
                                     đã nghỉ
                                 </option>
                             </select>
@@ -120,15 +120,14 @@
                 });
                 return false;
             })
-
         });
     </script>
 
-    @if (session(['search_name']) && session('position') && session('department') && session('status') && session('page') == null)
+    @if (blank(session('users')))
     @else
         <script>
             $(function() {
-                var page = '{{ Session('page') }}';
+                var page = '{{ Session('users.page') }}';
                 if (page == "") {
                     var finalURL = "users?" + $("#searchform").serialize();
                 } else {

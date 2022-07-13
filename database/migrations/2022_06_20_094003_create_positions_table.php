@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('positions', function (Blueprint $table) {
             $table->id();
 
-            $table->string('position_name');
-            $table->string('position_code');
+            $table->string('position_name')->unique();
+            $table->string('position_code')->unique();
 
             $table->timestamps();
         });

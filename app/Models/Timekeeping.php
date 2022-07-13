@@ -30,7 +30,7 @@ class Timekeeping extends Model
                 ->when($request->has("name"), function ($q) use ($request) {
                     $q->where("name", "like", "%" . $request->get("name") . "%");
                 });
-                // ->when($request->get('date'), function ($q) use ($request) {
+                // ->when($request->get('month'), function ($q) use ($request) {
                 //     $q->where("date", $request->get("date"));
                 // });
             return $timekeepings->orderBy('name')->paginate(8);
@@ -69,7 +69,7 @@ class Timekeeping extends Model
     protected static function upd($input, $id)
     {
         try {
-            Timekeeping::where('id', $id)
+            Timekeeping::where('user_id', $id)
                 ->update($input);
         } catch (Exception $ex) {
             throw $ex;

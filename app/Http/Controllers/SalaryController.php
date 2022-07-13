@@ -5,13 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Models\Payment;
 use App\Models\Position;
-use App\Models\RewardAndDiscipline;
 use App\Models\Salary;
-use App\Models\Timekeeping;
 use Illuminate\Http\Request;
 
 class SalaryController extends Controller
 {
+    public $_KEY = 'salary';
     /**
      * Display a listing of the resource.
      *
@@ -19,6 +18,7 @@ class SalaryController extends Controller
      */
     public function index()
     {
+        $this->clearSession(6);
         $salarys = Salary::getAll();
         $positions = Position::all();
         $departments = Department::all();

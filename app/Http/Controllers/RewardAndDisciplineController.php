@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 
 class RewardAndDisciplineController extends Controller
 {
+    public $_KEY = 'reward_and_discipline';
     /**
      * Display a listing of the resource.
      *
@@ -19,19 +20,14 @@ class RewardAndDisciplineController extends Controller
      */
     public function index(Request $request)
     {
+        $this->clearSession(5);
+        $_KEY = 'reward_and_discipline';
         $positions = Position::all();
         $departments = Department::all();
-        // $reward_and_disciplines = RewardAndDiscipline::getAll();
         $reward_and_disciplines = RewardAndDiscipline::indexSearch($request);
 
         if ($request->ajax()) {
-            // session([
-            //     'search_name' => $request['name'],
-            //     'position' => $request['position'],
-            //     'department' => $request['department'],
-            //     'status' => $request['status'],
-            //     'page' => $request['page']
-            // ]);
+            $this->saveSearchSeason($this->_KEY, $request->all());
             return view('admin.reward-discipline.index_page_data', compact('reward_and_disciplines', 'positions', 'departments'));
         }
 
@@ -45,13 +41,6 @@ class RewardAndDisciplineController extends Controller
         $users = RewardAndDiscipline::listSearch($request);
 
         if ($request->ajax()) {
-            // session([
-            //     'search_name' => $request['name'],
-            //     'position' => $request['position'],
-            //     'department' => $request['department'],
-            //     'status' => $request['status'],
-            //     'page' => $request['page']
-            // ]);
             return view('admin.reward-discipline.list_page_data', compact('users', 'positions', 'departments'));
         }
 
@@ -125,7 +114,15 @@ class RewardAndDisciplineController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->except(['_token']);
+        $data['user_id'] = $id;
+        try {
+            RewardAndDiscipline::upd($data,$id);
+            return redirect()->route('admin.reward-discipline')->with('success', 'Cập nhật thành công');
+        } catch (Exception $ex) {
+            throw $ex;
+            // return redirect()->route('admin.reward-discipline')->with('failed', 'Sửa thất bại !');
+        }
     }
 
     /**

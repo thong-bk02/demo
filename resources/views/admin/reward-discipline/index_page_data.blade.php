@@ -37,7 +37,7 @@
                         {{ $reward_and_discipline->genre }}
                     </td>
                     <td>
-                        {{ $reward_and_discipline->money }}
+                        {{ number_format($reward_and_discipline->money,0) }}
                     </td>
                     <td>
                         {{ $reward_and_discipline->date_created }}

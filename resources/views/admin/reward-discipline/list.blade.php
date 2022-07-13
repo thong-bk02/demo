@@ -61,6 +61,7 @@
                             <a class='btn btn-primary' href='{{ url('admin/reward-discipline/list-users') }}' id='search_btn'>
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </a>
+                            <a href="{{ route('admin.reward-discipline') }}" class="btn btn-secondary">Thoát</a>
                         </td>
                     </form>
                 </tr>

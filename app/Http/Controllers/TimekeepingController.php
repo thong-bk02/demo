@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class TimekeepingController extends Controller
 {
+    public $_KEY = 'timekeeping';
     /**
      * Display a listing of the resource.
      *
@@ -20,10 +21,12 @@ class TimekeepingController extends Controller
      */
     public function index(Request $request)
     {
+        $this->clearSession(4);
         $timekeepings = Timekeeping::getAll($request);
         $users = User::all();
 
         if ($request->ajax()) {
+            $this->saveSearchSeason($this->_KEY, $request->all());
             return view('admin.timekeeping.pagination_data', compact('timekeepings','users', 'request'));
         }
         return view('admin.timekeeping.index', compact('timekeepings','users', 'request'));

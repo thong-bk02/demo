@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class PowerController extends Controller
 {
+    public $_KEY = 'access_right';
     /**
      * Display a listing of the resource.
      *
@@ -15,6 +16,7 @@ class PowerController extends Controller
      */
     public function index()
     {
+        $this->clearSession(3);
         $access_rights = Power::getAll();
         return view('admin.access-rights.index',compact('access_rights'));
     }

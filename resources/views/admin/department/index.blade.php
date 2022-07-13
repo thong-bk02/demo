@@ -60,10 +60,10 @@
                             {{ $department->department }}
                         </td>
                         <td>
-                            {{ $department->created_at }}
+                            {{ date('H:i:s d/m/Y', strtotime($department->created_at)) }}
                         </td>
                         <td>
-                            {{ $department->updated_at }}
+                            {{ date('H:i:s d/m/Y', strtotime($department->updated_at)) }}
                         </td>
                         <td>
                             <a href="" class="mx-1" data-toggle="modal"
