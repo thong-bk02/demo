@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container">
-        <h2 class="mb-4">
-            Thêm mới quyền truy cập cho
+        <h2 class="mb-4 text-center py-3">
+            Thêm mới quyền truy cập
         </h2>
         <form action="" method="post">
             @csrf
@@ -57,29 +57,9 @@
                         </div>
                     </div>
 
-                    <div class="form-group border border-info rounded">
-                        <div class="ml-3"><label for="name">Quản lí chính sách và điều khoản</label></div>
-                        <div class="form-check form-check-inline ml-3">
-                            <input class="form-check-input" type="radio" name="terms_and_service" id="user1" value="1">
-                            <label class="form-check-label" for="user1">cho phép</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="terms_and_service" id="user2" value="0">
-                            <label class="form-check-label" for="user2">không cho phép</label>
-                        </div>
-                    </div>
+                    
 
-                    <div class="form-group border border-info rounded">
-                        <div class="ml-3"><label for="name">Quản lí sự kiện</label></div>
-                        <div class="form-check form-check-inline ml-3">
-                            <input class="form-check-input" type="radio" name="event" id="user1" value="1">
-                            <label class="form-check-label" for="user1">cho phép</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="event" id="user2" value="0">
-                            <label class="form-check-label" for="user2">không cho phép</label>
-                        </div>
-                    </div>
+                    
 
                     <div class="form-group border border-info rounded">
                         <div class="ml-3"><label for="name">Quản lí lương</label></div>
@@ -94,29 +74,6 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="form-group border border-info rounded">
-                        <div class="ml-3"><label for="name">Quản lí tăng ca</label></div>
-                        <div class="form-check form-check-inline ml-3">
-                            <input class="form-check-input" type="radio" name="overtime" id="user1" value="1">
-                            <label class="form-check-label" for="user1">cho phép</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="overtime" id="user2" value="0">
-                            <label class="form-check-label" for="user2">không cho phép</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group border border-info rounded">
-                        <div class="ml-3"><label for="name">Quản lí vắng mặt</label></div>
-                        <div class="form-check form-check-inline ml-3">
-                            <input class="form-check-input" type="radio" name="absence" id="user1" value="1">
-                            <label class="form-check-label" for="user1">cho phép</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="absence" id="user2" value="0">
-                            <label class="form-check-label" for="user2">không cho phép</label>
-                        </div>
-                    </div>
                     
                     <div class="form-group border border-info rounded">
                         <div class="ml-3"><label for="name">Quản lí chấm công</label></div>
@@ -141,27 +98,25 @@
                             <label class="form-check-label" for="user2">không cho phép</label>
                         </div>
                     </div>
-
                     <div class="form-group border border-info rounded">
-                        <div class="ml-3"><label for="name">Quản lí dự án</label></div>
+                        <div class="ml-3"><label for="name">Quản lí sự kiện</label></div>
                         <div class="form-check form-check-inline ml-3">
-                            <input class="form-check-input" type="radio" name="project" id="user1" value="1">
+                            <input class="form-check-input" type="radio" name="event" id="user1" value="1">
                             <label class="form-check-label" for="user1">cho phép</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="project" id="user2" value="0">
+                            <input class="form-check-input" type="radio" name="event" id="user2" value="0">
                             <label class="form-check-label" for="user2">không cho phép</label>
                         </div>
                     </div>
-
                     <div class="form-group border border-info rounded">
-                        <div class="ml-3"><label for="name">Quản lí công việc</label></div>
+                        <div class="ml-3"><label for="name">Quản lí chính sách và điều khoản</label></div>
                         <div class="form-check form-check-inline ml-3">
-                            <input class="form-check-input" type="radio" name="task_list" id="user1" value="1">
+                            <input class="form-check-input" type="radio" name="terms_and_service" id="user1" value="1">
                             <label class="form-check-label" for="user1">cho phép</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="task_list" id="user2" value="0">
+                            <input class="form-check-input" type="radio" name="terms_and_service" id="user2" value="0">
                             <label class="form-check-label" for="user2">không cho phép</label>
                         </div>
                     </div>

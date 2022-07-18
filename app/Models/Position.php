@@ -9,12 +9,12 @@ use PhpParser\Node\Expr;
 
 class Position extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'position_name',
         'position_code'
-    ];
-
-    use HasFactory;
+    ]; 
 
     protected static function newPosition($input)
     {

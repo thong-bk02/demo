@@ -11,11 +11,9 @@
         </tr>
     </thead>
     @if (blank($users))
-    <tbody>
-        <tr>
-            <p class="alert alert-secondary text-center">Không có kết quả !</p>
-        </tr>
-    </tbody>
+        <tbody>
+            <tr><p class="alert alert-secondary text-center">Không có kết quả !</p></tr>
+        </tbody>
     @endif
     <tbody id="personnel_search_list">
         @foreach ($users as $user)
@@ -23,18 +21,10 @@
                 <th scope="row">
                     {{ ($users->currentPage() - 1) * $users->links()->paginator->perPage() + $loop->iteration }}
                 </th>
-                <td>
-                    {{ $user->name }}
-                </td>
-                <td>
-                    {{ $user->user_code }}
-                </td>
-                <td>
-                    {{ $user->position_name }}
-                </td>
-                <td>
-                    {{ $user->department }}
-                </td>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->user_code }}</td>
+                <td>{{ $user->position_name }}</td>
+                <td>{{ $user->department }}</td>
                 <td>
                     @if ($user->status == 2)
                         <span class="badge badge-secondary">đã nghỉ</span>

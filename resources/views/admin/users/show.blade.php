@@ -6,8 +6,8 @@
 
 @section('content')
     <div class="container">
-        <h2 class="text-center">
-            Thông tin nhân viên:
+        <h2 class="text-center p-3">
+            Thông tin nhân sự:
         </h2>
         @foreach ($users as $user)
             <form action="{{ route('admin.user.update', $user->user_id) }}" method="post">

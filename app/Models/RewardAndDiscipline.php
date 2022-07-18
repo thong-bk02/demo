@@ -94,15 +94,6 @@ class RewardAndDiscipline extends Model
         }
     }
 
-    protected static function createRAD($data)
-    {
-        try {
-            RewardAndDiscipline::create($data);
-        } catch (Exception $ex) {
-            throw $ex;
-        }
-    }
-
     protected static function showRAD($id)
     {
         try {
@@ -112,7 +103,7 @@ class RewardAndDiscipline extends Model
                 ->join('positions', 'profile_users.position', 'positions.id')
                 ->join('departments', 'profile_users.department', 'departments.id')
                 ->join('genre', 'reward_and_disciplines.type', 'genre.id')
-                ->select('users.name', 'reward_and_disciplines.*', 'genre.genre', 'positions.position_name', 'departments.department')
+                ->select('users.name', 'reward_and_disciplines.*', 'genre.genre', 'positions.position_name', 'departments.*')
                 ->where('reward_and_disciplines.id', $id)
                 ->get();
             return $decision;
@@ -120,6 +111,16 @@ class RewardAndDiscipline extends Model
             throw $ex;
         }
     }
+
+    protected static function createRAD($data)
+    {
+        try {
+            RewardAndDiscipline::create($data);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
 
     protected static function deleteDecision($id)
     {

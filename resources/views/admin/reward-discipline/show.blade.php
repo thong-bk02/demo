@@ -11,7 +11,7 @@
 @section('content')
     <div class="container">
         <h2 class="text-center pt-3 pb-4">
-            Thêm Thưởng / Phạt
+            Thông tin Thưởng - Phạt
         </h2>
         @foreach ($decisions as $decision)
             <form action="{{ route('admin.reward-discipline.update', $decision->user_id) }}" method="post">

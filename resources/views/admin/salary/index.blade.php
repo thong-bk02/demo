@@ -24,12 +24,12 @@
                 <tr>
                     <form action="" method="">
                         <td>
-                            <input type="text" name="name" class="form-control">
+                            <input type="text" name="name" class="form-control" placeholder="Họ và tên">
                         </td>
                         <td>
                             <div class="form-group">
                                 <select class="form-control" name="position">
-                                    <option value="0"></option>
+                                    <option value="">tất cả</option>
                                     @foreach ($positions as $position)
                                         <option value="{{ $position->id }}">
                                             {{ $position->position_name }}</option>
@@ -40,7 +40,7 @@
                         <td>
                             <div class="form-group">
                                 <select class="form-control" name="department">
-                                    <option value="0"></option>
+                                    <option value="">tất cả</option>
                                     @foreach ($departments as $department)
                                         <option value="{{ $department->id }}">
                                             {{ $department->department }}</option>
@@ -72,7 +72,7 @@
             <tbody>
                 @foreach ($salarys as $key => $salary)
                     <tr class="border-bottom border-dark">
-                        <th scope="row">{{ $salary->id }}</th>
+                        <th scope="row">{{ $loop->iteration }}</th>
                         <td>
                             {{ $salary->name }}
                         </td>

@@ -40,6 +40,8 @@
                             <a href="{{ route('admin.access-rights.show', $access_right->id) }}" class="mx-1">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
+                            <a href="" class="mx-1"
+                                onclick="return confirmDelete()"><i class="fa-solid fa-trash-can"></i></a>
                         </td>
                     </tr>
                 @endforeach

@@ -59,12 +59,6 @@ class RewardAndDisciplineController extends Controller
         return view('admin.reward-discipline.create', compact('user', 'genres'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request, $id)
     {
         $data = $request->all();
@@ -120,8 +114,8 @@ class RewardAndDisciplineController extends Controller
             RewardAndDiscipline::upd($data,$id);
             return redirect()->route('admin.reward-discipline')->with('success', 'Cập nhật thành công');
         } catch (Exception $ex) {
-            throw $ex;
-            // return redirect()->route('admin.reward-discipline')->with('failed', 'Sửa thất bại !');
+            // throw $ex;
+            return redirect()->route('admin.reward-discipline')->with('failed', 'Sửa thất bại !');
         }
     }
 

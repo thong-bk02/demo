@@ -6,8 +6,8 @@
 
 @section('content')
     <div class="container">
-        <h2 class="text-center">
-            Thêm nhân viên
+        <h2 class="text-center p-3">
+            Thêm nhân sự
         </h2>
         <form action="{{ route('admin.users.store') }}" method="post">
             @csrf

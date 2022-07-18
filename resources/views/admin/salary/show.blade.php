@@ -93,7 +93,7 @@
                                     {{ $rad->money }}
                                 </td>
                                 <td>
-                                    {{ $rad->date_create }}
+                                    {{ $rad->date_created }}
                                 </td>
                                 <td>
                                     <a href="{{ route('admin.reward-discipline.show', $rad->user_id) }}"

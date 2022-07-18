@@ -30,6 +30,5 @@ class Controller extends BaseController
         ];
         $filtered = Arr::except($arraySession, [$_KEY]);
         session()->forget($filtered);
-
     }
 }
