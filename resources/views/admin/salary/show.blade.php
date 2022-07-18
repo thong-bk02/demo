@@ -2,11 +2,12 @@
 
 @section('content')
     <div class="container">
-        <h2 class="text-center">
-            Thông tin Lương
-        </h2>
+
         @foreach ($salarys as $salary)
-            <form action="" method="">
+            <h2 class="text-center py-3">
+                Thông tin Lương tháng {{ $salary->month }}
+            </h2>
+            <form action="{{ route('admin.salary.update', $salary->user_id) }}" method="post">
                 @csrf
                 <div class="row mx-lg-5 mx-2">
                     <div class="col-sm-6">
@@ -24,8 +25,8 @@
                         </div>
                         <div class="form-group">
                             <label>Lương cơ bản</label>
-                            <input type="text" class="form-control" value="{{ $salary->coefficients_salary }}"
-                                disabled>
+                            <input type="text" class="form-control"
+                                value="{{ number_format($salary->coefficients_salary, 0) }}" disabled>
                         </div>
                         <div class="form-group">
                             <label>Số ngày công</label>
@@ -35,18 +36,21 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="phone">Phụ cấp</label>
-                            <input type="number" class="form-control" name="absence" value="{{ $salary->subsidize }}">
+                            <input type="text" class="form-control" name="absence"
+                                value="{{ number_format($salary->subsidize, 0) }}">
                         </div>
                         <div class="row">
                             <div class="form-group col-6">
-                                <label for="email">Tổng thưởng</label>
+                                <label for="text">Tổng thưởng</label>
                                 {{-- <input type="number" class="form-control" name="reward" value="{{ $salary->reward }}"> --}}
-                                <input type="number" class="form-control" name="reward" value="">
+                                <input type="text" class="form-control" name=""
+                                    value="{{ number_format($total_reward, 0) }}" disabled>
                             </div>
                             <div class="form-group col-6">
-                                <label for="email">Tổng phạt</label>
+                                <label for="text">Tổng phạt</label>
                                 {{-- <input type="number" class="form-control" name="discipline" value="{{ $salary->discipline }}"> --}}
-                                <input type="number" class="form-control" name="discipline" value="">
+                                <input type="text" class="form-control" name=""
+                                    value="{{ number_format($total_discipline, 0) }}" disabled>
                             </div>
                         </div>
                         <div class="form-group">
@@ -65,46 +69,11 @@
                         </div>
                         <div class="form-group">
                             <label for="email">Tổng lương</label>
-                            <input type="number" class="form-control" value="{{ $salary->total_money }}" disabled>
+                            <input type="text" class="form-control"
+                                value="{{ number_format($salary->total_money, 0) }}" pattern="[0-9]+" disabled>
                         </div>
                     </div>
                 </div>
-
-                <table class="table">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">Hình thức</th>
-                            <th scope="col">Lí do</th>
-                            <th scope="col">Số tiền</th>
-                            <th scope="col">Ngày quyết định</th>
-                            <th scope="col">Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($rads as $rad)
-                            <tr class="border-bottom border-dark">
-                                <td>
-                                    {{ $rad->genre }}
-                                </td>
-                                <td>
-                                    {{ $rad->reasion }}
-                                </td>
-                                <td>
-                                    {{ $rad->money }}
-                                </td>
-                                <td>
-                                    {{ $rad->date_created }}
-                                </td>
-                                <td>
-                                    <a href="{{ route('admin.reward-discipline.show', $rad->user_id) }}"
-                                        class="mx-1"><i class="fa-solid fa-eye"></i></a>
-                                    <a href="" class="mx-1" onclick="return confirmDelete()"><i
-                                            class="fa-solid fa-trash-can"></i></a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
 
                 <div class="mx-lg-5 m-2">
                     <input type="submit" class="btn btn-primary mx-3" value="Lưu">
@@ -112,5 +81,48 @@
                 </div>
             </form>
         @endforeach
+
+        <div class="text-center py-4 h2">Danh sách quyết định thưởng - phạt</div>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Hình thức</th>
+                    <th scope="col">Lí do</th>
+                    <th scope="col">Số tiền</th>
+                    <th scope="col">Ngày quyết định</th>
+                    <th scope="col">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (blank($decisions))
+                    <tr>
+                        <td colspan="5" class="text-center bg-secondary">Không có quyết định thưởng - phạt!</td>
+                    </tr>
+                @else
+                    @foreach ($decisions as $decision)
+                        <tr class="border-bottom border-dark">
+                            <td>
+                                {{ $decision->genre }}
+                            </td>
+                            <td>
+                                {{ $decision->reasion }}
+                            </td>
+                            <td>
+                                {{ number_format($decision->money, 0) }}
+                            </td>
+                            <td>
+                                {{ $decision->date_created }}
+                            </td>
+                            <td>
+                                <a href="{{ route('admin.reward-discipline.show', $decision->user_id) }}"
+                                    class="mx-1"><i class="fa-solid fa-eye"></i></a>
+                                <a href="" class="mx-1" onclick="return confirmDelete()"><i
+                                        class="fa-solid fa-trash-can"></i></a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
+            </tbody>
+        </table>
     </div>
 @endsection

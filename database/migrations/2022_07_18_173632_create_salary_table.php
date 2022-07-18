@@ -13,24 +13,24 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('salarys', function (Blueprint $table) {
+        Schema::create('salary', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('timekeeping');
+            $table->string('month');
             $table->unsignedBigInteger('coefficients_salary');
             $table->double('subsidize');
-            $table->unsignedBigInteger('reward_and_discipline');
-            $table->unsignedBigInteger('income_tax');
+            $table->bigInteger('total_reward')->default(0)->nullable();
+            $table->bigInteger('total_discipline')->default(0)->nullable();
             $table->double('total_money');
+            $table->unsignedBigInteger('income_tax');
             $table->unsignedBigInteger('payment');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('timekeeping')->references('id')->on('timekeepings');
             $table->foreign('coefficients_salary')->references('id')->on('coefficients_salarys');
-            $table->foreign('reward_and_discipline')->references('id')->on('reward_and_disciplines');
             $table->foreign('income_tax')->references('id')->on('income_taxs');
             $table->foreign('payment')->references('id')->on('payments');
-            
             
             $table->timestamps();
         });
@@ -43,6 +43,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('salarys');
+        Schema::dropIfExists('salary');
     }
 };

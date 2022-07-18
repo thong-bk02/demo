@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BasicSalary;
 use App\Models\Department;
 use App\Models\Payment;
 use App\Models\Position;
 use App\Models\Salary;
+use Exception;
 use Illuminate\Http\Request;
 
 class SalaryController extends Controller
@@ -31,9 +33,15 @@ class SalaryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $salarys = Salary::getSalary($id);
+        $basic_salary = BasicSalary::all();
+        $total_reward = Salary::get_Total_RewardAndDiscipline($id, 1);
+        $total_discipline = Salary::get_Total_RewardAndDiscipline($id, 2);
+        $payments = Payment::all();
+        $decisions = Salary::getDecision($id);
+        return view('admin.salary.create', compact('salarys', 'total_reward', 'total_discipline','basic_salary', 'payments', 'decisions'));
     }
 
     /**
@@ -42,9 +50,17 @@ class SalaryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request ,$id)
     {
-        //
+        $input = $request->all();
+        $input['coefficients_salarys'] = 3;
+        $input['user_id'] = $id;
+        try{
+            Salary::createdSalary($input);
+            return redirect()->route('admin.salary')->with('success', 'Thêm thành công !');
+        } catch (Exception $ex) {
+            throw $ex;
+        }
     }
 
     /**
@@ -56,9 +72,24 @@ class SalaryController extends Controller
     public function show($id)
     {
         $salarys = Salary::getOne($id);
+        $total_reward = Salary::get_Total_RewardAndDiscipline($id, 1);
+        $total_discipline = Salary::get_Total_RewardAndDiscipline($id, 2);
         $payments = Payment::all();
-        $rads = Salary::getRad($id);
-        return view('admin.salary.show', compact('salarys','payments','rads'));
+        $decisions = Salary::getDecision($id);
+        return view('admin.salary.show', compact('salarys', 'total_reward', 'total_discipline', 'payments', 'decisions'));
+    }
+
+    public function listUser(Request $request)
+    {
+        $positions = Position::all();
+        $departments = Department::all();
+        $users = Salary::listSearch($request);
+
+        if ($request->ajax()) {
+            return view('admin.salary.list_page_data', compact('users', 'positions', 'departments'));
+        }
+
+        return view('admin.salary.list', compact('users', 'positions', 'departments'));
     }
 
     /**
@@ -81,7 +112,7 @@ class SalaryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
     }
 
     /**

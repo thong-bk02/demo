@@ -2,15 +2,9 @@
 
 @section('content')
     <div class="container">
-        @if (session('success'))
-            <div class="alert alert-success" role="alert">
-                <span>{{ session('success') }}</span>
-            </div>
-        @elseif (session('failed'))
-            <div class="alert alert-error" role="alert">
-                <span>{{ session('failed') }}</span>
-            </div>
-        @endif
+        
+        @include('layouts.message')
+
         <table class="table">
             <thead class="thead-light">
                 <tr>
@@ -50,7 +44,7 @@
                         </td>
                         <td>
                             <button type="submit" class="btn btn-primary">Tìm</button>
-                            <a href="" class="btn btn-primary">Thêm Lương</a>
+                            <a href="{{ route('admin.salary.list') }}" class="btn btn-primary">Thêm Lương</a>
                         </td>
                     </form>
                 </tr>
@@ -63,6 +57,7 @@
                     <th scope="col">Stt</th>
                     <th scope="col">Tên nhân viên</th>
                     <th scope="col">Chức vụ</th>
+                    <th scope="col">Tháng</th>
                     <th scope="col">Tổng lương</th>
                     <th scope="col">Thanh toán</th>
                     <th scope="col">Ngày thanh toán</th>
@@ -80,16 +75,19 @@
                             {{ $salary->position_name }}
                         </td>
                         <td>
-                            {{ $salary->total_money }}
+                            {{ $salary->month }}
+                        </td>
+                        <td>
+                            {{ number_format($salary->total_money,0) }}
                         </td>
                         <td>
                             {{ $salary->payment }}
                         </td>
                         <td>
-                            {{ $salary->created_at }}
+                            {{ date('H:i:s d/m/Y', strtotime($position->created_at)) }}
                         </td>
                         <td>
-                            <a href="{{ route('admin.salary.show', $salary->id) }}" class="mx-1"><i class="fa-solid fa-eye"></i></a>
+                            <a href="{{ route('admin.salary.show', $salary->user_id) }}" class="mx-1"><i class="fa-solid fa-eye"></i></a>
                             <a href="" class="mx-1" onclick="return confirmDelete()"><i
                                     class="fa-solid fa-trash-can"></i></a>
                         </td>

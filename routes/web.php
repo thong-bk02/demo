@@ -12,7 +12,6 @@ use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\TimekeepingController;
 use App\Http\Controllers\UserController;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -85,7 +84,9 @@ Route::get('/admin/reward-discipline/delete/{id}', [RewardAndDisciplineControlle
 Route::get('/admin/salary', [SalaryController::class, 'index'])->name('admin.salary');
 Route::get('/admin/salary/show/{id}', [SalaryController::class, 'show'])->name('admin.salary.show');
 Route::post('/admin/salary/update/{id}', [SalaryController::class, 'update'])->name('admin.salary.update');
-Route::get('/admin/salary/create', [SalaryController::class, 'create'])->name('admin.salary.create');
+Route::get('/admin/salary/list-users', [SalaryController::class, 'listUser'])->name('admin.salary.list');
+Route::get('/admin/salary/{id}/create', [SalaryController::class, 'create'])->name('admin.salary.create');
+Route::post('/admin/salary/{id}/create', [SalaryController::class, 'store'])->name('admin.salary.store');
 
 //thông tin cá nhân
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
