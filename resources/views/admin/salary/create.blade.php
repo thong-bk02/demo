@@ -59,13 +59,13 @@
                                 <label for="text">Tổng thưởng</label>
                                 {{-- <input type="number" class="form-control" name="reward" value="{{ $salary->reward }}"> --}}
                                 <input type="text" class="form-control" name="total_reward" id="total_reward"
-                                    value="{{ number_format($total_reward, 0) }}" readonly>
+                                    value="{{ $total_reward }}" readonly>
                             </div>
                             <div class="form-group col-6">
                                 <label for="text">Tổng phạt</label>
                                 {{-- <input type="number" class="form-control" name="discipline" value="{{ $salary->discipline }}"> --}}
                                 <input type="text" class="form-control" name="total_discipline" id="total_discipline"
-                                    value="{{ number_format($total_discipline, 0) }}" readonly>
+                                    value="{{ $total_discipline }}" readonly>
                             </div>
                         </div>
                         <div class="form-group">

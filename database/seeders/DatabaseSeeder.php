@@ -30,10 +30,9 @@ class DatabaseSeeder extends Seeder
             GenreSeeder::class,
             BasicSalarySeeder::class,
             RewardAndDisciplineSeeder::class,
-            IncomeTaxSeeder::class,
             PaymentSeeder::class,
             // SalarySeeder::class,
-            RulesAndRegulations::class,
+            // RulesAndRegulations::class,
         ]);
     }
 }

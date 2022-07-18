@@ -57,7 +57,7 @@ class SalaryController extends Controller
         $input['user_id'] = $id;
         try{
             Salary::createdSalary($input);
-            return redirect()->route('admin.salary')->with('success', 'Thêm thành công !');
+            return redirect()->route('admin.salary')->with('success', 'Thêm lương thành công !');
         } catch (Exception $ex) {
             throw $ex;
         }

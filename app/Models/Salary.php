@@ -35,8 +35,6 @@ class Salary extends Model
             ->join('payments', 'salary.payment', 'payments.id')
             ->join('profile_users', 'salary.user_id', 'profile_users.user_id')
             ->join('positions', 'profile_users.position', 'positions.id')
-            // ->join('coefficients_salarys','positions.id','=', 'coefficients_salarys.position')
-            // ->join('income_taxs','positions.id','=', 'income_taxs.position')
             ->select(
                 'users.name',
                 'salary.*',
@@ -44,8 +42,6 @@ class Salary extends Model
                 'payments.payment',
                 'profile_users.position',
                 'positions.position_name',
-                // 'coefficients_salarys.coefficients_salary',
-                // 'income_taxs.income_tax'
             )
             ->get();
         return $salarys;
@@ -60,7 +56,6 @@ class Salary extends Model
             ->join('positions', 'profile_users.position', 'positions.id')
             ->join('departments', 'profile_users.department', 'departments.id')
             ->join('coefficients_salarys', 'positions.id', 'coefficients_salarys.position')
-            ->join('income_taxs', 'positions.id', 'income_taxs.position')
             ->where('salary.user_id', $id)
             ->select(
                 'users.*',
@@ -69,8 +64,7 @@ class Salary extends Model
                 'profile_users.position',
                 'positions.position_name',
                 'departments.department',
-                'coefficients_salarys.coefficients_salary',
-                'income_taxs.income_tax'
+                'coefficients_salarys.coefficients_salary'
             )
             ->get();
 
