@@ -93,7 +93,7 @@ class SalaryController extends Controller
         $users = Salary::listSearch($request);
 
         if ($request->ajax()) {
-            $this->saveSearchSession('salary_listUser', $request->all());
+            $this->saveSearchSession('list_users', $request->all());
             return view('admin.salary.list_page_data', compact('users', 'positions', 'departments'));
         }
 

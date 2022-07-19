@@ -23,7 +23,7 @@
                         <td>
                             <span class="deleteicon w-100">
                                 <input type="text" name="name" id="search_name" placeholder="Họ và tên"
-                                    value="{{ Session('search_name') }}" class="form-control" autocomplete="off">
+                                    value="{{ Session('salary_listUser.name') }}" class="form-control" autocomplete="off">
                                 <span
                                     onclick="var input = this.previousElementSibling; input.value = ''; input.focus();">X</span>
                             </span>
@@ -33,7 +33,7 @@
                                 <option value="">tất cả</option>
                                 @foreach ($positions as $position)
                                     <option value="{{ $position->id }}"
-                                        {{ Session('position') == $position->id ? 'selected' : '' }}>
+                                        {{ Session('salary_listUser.position') == $position->id ? 'selected' : '' }}>
                                         {{ $position->position_name }}</option>
                                 @endforeach
                             </select>
@@ -43,7 +43,7 @@
                                 <option value="">tất cả</option>
                                 @foreach ($departments as $department)
                                     <option value="{{ $department->id }}"
-                                        {{ Session('department') == $department->id ? 'selected' : '' }}>
+                                        {{ Session('salary_listUser.department') == $department->id ? 'selected' : '' }}>
                                         {{ $department->department }}</option>
                                 @endforeach
                             </select>
@@ -64,15 +64,25 @@
             @include('admin.salary.list_page_data', ['users' => $users])
         </div>
     </div>
-    <script>
-        function confirmDelete() {
-            if (confirm("xóa người nhân viên này ?") == true) {
-                return true;
-            } else {
+
+    @if (blank(session('salary_listUser')))
+    @else
+        <script>
+            $(function() {
+                var page = '{{ Session('salary_listUser.page') }}';
+                if (page == "") {
+                    var finalURL = "list-users?" + $("#searchform").serialize();
+                } else {
+                    var finalURL = "list-users?page=" + page + "&" + $("#searchform").serialize();
+                }
+
+                $.get(finalURL, function(data) {
+                    $("#pagination_data").html(data);
+                });
                 return false;
-            }
-        }
-    </script>
+            });
+        </script>
+    @endif
 
     <script>
         $(function() {
