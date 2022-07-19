@@ -26,7 +26,7 @@ class TimekeepingController extends Controller
         $users = User::all();
 
         if ($request->ajax()) {
-            $this->saveSearchSeason($this->_KEY, $request->all());
+            $this->saveSearchSession($this->_KEY, $request->all());
             return view('admin.timekeeping.pagination_data', compact('timekeepings','users', 'request'));
         }
         return view('admin.timekeeping.index', compact('timekeepings','users', 'request'));

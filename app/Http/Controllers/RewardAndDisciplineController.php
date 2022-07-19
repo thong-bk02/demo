@@ -27,7 +27,7 @@ class RewardAndDisciplineController extends Controller
         $reward_and_disciplines = RewardAndDiscipline::indexSearch($request);
 
         if ($request->ajax()) {
-            $this->saveSearchSeason($this->_KEY, $request->all());
+            $this->saveSearchSession($this->_KEY, $request->all());
             return view('admin.reward-discipline.index_page_data', compact('reward_and_disciplines', 'positions', 'departments'));
         }
 

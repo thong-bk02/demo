@@ -30,7 +30,7 @@ class UserController extends Controller
         $users = User::search($request);
         
         if ($request->ajax()) {
-            $this->saveSearchSeason($this->_KEY, $request->all());
+            $this->saveSearchSession($this->_KEY, $request->all());
             return view('admin.users.pagination_data', compact('users', 'positions', 'departments'));
         }
         return view('admin.users.index', compact('users', 'positions', 'departments'));

@@ -17,7 +17,7 @@ class Controller extends BaseController
         $this->middleware('auth');
     }
 
-    public function saveSearchSeason($_KEY, $value)
+    public function saveSearchSession($_KEY, $value)
     {
         session()->put($_KEY, $value);
     }

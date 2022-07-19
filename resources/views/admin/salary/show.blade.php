@@ -13,73 +13,126 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Tên nhân viên</label>
-                            <input type="text" class="form-control" value="{{ $salary->name }}" disabled>
+                            <input type="text" class="form-control" value="{{ $salary->name }}" readonly>
                         </div>
                         <div class="form-group">
                             <label>Chức vụ</label>
-                            <input type="text" class="form-control" value="{{ $salary->position_name }}" disabled>
+                            <input type="text" class="form-control" value="{{ $salary->position_name }}" readonly>
                         </div>
                         <div class="form-group">
                             <label>Phòng ban</label>
-                            <input type="text" class="form-control" value="{{ $salary->department }}" disabled>
+                            <input type="text" class="form-control" value="{{ $salary->department }}" readonly>
                         </div>
                         <div class="form-group">
                             <label>Lương cơ bản</label>
-                            <input type="text" class="form-control"
-                                value="{{ number_format($salary->coefficients_salary, 0) }}" disabled>
+                            <input type="text" class="form-control" id="coefficients_salary"
+                                value="{{ number_format($salary->coefficients_salary, 0) }}" readonly>
                         </div>
                         <div class="form-group">
                             <label>Số ngày công</label>
-                            <input type="text" class="form-control" value="{{ $salary->working_days }}" disabled>
+                            <input type="text" class="form-control" id="working_days"
+                                value="{{ $salary->working_days }}" readonly>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="phone">Phụ cấp</label>
-                            <input type="text" class="form-control" name="absence"
-                                value="{{ number_format($salary->subsidize, 0) }}">
+                            <input type="text" class="form-control" name="subsidize" id="subsidize"
+                                value="{{ $salary->subsidize }}">
                         </div>
                         <div class="row">
                             <div class="form-group col-6">
                                 <label for="text">Tổng thưởng</label>
-                                {{-- <input type="number" class="form-control" name="reward" value="{{ $salary->reward }}"> --}}
-                                <input type="text" class="form-control" name=""
-                                    value="{{ number_format($total_reward, 0) }}" disabled>
+                                <input type="text" class="form-control" name="" id="total_reward"
+                                    value="{{ $total_reward }}" readonly>
                             </div>
                             <div class="form-group col-6">
                                 <label for="text">Tổng phạt</label>
                                 {{-- <input type="number" class="form-control" name="discipline" value="{{ $salary->discipline }}"> --}}
-                                <input type="text" class="form-control" name=""
-                                    value="{{ number_format($total_discipline, 0) }}" disabled>
+                                <input type="text" class="form-control" name="" id="total_discipline"
+                                    value="{{ $total_discipline }}" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email">Thuế thu nhập</label>
-                            <input type="number" class="form-control" value="{{ $salary->income_tax }}" disabled>
+                            <input type="number" class="form-control" id="income_tax" value="{{ $salary->income_tax }}"
+                                readonly>
                         </div>
-                        <div class="form-group">
-                            <label for="">Thanh toán</label>
-                            <select class="form-control" name="payment">
-                                @foreach ($payments as $payment)
-                                    <option value="{{ $payment->id }}"
-                                        {{ $payment->id == $salary->payment ? 'selected' : '' }}>
-                                        {{ $payment->payment }}</option>
-                                @endforeach
-                            </select>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="">Phương thức</label>
+                                    <select class="form-control" name="payment">
+                                        @foreach ($payments as $payment)
+                                            <option value="{{ $payment->id }}"
+                                                {{ $payment->id == $salary->payment ? 'selected' : '' }}>
+                                                {{ $payment->payment }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="">Ngày thanh toán</label>
+                                    <input type="date" class="form-control" name="date_of_payment"
+                                        value="{{ $salary->date_of_payment }}">
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Tổng lương</label>
-                            <input type="text" class="form-control"
-                                value="{{ number_format($salary->total_money, 0) }}" pattern="[0-9]+" disabled>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="">Tổng lương</label>
+                                    <input type="text" class="form-control" value="" id="salary" readonly>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="">Sau thuế</label>
+                                    <input type="text" class="form-control" name="total_money" id="total_money"
+                                        value="{{ $salary->total_money }}" readonly>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="mx-lg-5 m-2">
-                    <input type="submit" class="btn btn-primary mx-3" value="Lưu">
+                    <input type="submit" class="btn btn-primary mx-3" value="Cập nhật">
                     <a href="{{ route('admin.salary') }}" class="btn btn-secondary mx-3">Thoát</a>
                 </div>
             </form>
+
+            <script>
+                function sum() {
+                    var total_reward = "{{ $total_reward }}";
+                    var total_discipline = "{{ $total_discipline }}";
+                    var basic_salary = "{{ $salary->coefficients_salary }}";
+                    var working_days = "{{ $salary->working_days }}";
+                    var subsidize = parseInt($("#subsidize").val());
+                    $("#subsidize").change(function() {
+                        var subsidize = parseInt($("#subsidize").val());
+                        if (!subsidize) {
+                            var total = basic_salary * working_days + (total_reward - total_discipline);
+                        } else {
+                            var total = basic_salary * working_days + (total_reward - total_discipline) + subsidize;
+                        }
+                        var incom_tax = "{{ $salary->income_tax }}";
+                        var result = (total * (100 - incom_tax)) / 100;
+                        $('#salary').val(total);
+                        $('#total_money').val(result);
+                    });
+
+                    var total = basic_salary * working_days + (total_reward - total_discipline);
+                    $('#salary').val(total);
+                    var incom_tax = "{{ $salary->income_tax }}";
+                    var result = (total * (100 - incom_tax)) / 100;
+                    $('#total_money').val(result);
+                }
+                $(document).ready(function() {
+                    sum();
+                })
+            </script>
         @endforeach
 
         <div class="text-center py-4 h2">Danh sách quyết định thưởng - phạt</div>
@@ -125,4 +178,5 @@
             </tbody>
         </table>
     </div>
+
 @endsection

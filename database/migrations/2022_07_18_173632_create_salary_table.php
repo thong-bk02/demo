@@ -16,16 +16,18 @@ return new class extends Migration
         Schema::create('salary', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('user_id')->unique();
+            $table->unsignedBigInteger('user_id');
+            $table->string('salary_code')->unique();
             $table->unsignedBigInteger('timekeeping');
             $table->string('month');
             $table->unsignedBigInteger('coefficients_salary');
-            $table->double('subsidize');
+            $table->double('subsidize')->nullable()->default(0);
             $table->bigInteger('total_reward')->default(0)->nullable();
             $table->bigInteger('total_discipline')->default(0)->nullable();
             $table->double('total_money');
             $table->integer('income_tax');
             $table->unsignedBigInteger('payment');
+            $table->date('date_of_payment')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('timekeeping')->references('id')->on('timekeepings');
             $table->foreign('coefficients_salary')->references('id')->on('coefficients_salarys');

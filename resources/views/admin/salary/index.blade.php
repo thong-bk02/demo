@@ -1,8 +1,16 @@
 @extends('layouts.app')
 
+@section('title')
+    <title>Quản lí lương</title>
+@endsection
+
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/users/btn-clear-value-input.css') }}">
+@endsection
+
 @section('content')
     <div class="container">
-        
+
         @include('layouts.message')
 
         <table class="table">
@@ -11,21 +19,28 @@
                     <th scope="col">Tên nhân viên</th>
                     <th scope="col">Chức vụ</th>
                     <th scope="col">Phòng ban</th>
+                    <th scope="col">Tháng lương</th>
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <form action="" method="">
+                    <form id="searchform" name="searchform" method="post">
                         <td>
-                            <input type="text" name="name" class="form-control" placeholder="Họ và tên">
+                            <span class="deleteicon w-100">
+                                <input type="text" name="name" id="search_name" placeholder="Họ và tên"
+                                    value="{{ Session('salary.name') }}" class="form-control" autocomplete="off">
+                                <span
+                                    onclick="var input = this.previousElementSibling; input.value = ''; input.focus();">X</span>
+                            </span>
                         </td>
                         <td>
                             <div class="form-group">
                                 <select class="form-control" name="position">
                                     <option value="">tất cả</option>
                                     @foreach ($positions as $position)
-                                        <option value="{{ $position->id }}">
+                                        <option value="{{ $position->id }}"
+                                            {{ Session('salary.position') == $position->id ? 'selected' : '' }}>
                                             {{ $position->position_name }}</option>
                                     @endforeach
                                 </select>
@@ -36,14 +51,21 @@
                                 <select class="form-control" name="department">
                                     <option value="">tất cả</option>
                                     @foreach ($departments as $department)
-                                        <option value="{{ $department->id }}">
+                                        <option value="{{ $department->id }}"
+                                            {{ Session('salary.department') == $department->id ? 'selected' : '' }}>
                                             {{ $department->department }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </td>
                         <td>
-                            <button type="submit" class="btn btn-primary">Tìm</button>
+                            <input type="month" name="month" class="form-control"
+                                value="{{ Session('salary.month') }}">
+                        </td>
+                        <td>
+                            <a class='btn btn-primary' href='{{ url('admin/salary') }}' id='search_btn'>
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </a>
                             <a href="{{ route('admin.salary.list') }}" class="btn btn-primary">Thêm Lương</a>
                         </td>
                     </form>
@@ -51,58 +73,66 @@
             </tbody>
         </table>
 
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Stt</th>
-                    <th scope="col">Tên nhân viên</th>
-                    <th scope="col">Chức vụ</th>
-                    <th scope="col">Tháng</th>
-                    <th scope="col">Tổng lương</th>
-                    <th scope="col">Thanh toán</th>
-                    <th scope="col">Ngày thanh toán</th>
-                    <th scope="col">Thao tác</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($salarys as $key => $salary)
-                    <tr class="border-bottom border-dark">
-                        <th scope="row">{{ $loop->iteration }}</th>
-                        <td>
-                            {{ $salary->name }}
-                        </td>
-                        <td>
-                            {{ $salary->position_name }}
-                        </td>
-                        <td>
-                            {{ $salary->month }}
-                        </td>
-                        <td>
-                            {{ number_format($salary->total_money,0) }}
-                        </td>
-                        <td>
-                            {{ $salary->payment }}
-                        </td>
-                        <td>
-                            {{ date('H:i:s d/m/Y', strtotime($position->created_at)) }}
-                        </td>
-                        <td>
-                            <a href="{{ route('admin.salary.show', $salary->user_id) }}" class="mx-1"><i class="fa-solid fa-eye"></i></a>
-                            <a href="" class="mx-1" onclick="return confirmDelete()"><i
-                                    class="fa-solid fa-trash-can"></i></a>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+        {{-- Kết quả tìm kiếm --}}
+        <div id="pagination_data">
+            @include('admin.salary.index_page_data', [
+                'salarys' => $salarys,
+            ])
+        </div>
+
     </div>
     <script>
         function confirmDelete() {
-            if (confirm("xóa người nhân viên này ?") == true) {
+            if (confirm("xóa lương nhân viên này ?") == true) {
                 return true;
             } else {
                 return false;
             }
         }
+    </script>
+
+    @if (blank(session('salary')))
+    @else
+        <script>
+            $(function() {
+                var page = '{{ Session('salary.page') }}';
+                if (page == "") {
+                    var finalURL = "salary?" + $("#searchform").serialize();
+                } else {
+                    var finalURL = "salary?page=" + page + "&" + $("#searchform").serialize();
+                }
+
+                $.get(finalURL, function(data) {
+                    $("#pagination_data").html(data);
+                });
+                return false;
+            });
+        </script>
+    @endif
+
+    <script>
+        $(function() {
+            //sự kiện nhấn enter khi nhập tên nhân viên
+            var input = document.getElementById("search_name");
+            input.addEventListener("keypress", function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    document.getElementById("search_btn").click();
+                }
+            });
+
+            $(document).on("click", "#pagination a,#search_btn", function() {
+                var url = $(this).attr("href");
+                var append = url.indexOf("?") == -1 ? "?" : "&";
+                var finalURL = url + append + $("#searchform").serialize();
+
+                event.preventDefault();
+                $.get(finalURL, function(data) {
+                    $("#pagination_data").html(data);
+                });
+                return false;
+            })
+
+        });
     </script>
 @endsection

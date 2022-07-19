@@ -38,9 +38,7 @@
                             <label for="">Lương cơ bản</label>
                             <select class="form-control" name="coefficients_salary">
                                 @foreach ($basic_salary as $basic)
-                                    <option value="{{ $basic->id }}" 
-                                        {{ $basic->coefficients_salary == $salary->coefficients_salary ? 'selected' : '' }}>
-                                        {{ $basic->coefficients_salary }}</option>
+                                        {!! $basic->coefficients_salary == $salary->coefficients_salary ? '<option value="'.$basic->id.'">'.$basic->coefficients_salary.'</option>' : '' !!}
                                 @endforeach
                             </select>
                         </div>
@@ -78,14 +76,24 @@
                             <input type="number" class="form-control" id="subsidize" name="subsidize" value="0"
                                 autocomplete="off">
                         </div>
-                        <div class="form-group">
-                            <label for="">Thanh toán</label>
-                            <select class="form-control" name="payment">
-                                @foreach ($payments as $payment)
-                                    <option value="{{ $payment->id }}">
-                                        {{ $payment->payment }}</option>
-                                @endforeach
-                            </select>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="">Thanh toán</label>
+                                    <select class="form-control" name="payment">
+                                        @foreach ($payments as $payment)
+                                            <option value="{{ $payment->id }}">
+                                                {{ $payment->payment }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="email">Ngày quyết toán</label>
+                                    <input type="date" class="form-control" name="date_of_payment" value="">
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
@@ -108,6 +116,7 @@
                 <div class="mx-lg-5 m-2">
                     <input type="submit" class="btn btn-primary mx-3" value="Lưu">
                     <a href="{{ route('admin.salary') }}" class="btn btn-secondary mx-3">Thoát</a>
+                    <a href="{{ route('admin.salary.list') }}" class="btn btn-secondary mx-3">Đổi nhân sự</a>
                 </div>
             </form>
             <script>
