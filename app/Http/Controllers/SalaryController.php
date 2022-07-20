@@ -61,6 +61,7 @@ class SalaryController extends Controller
         $input = $request->all();
         $input['user_id'] = $id;
         $input['salary_code'] = $input['user_id'] .'-'. $input['month'];
+        $input['month'] = $input['month'] . '-01';
         try{
             Salary::createdSalary($input);
             return redirect()->route('admin.salary')->with('success', 'Thêm lương thành công !');

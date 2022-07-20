@@ -12,7 +12,7 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     @yield('css')
-
+    @yield('js')
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -39,17 +39,18 @@
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                         <img src="https://assets.infyom.com/logo/blue_logo_150x150.png"
                             class="user-image img-circle elevation-2" alt="User Image">
-                        <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
+                        <span class="d-none d-md-inline">{{ Auth::user()->name }} <i class="fa-solid fa-user-gear pl-md-2"></i></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <!-- User image -->
                         <li class="user-header bg-primary">
                             <img src="https://assets.infyom.com/logo/blue_logo_150x150.png"
                                 class="img-circle elevation-2" alt="User Image">
-                            <p>
+                            <p class="pb-3">
                                 {{ Auth::user()->name }}
                                 {{-- <small>Member since {{ Auth::user()->created_at->format('M. Y') }}</small> --}}
                             </p>
+                            <div class="text-center"><a href="" class="text-light">Đổi mật khẩu</a></div>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">

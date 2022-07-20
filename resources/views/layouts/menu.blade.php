@@ -55,7 +55,7 @@
 </li>
 
 <li class="nav-item">
-    <a href="" class="nav-link {{ Request::is('admin/calendar*') ? 'active' : '' }}">
+    <a href="{{ route('admin.event') }}" class="nav-link {{ Request::is('admin/calendar*') ? 'active' : '' }}">
         <i class="nav-icon fa-solid fa-calendar-days"></i>
         <p>Sự kiện</p>
     </a>

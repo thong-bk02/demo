@@ -58,7 +58,7 @@ class Salary extends Model
                 $q->where('profile_users.department', $request->get('department'));
             })
             ->when($request->get('month'), function ($q) use ($request) {
-                $q->where('month', $request->get('month'));
+                $q->where('month','like', $request->get('month')."%");
             });
         return $salarys->orderByDesc('month')->orderBy('name')->paginate(8);
     }

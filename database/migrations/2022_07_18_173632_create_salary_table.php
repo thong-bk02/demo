@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('salary_code')->unique();
             $table->unsignedBigInteger('timekeeping');
-            $table->string('month');
+            $table->date('month');
             $table->unsignedBigInteger('coefficients_salary');
             $table->double('subsidize')->nullable()->default(0);
             $table->bigInteger('total_reward')->default(0)->nullable();

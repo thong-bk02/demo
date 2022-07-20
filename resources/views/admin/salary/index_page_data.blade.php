@@ -6,7 +6,6 @@
             <th scope="col">Chức vụ</th>
             <th scope="col">Tháng</th>
             <th scope="col">Tổng lương</th>
-            <th scope="col">Phương thức</th>
             <th scope="col">Ngày quyết toán</th>
             <th scope="col">Thao tác</th>
         </tr>
@@ -37,9 +36,6 @@
                         </td>
                         <td>
                             {{ number_format($salary->total_money, 0) }}
-                        </td>
-                        <td>
-                            {{ $salary->payment }}
                         </td>
                         <td>
                             @if (blank($salary->date_of_payment))

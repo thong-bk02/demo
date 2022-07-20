@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class EventController extends Controller
 {
@@ -13,7 +14,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        
+        $request = Session::all();
+        dd($request);
     }
 
     /**
