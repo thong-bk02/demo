@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RewardAndDiscipline;
 use App\Models\Salary;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -18,6 +19,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        /* 
+            DATA BẢNG THỐNG KÊ LƯƠNG
+        */
         // data line tiền lương trung bình
         $avg_salary = Salary::select(DB::raw("AVG(total_money) as avg"), DB::raw("MONTHNAME(month) as month_name"))
             ->whereYear('month', date('Y'))
@@ -40,7 +44,9 @@ class HomeController extends Controller
             ->pluck('min', 'month_name');
         $data_min_salary = $min_salary->values();
 
-
+        /*  
+            DATA BẢNG THỐNG KÊ NHÂN SỰ
+        */
         $data_users = DB::table('users')->where('status', '1')->count();
         $quit = DB::table('users')->where('status', '2')->count();
         $staff = DB::table('profile_users')
@@ -59,6 +65,52 @@ class HomeController extends Controller
             ->whereBetween('position', [3, 5])
             ->count();
 
-        return view('home', compact('labels', 'data_avg_salary', 'data_max_salary', 'data_min_salary', 'data_users', 'staff', 'manager', 'chief_of_department', 'quit'));
+        /* 
+            DATA BẢNG THỐNG KÊ THƯỞNG PHẠT
+        */
+        $decision = RewardAndDiscipline::select(DB::raw("COUNT(id) as reward"), DB::raw("MONTHNAME(date_created) as month_name"))
+            ->whereYear('date_created', date('Y'))
+            ->groupBy(DB::raw("Month(date_created)"))
+            ->pluck('reward', 'month_name');
+        $labels_decision = $decision->keys();
+        $reward = RewardAndDiscipline::select(DB::raw("COUNT(id) as reward"), DB::raw("MONTHNAME(date_created) as month_name"))
+            ->whereYear('date_created', date('Y'))
+            ->groupBy(DB::raw("Month(date_created)"))->where('type', 1)
+            ->pluck('reward', 'month_name')
+            ->values();
+        $discipline = RewardAndDiscipline::select(DB::raw("COUNT(id) as discipline"), DB::raw("MONTHNAME(date_created) as month_name"))
+            ->whereYear('date_created', date('Y'))
+            ->groupBy(DB::raw("Month(date_created)"))->where('type', 2)
+            ->pluck('discipline', 'month_name')
+            ->values();
+        // dd($reward);
+        $furlough =  RewardAndDiscipline::where('reasion', 1)->count();
+        $salary_deduction = RewardAndDiscipline::where('reasion', 2)->count();
+        $late = RewardAndDiscipline::where('reasion', 3)->count();
+        $soon = RewardAndDiscipline::where('reasion', 4)->count();
+        $go_out = RewardAndDiscipline::where('reasion', 5)->count();
+        $homemade = RewardAndDiscipline::where('reasion', 7)->count();
+
+
+        return view('home', compact(
+            'labels',
+            'data_avg_salary',
+            'data_max_salary',
+            'data_min_salary',
+            'data_users',
+            'staff',
+            'manager',
+            'chief_of_department',
+            'quit',
+            'labels_decision',
+            'reward',
+            'discipline',
+            'furlough',
+            'salary_deduction',
+            'late',
+            'soon',
+            'go_out',
+            'homemade',
+        ));
     }
 }

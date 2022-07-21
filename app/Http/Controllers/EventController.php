@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -14,8 +16,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        $request = Session::all();
-        dd($request);
+        $data_event = Event::getAllEvent();
+        return view('admin.event.index' , compact('data_event'));
     }
 
     /**
@@ -36,7 +38,13 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        try{
+            Event::createEvent($input);
+            return redirect()->route('admin.event')->with('success', 'Thêm thành công sự kiện');
+        } catch (Exception $ex) {
+            return redirect()->route('admin.event')->with('failed', 'Lỗi không thêm được sự kiện');
+        }
     }
 
     /**
@@ -70,7 +78,13 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->except(['_token']);
+        try{
+            Event::updateEvent($input, $id);
+            return redirect()->route('admin.event')->with('success', 'Cập nhật thành công sự kiện');
+        } catch (Exception $ex) {
+            return redirect()->route('admin.event')->with('failed', 'Lỗi sửa sự kiện');
+        }
     }
 
     /**
@@ -81,6 +95,11 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            Event::find($id)->delete();
+            return redirect()->route('admin.event')->with('success', 'Xóa thành công !');
+        } catch (Exception $ex) {
+            return redirect()->route('admin.event')->with('failed', 'Lỗi !');
+        }
     }
 }

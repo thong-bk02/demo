@@ -6,9 +6,19 @@
 
 @section('content')
     <div id="USERS" class="row">
-        <div class="col-5"></div>
-        <div class="col-7">
-            <canvas id="Color" width="400" height="200"></canvas>
+        <div class="col-6">
+
+        </div>
+        <div class="col-6">
+            <canvas id="Users" width="400" height="200"></canvas>
+        </div>
+    </div>
+
+    <div id="DECISION" class="row">
+        <div class="col-4"></div>
+        <div class="col-8">
+            <p class="text-center h2 pb-3">Bảng thống kê thưởng - phạt</p>
+            <canvas id="RewardAndDiscipline" width="400" height="200"></canvas>
         </div>
     </div>
 
@@ -19,6 +29,7 @@
 
     <!-- javascript -->
 
+    {{-- bảng thống kê lương --}}
     <script type="text/javascript">
         var labels = {{ Js::from($labels) }};
         var data_avg_salary = {{ Js::from($data_avg_salary) }};
@@ -71,17 +82,18 @@
         );
     </script>
 
+    {{-- bảng thôgns kê nhân sự --}}
     <script>
         var users = {{ Js::from($data_users) }};
         var staff = {{ Js::from($staff) }};
         var manager = {{ Js::from($manager) }};
         var chief_of_department = {{ Js::from($chief_of_department) }};
         var quit = {{ Js::from($quit) }};
-        const ctx = document.getElementById('Color').getContext('2d');
+        const ctx = document.getElementById('Users').getContext('2d');
         const Color = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Tổng thành viên', 'Nhân viên', 'Quản lí', 'Trưởng phòng', 'Nhân viên đã nghỉ'],
+                labels: ['Thành viên', 'Nhân viên', 'Quản lí', 'Trưởng phòng', 'Đã nghỉ'],
                 datasets: [{
                     label: 'Nhân sự',
                     data: [users, staff, manager, chief_of_department, quit],
@@ -120,5 +132,53 @@
                 }
             }
         });
+    </script>
+
+    {{-- bảng thống kê thưởng phạt --}}
+    <script type="text/javascript">
+        var labels_decision = {{ Js::from($labels_decision) }};
+        var reward = {{ Js::from($reward) }};
+        var discipline = {{ Js::from($discipline) }};
+
+        const data_decision = {
+            labels: labels_decision,
+            datasets: [{
+                label: 'thưởng',
+                backgroundColor: 'rgb(52, 235, 183)',
+                borderColor: 'rgb(52, 235, 183)',
+                data: discipline,
+            }, {
+                label: 'phạt',
+                backgroundColor: 'rgb(3, 36, 252)',
+                borderColor: 'rgb(3, 36, 252)',
+                data: reward,
+            }]
+        };
+
+        const config_decision = {
+            type: 'line',
+            data: data_decision,
+            options: {
+                responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                stacked: false,
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        min: 0,
+                    },
+                }
+            }
+        };
+
+        const RewardAndDiscipline = new Chart(
+            document.getElementById('RewardAndDiscipline'),
+            config_decision
+        );
     </script>
 @endsection

@@ -9,7 +9,7 @@
 @endif
 @if (Session::has('success') || Session::has('failed'))
     <script>
-        const myTimeout = setTimeout(myGreeting, 3000);
+        const myTimeout = setTimeout(myGreeting, 4000);
 
         function myGreeting() {
             document.getElementById("alert").innerHTML = "";

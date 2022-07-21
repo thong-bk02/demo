@@ -50,7 +50,7 @@
                                 {{ Auth::user()->name }}
                                 {{-- <small>Member since {{ Auth::user()->created_at->format('M. Y') }}</small> --}}
                             </p>
-                            <div class="text-center"><a href="" class="text-light">Đổi mật khẩu</a></div>
+                            <div class="text-center"><a href="{{ route('change-password') }}" class="text-light">Đổi mật khẩu</a></div>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">

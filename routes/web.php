@@ -25,7 +25,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -93,10 +93,11 @@ Route::get('/admin/salary/delete/{id}', [SalaryController::class, 'destroy'])->n
 //thông tin cá nhân
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::get('/change-password', [ProfileController::class, 'changePassword'])->name('change-password');
+Route::post('/change-password', [ProfileController::class, 'updatePassword'])->name('update-password');
 
 //quản lí sự kiện
 Route::get('admin/event', [EventController::class, 'index'])->name('admin.event');
-Route::get('admin/event/show/{id}', [EventController::class, 'show'])->name('admin.event.show');
-Route::get('admin/event/create', [EventController::class, 'create'])->name('admin.event.create');
+Route::post('admin/event/create', [EventController::class, 'store'])->name('admin.event.create');
 Route::get('admin/event/delete/{id}', [EventController::class, 'destroy'])->name('admin.event.delete');
-Route::get('admin/event/update/{id}', [EventController::class, 'update'])->name('admin.event.update');
+Route::post('admin/event/update/{id}', [EventController::class, 'update'])->name('admin.event.update');

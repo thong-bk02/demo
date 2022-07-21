@@ -51,7 +51,12 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="reasion">Lí do</label>
-                        <input class="form-control" type="text" name="reasion" id="" placeholder="Lí do" value="{{ old('reasion') }}" required>
+                        <select class="form-control" name="reasion">
+                            @foreach ($reasions as $reasion)
+                                <option value="{{ $reasion->id }}">
+                                    {{ $reasion->reasion }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="note">Ghi chú</label>

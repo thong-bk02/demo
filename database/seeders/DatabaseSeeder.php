@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             TimekeepingSeeder::class,
             GenreSeeder::class,
             BasicSalarySeeder::class,
+            ReasionSeeder::class,
             RewardAndDisciplineSeeder::class,
             PaymentSeeder::class,
             // SalarySeeder::class,

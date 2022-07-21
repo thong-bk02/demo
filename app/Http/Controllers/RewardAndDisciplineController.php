@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Models\Genre;
 use App\Models\Position;
+use App\Models\Reasion;
 use App\Models\RewardAndDiscipline;
 use App\Models\User;
 use Exception;
@@ -55,8 +56,9 @@ class RewardAndDisciplineController extends Controller
     public function create($id)
     {
         $genres = Genre::all();
+        $reasions  = Reasion::all();
         $user = RewardAndDiscipline::createUser($id);
-        return view('admin.reward-discipline.create', compact('user', 'genres'));
+        return view('admin.reward-discipline.create', compact('user', 'genres','reasions'));
     }
 
     public function store(Request $request, $id)
