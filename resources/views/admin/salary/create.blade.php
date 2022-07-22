@@ -33,20 +33,36 @@
                         <div class="form-group">
                             <label>Lương tháng</label>
                             <input type="month" class="form-control" name="month" value="" required>
+                            <input type="date" id='date_input'>
+                            <script>
+                                var date_input = document.getElementById('date_input');
+                                date_input.valueAsDate = new Date();
+
+                                date_input.onchange = function() {
+                                    var finalURL = "users?id="+ $salary + "&month=" + $date_input ;
+                                    // var 
+                                    $.get(finalURL, function(data) {
+                                        $("#decision_data").html(data);
+                                    });
+                                    return false;
+                                }
+                            </script>
                         </div>
                         <div class="form-group">
                             <label for="">Lương cơ bản</label>
                             <select class="form-control" name="coefficients_salary">
                                 @foreach ($basic_salary as $basic)
-                                        {!! $basic->coefficients_salary == $salary->coefficients_salary ? '<option value="'.$basic->id.'">'.$basic->coefficients_salary.'</option>' : '' !!}
+                                    {!! $basic->coefficients_salary == $salary->coefficients_salary
+                                        ? '<option value="' . $basic->id . '">' . $basic->coefficients_salary . '</option>'
+                                        : '' !!}
                                 @endforeach
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label>Số ngày công</label>
-                            <input type="text" class="form-control" id="working_days"
-                                value="{{ $salary->working_days }}" readonly>
+                            <input type="text" class="form-control" id="working_days" value="{{ $salary->working_days }}"
+                                readonly>
                         </div>
                         <input type="hidden" name="timekeeping" value="{{ $salary->id }}">
                     </div>

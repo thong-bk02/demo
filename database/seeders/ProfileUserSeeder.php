@@ -164,7 +164,7 @@ class ProfileUserSeeder extends Seeder
                 'id' => 13,
                 'user_id' => 13,
                 'user_code' => "13-2-3",
-                'address' => "",
+                'address' => "Hà Nội",
                 'phone' => '0393794292',
                 'birthday' => date('Y-m-d'),
                 'position' => '2',

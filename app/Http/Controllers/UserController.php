@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreRequest;
-use App\Http\Requests\UpdateRequest;
+use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\Department;
 use App\Models\Position;
 use App\Models\User;
@@ -54,7 +54,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request)
+    public function store(UserStoreRequest $request)
     {
         $input = $request->validated();
         $input = $request->all();
@@ -116,7 +116,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
         $input = $request->validated();
 

@@ -85,6 +85,16 @@ class SalaryController extends Controller
         $payments = Payment::all();
         $decisions = Salary::getDecision($id);
         return view('admin.salary.show', compact('salarys', 'total_reward', 'total_discipline', 'payments', 'decisions'));
+
+        // $id = Str::substr($salary_code,0,2);
+        // $month = Str::substr($salary_code,-7);
+        // $salarys = Salary::getOne($salary_code);
+        // $total_reward = Salary::get_Total_RewardAndDiscipline($id, $month, 1);
+        // $total_discipline = Salary::get_Total_RewardAndDiscipline($id, $month, 2);
+        // $payments = Payment::all();
+        // $decisions = Salary::getDecisionMonth($id, $month);
+
+        // return view('admin.salary.show', compact('salarys', 'total_reward', 'total_discipline', 'payments', 'decisions'));
     }
 
     public function listUser(Request $request)

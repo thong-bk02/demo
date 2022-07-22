@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        
+
         @include('layouts.message')
 
         <div class="py-3">
@@ -18,14 +18,20 @@
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="position">Mã chức vụ</label>
-                                    <input type="text" class="form-control" name="position_code" id="position"
-                                        placeholder="Mã chức vụ">
+                                    <label for="position_code">Mã chức vụ</label>
+                                    <input type="text" class="form-control @error('position_code') is-invalid @enderror"
+                                        name="position_code" id="position_code" placeholder="Mã chức vụ">
+                                    @error('position_code')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="position_code">Tên chức vụ</label>
-                                    <input type="text" class="form-control" name="position_name" id="position_code"
-                                        placeholder="Tên chức vụ">
+                                    <label for="position_name">Tên chức vụ</label>
+                                    <input type="text" class="form-control @error('position_name') is-invalid @enderror"
+                                        name="position_name" id="position_name" placeholder="Tên chức vụ">
+                                    @error('position_name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -69,8 +75,8 @@
                                 data-target="#staticBackdrop{{ $position->id }}">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
-                            <a href="{{ route('admin.position.delete', $position->id) }}" class="mx-1" onclick="return confirmDelete()"><i
-                                    class="fa-solid fa-trash-can"></i></a>
+                            <a href="{{ route('admin.position.delete', $position->id) }}" class="mx-1"
+                                onclick="return confirmDelete()"><i class="fa-solid fa-trash-can"></i></a>
                         </td>
                         <div class="modal fade" id="staticBackdrop{{ $position->id }}" data-backdrop="static"
                             data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

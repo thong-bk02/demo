@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfileRequest;
 use App\Models\Profile;
 use App\Models\User;
 use Exception;
@@ -59,20 +60,15 @@ class ProfileController extends Controller
         return view('change-password');
     }
 
-    public function updatePassword(Request $request)
+    public function updatePassword(ProfileRequest $request)
     {
         # Validation
-        $request->validate([
-            'old_password' => 'required',
-            'new_password' => 'required|confirmed',
-        ]);
-
+        $request->validated();
 
         #Match The Old Password
         if (!Hash::check($request->old_password, auth()->user()->password)) {
             return back()->with("failed", "Mật khẩu cũ không khớp!");
         }
-
 
         #Update the new Password
         User::whereId(auth()->user()->id)->update([

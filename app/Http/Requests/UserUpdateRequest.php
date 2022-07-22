@@ -3,8 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Client\Request;
+use Illuminate\Validation\Rule;
 
-class StoreRequest extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +27,10 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'required|max:50',
-            'email' => 'required|unique:users|email',
+            'email' => ['required','email', Rule::unique('users', 'email')->ignore($this->id, 'id')],
             'birthday' => 'required',
             'address' => 'required|max:255',
-            'phone' => 'required|unique:profile_users|max:12|min:10',
-            'pword' => 'required|min:8|max:15'
+            'phone' => ['required','max:12','min:10', Rule::unique('profile_users', 'phone')->ignore($this->id, 'user_id')],
         ];
     }
 
@@ -39,18 +40,15 @@ class StoreRequest extends FormRequest
             'name.required' => ':attribute không được bỏ trống !',
             'name.max' => ':attribute quá dài',
             'email.required' => ':attribute không được bỏ trống !',
-            'email.unique' => ':attribute đã tồn tại',
+            'email.unique' => ':attribute này đã được sử dụng',
             'email.email' => ':attribute không đúng định dạng',
             'birthday.required' => ':attribute không được bỏ trống !',
             'address.required' => ':attribute không được bỏ trống !',
             'address.max' => ':attribute quá dài',
             'phone.required' => ':attribute không được bỏ trống !',
-            'phone.unique' => ':attribute đã tồn tại',
+            'phone.unique' => ':attribute này đã được sử dụng',
             'phone.max' => ':attribute không quá :max số',
             'phone.min' => ':attribute phải có tối thiểu :min số',
-            'pword.required' => ':attribute không được bỏ trống !',
-            'pword.min' => ':attribute phải có tối thiểu :min kí tự',
-            'pword.max' => ':attribute có tối đa :max kí tự',
         ];
     }
 
@@ -62,7 +60,6 @@ class StoreRequest extends FormRequest
             'birthday' => 'Ngày sinh',
             'address' => 'Địa chỉ',
             'phone' => 'Số điện thoại',
-            'pword' => 'Mật khẩu'
         ];
     }
 }

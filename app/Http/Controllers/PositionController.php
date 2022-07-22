@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PositionRequest;
 use App\Models\Position;
 use Illuminate\Http\Request;
 
@@ -36,8 +37,9 @@ class PositionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PositionRequest $request)
     {
+        $request->validate();
         $input = $request->all();
         // dd($input);
         if (Position::newPosition($input) == true) {
@@ -76,8 +78,9 @@ class PositionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PositionRequest $request, $id)
     {
+        $request->validated();
         $input = $request->except(['_token']);
         if ( Position::upd($input, $id) == true) {
             return redirect()->route('admin.position')->with('success', 'Sửa thành công !');

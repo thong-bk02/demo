@@ -2,19 +2,11 @@
 
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 @endsection
 
 @section('content')
-    <div id="USERS" class="row">
-        <div class="col-6">
-
-        </div>
-        <div class="col-6">
-            <canvas id="Users" width="400" height="200"></canvas>
-        </div>
-    </div>
-
-    <div id="DECISION" class="row">
+    <div id="DECISION" class="row pb-5">
         <div class="col-4"></div>
         <div class="col-8">
             <p class="text-center h2 pb-3">Bảng thống kê thưởng - phạt</p>
@@ -22,6 +14,16 @@
         </div>
     </div>
 
+    <div id="USERS" class="row">
+        <div class="col-6">
+            <div class="d-flex justify-content-center align-item-center h-100">
+                <div id="piechart" style="width: 100%;"></div>
+            </div>
+        </div>
+        <div class="col-6">
+            <canvas id="Users" width="400" height="200"></canvas>
+        </div>
+    </div>
     <div id="SALARY">
         <p class="text-center h2 pb-3">Bảng thống kê lương</p>
         <canvas id="SalaryChart" height="80px"></canvas>
@@ -180,5 +182,44 @@
             document.getElementById('RewardAndDiscipline'),
             config_decision
         );
+    </script>
+
+    {{-- thống kê phần trăm các lí do xin nghỉ --}}
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data_pie = google.visualization.arrayToDataTable([
+                ['Task', 'Hours per Day'],
+                ['nghỉ phép', {{ Js::from($furlough) }}],
+                ['nghỉ trừ lương', {{ Js::from($salary_deduction) }}],
+                ['đi muộn', {{ Js::from($late) }}],
+                ['về sớm', {{ Js::from($soon) }}],
+                ['ra ngoài', {{ Js::from($go_out) }}],
+                ['làm tại nhà', {{ Js::from($homemade) }}]
+            ]);
+
+            var options_pie = {
+                title: 'Nguyên nhân vắng mặt',
+                pieHole: 0.3,
+                chartArea: {
+                    bottom: 0, // !!! works !!!
+                    top: 20,
+                    height: "100%"
+                },
+                titleTextStyle: {
+                    fontSize: 15,
+                },
+                backgroundColor: 'rgb(244,246,249)'
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data_pie, options_pie);
+        }
     </script>
 @endsection
