@@ -75,12 +75,12 @@ class HomeController extends Controller
         $labels_decision = $decision->keys();
         $reward = RewardAndDiscipline::select(DB::raw("COUNT(id) as reward"), DB::raw("MONTHNAME(date_created) as month_name"))
             ->whereYear('date_created', date('Y'))
-            ->groupBy(DB::raw("Month(date_created)"))->where('type', 1)
+            ->groupBy(DB::raw("Month(date_created)"))->where('type', 2)
             ->pluck('reward', 'month_name')
             ->values();
         $discipline = RewardAndDiscipline::select(DB::raw("COUNT(id) as discipline"), DB::raw("MONTHNAME(date_created) as month_name"))
             ->whereYear('date_created', date('Y'))
-            ->groupBy(DB::raw("Month(date_created)"))->where('type', 2)
+            ->groupBy(DB::raw("Month(date_created)"))->where('type', 1)
             ->pluck('discipline', 'month_name')
             ->values();
         // dd($reward);

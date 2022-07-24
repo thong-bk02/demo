@@ -85,9 +85,10 @@ class RewardAndDisciplineController extends Controller
      */
     public function show($id)
     {
+        $data_reasion = Reasion::all();
         $genres = Genre::all();
         $decisions = RewardAndDiscipline::showRAD($id);
-        return view('admin.reward-discipline.show', compact('decisions', 'genres'));
+        return view('admin.reward-discipline.show', compact('decisions', 'genres', 'data_reasion'));
     }
 
     /**

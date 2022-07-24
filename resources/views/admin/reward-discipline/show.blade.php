@@ -40,7 +40,8 @@
                             <label for="type">Hình thức</label>
                             <select class="form-control" name="type">
                                 @foreach ($genres as $genre)
-                                    <option value="{{ $genre->id }}" {{ $genre->id == old('type', $decision->type) ? 'selected' : '' }}>
+                                    <option value="{{ $genre->id }}"
+                                        {{ $genre->id == old('type', $decision->type) ? 'selected' : '' }}>
                                         {{ $genre->genre }}</option>
                                 @endforeach
                             </select>
@@ -50,17 +51,24 @@
 
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="reasion">Lí do</label>
-                            <input class="form-control" type="text" name="reasion" id="" placeholder="Lí do"
-                                value="{{ old('reasion', $decision->reasion) }}" required>
+                            <label for="">Lí do</label>
+                            <select class="form-control" name="payment">
+                                @foreach ($data_reasion as $reasion)
+                                    <option value="{{ $reasion->id }}"
+                                        {{ $reasion->id == $decision->reasion ? 'selected' : '' }}>
+                                        {{ $reasion->reasion }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="note">Ghi chú</label>
-                            <input type="text" class="form-control" name="note" value="{{ old('note', $decision->note) }}">
+                            <input type="text" class="form-control" name="note"
+                                value="{{ old('note', $decision->note) }}">
                         </div>
                         <div class="form-group">
                             <label for="money">Số tiền</label>
-                            <input type="number" class="form-control" name="money" value="{{ old('money', $decision->money) }}" required>
+                            <input type="number" class="form-control" name="money"
+                                value="{{ old('money', $decision->money) }}" required>
                         </div>
                         <div class="form-group">
                             <label for="">Ngày quyết định</label>

@@ -32,17 +32,19 @@
                         </div>
                         <div class="form-group">
                             <label>Lương tháng</label>
-                            <input type="month" class="form-control" name="month" value="" required>
-                            <input type="date" id='date_input'>
+                            <input type="month" id='date_input' class="form-control" name="month" required>
+                            {{-- <input type="date" > --}}
                             <script>
                                 var date_input = document.getElementById('date_input');
-                                date_input.valueAsDate = new Date();
+                                var salary_month = '{{ $salary->user_id }}'
 
                                 date_input.onchange = function() {
-                                    var finalURL = "users?id="+ $salary + "&month=" + $date_input ;
+                                    console.log(date_input);
+
+                                    var finalURL = "admin/salary/dataSlary/" + salary_month + "?month=" + date_input;
                                     // var 
-                                    $.get(finalURL, function(data) {
-                                        $("#decision_data").html(data);
+                                    $.get('{{ URL::to('search') }}', function(data) {
+                                        $("#data_decision").html(data);
                                     });
                                     return false;
                                 }
@@ -186,49 +188,6 @@
             </script>
         @endforeach
 
-        <div class="text-center py-4 h2">Danh sách quyết định thưởng - phạt</div>
-        <table class="table table-hover">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Hình thức</th>
-                    <th scope="col">Lí do</th>
-                    <th scope="col">Số tiền</th>
-                    <th scope="col">Ngày quyết định</th>
-                    <th scope="col">Thao tác</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (blank($decisions))
-                    <tr>
-                        <td colspan="5" class="text-center bg-secondary">Không có quyết định thưởng - phạt!</td>
-                    </tr>
-                @else
-                    @foreach ($decisions as $decision)
-                        <tr class="border-bottom border-dark">
-                            <td>
-                                {{ $decision->genre }}
-                            </td>
-                            <td>
-                                {{ $decision->reasion }}
-                            </td>
-                            <td>
-                                {{ number_format($decision->money, 0) }}
-                            </td>
-                            <td>
-                                {{ $decision->date_created }}
-                            </td>
-                            <td>
-                                <a href="{{ route('admin.reward-discipline.show', $decision->user_id) }}"
-                                    class="mx-1"><i class="fa-solid fa-eye"></i></a>
-                                <a href="" class="mx-1" onclick="return confirmDelete()"><i
-                                        class="fa-solid fa-trash-can"></i></a>
-                            </td>
-                        </tr>
-                    @endforeach
-                @endif
-            </tbody>
-        </table>
+        @include('admin.salary.data_decision', ['decisions' => $decisions])
     </div>
-
-
 @endsection

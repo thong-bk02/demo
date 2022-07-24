@@ -103,6 +103,7 @@ class RewardAndDiscipline extends Model
                 ->join('positions', 'profile_users.position', 'positions.id')
                 ->join('departments', 'profile_users.department', 'departments.id')
                 ->join('genre', 'reward_and_disciplines.type', 'genre.id')
+                ->join('reasion', 'reasion.id', 'reward_and_disciplines.reasion')
                 ->select('users.name', 'reward_and_disciplines.*', 'genre.genre', 'positions.position_name', 'departments.*')
                 ->where('reward_and_disciplines.id', $id)
                 ->get();

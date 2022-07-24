@@ -34,6 +34,11 @@ class SalaryController extends Controller
         return view('admin.salary.index', compact('salarys','positions','departments'));
     }
 
+    public function month(Request $request){
+        $decision = Salary::getDataDecisionMonth($request);
+        return view('admin.salary.data_decision', compact('decision'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

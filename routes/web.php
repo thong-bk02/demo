@@ -89,6 +89,7 @@ Route::get('/admin/salary/list-users', [SalaryController::class, 'listUser'])->n
 Route::get('/admin/salary/{id}/create', [SalaryController::class, 'create'])->name('admin.salary.create');
 Route::post('/admin/salary/{id}/create', [SalaryController::class, 'store'])->name('admin.salary.store');
 Route::get('/admin/salary/delete/{id}', [SalaryController::class, 'destroy'])->name('admin.salary.delete');
+Route::get('/admin/salary/dataSlary', [SalaryController::class, 'month'])->name('admin.salary.dataSlary');
 
 //thông tin cá nhân
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
