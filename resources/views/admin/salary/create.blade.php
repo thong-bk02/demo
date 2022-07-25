@@ -33,26 +33,10 @@
                         <div class="form-group">
                             <label>Lương tháng</label>
                             <input type="month" id='date_input' class="form-control" name="month" required>
-                            {{-- <input type="date" > --}}
-                            <script>
-                                var date_input = document.getElementById('date_input');
-                                var salary_month = '{{ $salary->user_id }}'
-
-                                date_input.onchange = function() {
-                                    console.log(date_input);
-
-                                    var finalURL = "admin/salary/dataSlary/" + salary_month + "?month=" + date_input;
-                                    // var 
-                                    $.get('{{ URL::to('search') }}', function(data) {
-                                        $("#data_decision").html(data);
-                                    });
-                                    return false;
-                                }
-                            </script>
                         </div>
                         <div class="form-group">
                             <label for="">Lương cơ bản</label>
-                            <select class="form-control" name="coefficients_salary">
+                            <select class="form-control" name="coefficients_salary" id="coefficients_salary">
                                 @foreach ($basic_salary as $basic)
                                     {!! $basic->coefficients_salary == $salary->coefficients_salary
                                         ? '<option value="' . $basic->id . '">' . $basic->coefficients_salary . '</option>'
@@ -73,15 +57,13 @@
                         <div class="row">
                             <div class="form-group col-6">
                                 <label for="text">Tổng thưởng</label>
-                                {{-- <input type="number" class="form-control" name="reward" value="{{ $salary->reward }}"> --}}
                                 <input type="text" class="form-control" name="total_reward" id="total_reward"
-                                    value="{{ $total_reward }}" readonly>
+                                    value="" readonly>
                             </div>
                             <div class="form-group col-6">
                                 <label for="text">Tổng phạt</label>
-                                {{-- <input type="number" class="form-control" name="discipline" value="{{ $salary->discipline }}"> --}}
                                 <input type="text" class="form-control" name="total_discipline" id="total_discipline"
-                                    value="{{ $total_discipline }}" readonly>
+                                    value="" readonly>
                             </div>
                         </div>
                         <div class="form-group">
@@ -91,7 +73,7 @@
                         </div>
                         <div class="form-group">
                             <label for="phone">Phụ cấp</label>
-                            <input type="number" class="form-control" id="subsidize" name="subsidize" value="0"
+                            <input type="number" class="form-control" id="subsidize" name="subsidize" value=""
                                 autocomplete="off">
                         </div>
                         <div class="row">
@@ -137,20 +119,71 @@
                     <a href="{{ route('admin.salary.list') }}" class="btn btn-secondary mx-3">Đổi nhân sự</a>
                 </div>
             </form>
+
+            <div id="data"></div>
+
             <script>
-                function sum() {
-                    var total_reward = "{{ $total_reward }}";
-                    var total_discipline = "{{ $total_discipline }}";
-                    var basic_salary = "{{ $salary->coefficients_salary }}";
-                    var working_days = "{{ $salary->working_days }}";
-                    var subsidize = 0;
-                    $("#subsidize").change(function() {
-                        var subsidize = parseInt($("#subsidize").val());
-                        if (!subsidize) {
-                            var total = basic_salary * working_days + (total_reward - total_discipline);
-                        } else {
-                            var total = basic_salary * working_days + (total_reward - total_discipline) + subsidize;
-                        }
+                $(function() {
+                    $("#date_input").on("change", function() {
+                        var month = $(this).val();
+                        var user_id = {{ $salary->user_id }};
+                        $.ajax({
+                            url: "{{ route('admin.salary.create', $salary->user_id) }}",
+                            method: "GET",
+                            data: {
+                                month: month
+                            },
+                            success: function(data) {
+                                $('#data').html(data);
+                            }
+                        });
+                        $.ajax({
+                            url: "{{ route('admin.salary.money') }}",
+                            method: "GET",
+                            data: {
+                                month: month,
+                                user_id: user_id,
+                            },
+                            success: function(data) {
+                                $('#total_reward').val(data.total_reward);
+                                $('#total_discipline').val(data.total_discipline);
+                                let total_reward = Number($("#total_reward").val());
+                                let total_discipline = Number($("#total_discipline").val());
+                                let basic_salary = '{{ $salary->coefficients_salary }}';
+                                let working_days = Number($("#working_days").val());
+                                let subsidize = Number($("#subsidize").val());
+                                let total = parseInt(basic_salary) * working_days + total_reward -
+                                    total_discipline +
+                                    subsidize;
+                                if (total < 15000000) {
+                                    $('#incom_tax').val(5);
+                                } else if (total < 30000000) {
+                                    $('#incom_tax').val(10);
+                                } else if (total < 45000000) {
+                                    $('#incom_tax').val(15);
+                                } else {
+                                    $('#incom_tax').val(20);
+                                }
+                                let incom_tax = $("#incom_tax").val();
+                                let result = (total * (100 - incom_tax)) / 100;
+                                $('#salary').val(total);
+                                $('#total_money').val(result);
+                            }
+                        });
+                    });
+                });
+            </script>
+
+            <script>
+                $(function() {
+                    $("#subsidize").on("change", function() {
+                        let total_reward = Number($("#total_reward").val());
+                        let total_discipline = Number($("#total_discipline").val());
+                        let basic_salary = '{{ $salary->coefficients_salary }}';
+                        let working_days = Number($("#working_days").val());
+                        let subsidize = Number($("#subsidize").val());
+                        let total = parseInt(basic_salary) * working_days + total_reward - total_discipline +
+                            subsidize;
                         if (total < 15000000) {
                             $('#incom_tax').val(5);
                         } else if (total < 30000000) {
@@ -160,34 +193,13 @@
                         } else {
                             $('#incom_tax').val(20);
                         }
-                        var incom_tax = $("#incom_tax").val();
-                        var result = (total * (100 - incom_tax)) / 100;
+                        let incom_tax = $("#incom_tax").val();
+                        let result = (total * (100 - incom_tax)) / 100;
                         $('#salary').val(total);
                         $('#total_money').val(result);
                     });
-
-                    var total = basic_salary * working_days + (total_reward - total_discipline);
-                    if (total < 15000000) {
-                        $('#incom_tax').val(5);
-                    } else if (total < 30000000) {
-                        $('#incom_tax').val(10);
-                    } else if (total < 45000000) {
-                        $('#incom_tax').val(15);
-                    } else {
-                        $('#incom_tax').val(20);
-                    }
-                    var incom_tax = $("#incom_tax").val();
-                    $('#salary').val(total);
-                    var result = (total * (100 - incom_tax)) / 100;
-                    $('#total_money').val(result);
-
-                }
-                $(document).ready(function() {
-                    sum();
-                })
+                });
             </script>
         @endforeach
-
-        @include('admin.salary.data_decision', ['decisions' => $decisions])
     </div>
 @endsection

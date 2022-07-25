@@ -93,11 +93,12 @@ class Salary extends Model
     /* 
         lấy dánh sách thưởng phạt của nhân sự đang tạo lương  
     */
-    protected static function getDecision($id)
+    protected static function getDecision($id, $month)
     {
         $decision = DB::table('reward_and_disciplines')
             ->join('genre', 'reward_and_disciplines.type', 'genre.id')
             ->where('reward_and_disciplines.user_id', $id)
+            ->where('reward_and_disciplines.date_created','like', $month."%")
             ->select('reward_and_disciplines.*', 'genre.genre')
             ->orderByDesc('created_at')
             ->get();
@@ -107,11 +108,17 @@ class Salary extends Model
     /* 
         tính tổng thưởng và tổng phạt
     */
-    protected static function get_Total_RewardAndDiscipline($id, $type)
+    protected static function get_Total_RewardAndDiscipline($id, $month, $type)
     {
         $reward = DB::table('reward_and_disciplines')
             ->join('genre', 'reward_and_disciplines.type', 'genre.id')
             ->where('reward_and_disciplines.user_id', $id)
+            ->when(blank($month), function ($q) use ($month) {
+                $q->where('reward_and_disciplines.date_created', $month);
+            })
+            ->when($month, function ($q) use ($month) {
+                $q->where('reward_and_disciplines.date_created','like', $month."%");
+            })
             ->where('type', $type)
             ->sum('money');
         return $reward;

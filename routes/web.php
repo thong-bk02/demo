@@ -83,6 +83,7 @@ Route::get('/admin/reward-discipline/delete/{id}', [RewardAndDisciplineControlle
 
 //quản lí lương
 Route::get('/admin/salary', [SalaryController::class, 'index'])->name('admin.salary');
+Route::get('/admin/salary/create/money', [SalaryController::class, 'demo'])->name('admin.salary.money');
 Route::get('/admin/salary/show/{id}', [SalaryController::class, 'show'])->name('admin.salary.show');
 Route::post('/admin/salary/update/{id}', [SalaryController::class, 'update'])->name('admin.salary.update');
 Route::get('/admin/salary/list-users', [SalaryController::class, 'listUser'])->name('admin.salary.list');

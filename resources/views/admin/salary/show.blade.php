@@ -30,8 +30,8 @@
                         </div>
                         <div class="form-group">
                             <label>Số ngày công</label>
-                            <input type="text" class="form-control" id="working_days"
-                                value="{{ $salary->working_days }}" readonly>
+                            <input type="text" class="form-control" id="working_days" value="{{ $salary->working_days }}"
+                                readonly>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -55,8 +55,8 @@
                         </div>
                         <div class="form-group">
                             <label for="email">Thuế thu nhập</label>
-                            <input type="number" class="form-control" id="income_tax" value="{{ $salary->income_tax }}"
-                                readonly>
+                            <input type="number" class="form-control" name="income_tax" id="income_tax"
+                                value="{{ $salary->income_tax }}" readonly>
                         </div>
                         <div class="row">
                             <div class="col-6">
@@ -90,7 +90,7 @@
                                 <div class="form-group">
                                     <label for="">Sau thuế</label>
                                     <input type="text" class="form-control" name="total_money" id="total_money"
-                                        value="{{ $salary->total_money }}" readonly>
+                                        value="" readonly>
                                 </div>
                             </div>
                         </div>
@@ -104,7 +104,7 @@
             </form>
 
             <script>
-                function sum() {
+                $(function() {
                     var total_reward = "{{ $total_reward }}";
                     var total_discipline = "{{ $total_discipline }}";
                     var basic_salary = "{{ $salary->coefficients_salary }}";
@@ -123,16 +123,14 @@
                         $('#total_money').val(result);
                     });
 
-                    var total = basic_salary * working_days + (total_reward - total_discipline);
+                    var total = basic_salary * working_days + (total_reward - total_discipline) + subsidize;
                     $('#salary').val(total);
                     var incom_tax = "{{ $salary->income_tax }}";
                     var result = (total * (100 - incom_tax)) / 100;
                     $('#total_money').val(result);
-                }
-                $(document).ready(function() {
-                    sum();
-                })
+                });
             </script>
+
         @endforeach
 
         <div class="text-center py-4 h2">Danh sách quyết định thưởng - phạt</div>
