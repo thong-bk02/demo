@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('timekeepings', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('user_id')->unique();
-            $table->date('from_date');
-            $table->date('to_date');
+            $table->unsignedBigInteger('user_id');
+            $table->date('timekeeping_month');
+            $table->integer('overtime')->default(0);
+            $table->integer('day_off')->default(0);
             $table->integer('working_days')->default(0);
             $table->integer('arrive_late')->default(0);
             $table->double('hours_late')->default(0);

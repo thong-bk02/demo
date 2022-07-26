@@ -3,30 +3,30 @@
 @section('content')
     <div class="container">
 
-        @foreach ($salarys as $salary)
+       
             <h2 class="text-center py-3">
                 Thêm Lương
             </h2>
-            <form action="{{ route('admin.salary.store', $salary->user_id) }}" method="post">
+            <form action="{{ route('admin.salary.store', $salarys[0]->user_id) }}" method="post">
                 @csrf
                 <div class="row mx-lg-5 mx-2">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Tên nhân viên</label>
-                            <input type="text" class="form-control" value="{{ $salary->name }}" readonly>
+                            <input type="text" class="form-control" value="{{ $salarys[0]->name }}" readonly>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Chức vụ</label>
-                                    <input type="text" class="form-control" value="{{ $salary->position_name }}"
+                                    <input type="text" class="form-control" value="{{ $salarys[0]->position_name }}"
                                         readonly>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Phòng ban</label>
-                                    <input type="text" class="form-control" value="{{ $salary->department }}" readonly>
+                                    <input type="text" class="form-control" value="{{ $salarys[0]->department }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                             <label for="">Lương cơ bản</label>
                             <select class="form-control" name="coefficients_salary" id="coefficients_salary">
                                 @foreach ($basic_salary as $basic)
-                                    {!! $basic->coefficients_salary == $salary->coefficients_salary
+                                    {!! $basic->coefficients_salary == $salarys[0]->coefficients_salary
                                         ? '<option value="' . $basic->id . '">' . $basic->coefficients_salary . '</option>'
                                         : '' !!}
                                 @endforeach
@@ -47,10 +47,10 @@
 
                         <div class="form-group">
                             <label>Số ngày công</label>
-                            <input type="text" class="form-control" id="working_days" value="{{ $salary->working_days }}"
+                            <input type="text" class="form-control" id="working_days" value="{{ $salarys[0]->working_days }}"
                                 readonly>
                         </div>
-                        <input type="hidden" name="timekeeping" value="{{ $salary->id }}">
+                        <input type="hidden" name="timekeeping" value="{{ $salarys[0]->id }}">
                     </div>
                     <div class="col-sm-6">
 
@@ -126,9 +126,9 @@
                 $(function() {
                     $("#date_input").on("change", function() {
                         var month = $(this).val();
-                        var user_id = {{ $salary->user_id }};
+                        var user_id = {{ $salarys[0]->user_id }};
                         $.ajax({
-                            url: "{{ route('admin.salary.create', $salary->user_id) }}",
+                            url: "{{ route('admin.salary.create', $salarys[0]->user_id) }}",
                             method: "GET",
                             data: {
                                 month: month
@@ -149,7 +149,7 @@
                                 $('#total_discipline').val(data.total_discipline);
                                 let total_reward = Number($("#total_reward").val());
                                 let total_discipline = Number($("#total_discipline").val());
-                                let basic_salary = '{{ $salary->coefficients_salary }}';
+                                let basic_salary = '{{ $salarys[0]->coefficients_salary }}';
                                 let working_days = Number($("#working_days").val());
                                 let subsidize = Number($("#subsidize").val());
                                 let total = parseInt(basic_salary) * working_days + total_reward -
@@ -179,7 +179,7 @@
                     $("#subsidize").on("change", function() {
                         let total_reward = Number($("#total_reward").val());
                         let total_discipline = Number($("#total_discipline").val());
-                        let basic_salary = '{{ $salary->coefficients_salary }}';
+                        let basic_salary = '{{ $salarys[0]->coefficients_salary }}';
                         let working_days = Number($("#working_days").val());
                         let subsidize = Number($("#subsidize").val());
                         let total = parseInt(basic_salary) * working_days + total_reward - total_discipline +
@@ -200,6 +200,6 @@
                     });
                 });
             </script>
-        @endforeach
+        
     </div>
 @endsection

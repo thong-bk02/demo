@@ -157,7 +157,7 @@ class Salary extends Model
     /* 
         lấy thông tin của người dùng để đưa vào form tạo lương  
     */
-    protected static function getSalary($id)
+    protected static function getSalary($id, $month)
     {
         $salarys = DB::table('profile_users')
             ->join('users', 'profile_users.user_id', 'users.id')
@@ -166,6 +166,7 @@ class Salary extends Model
             ->join('departments', 'profile_users.department', 'departments.id')
             ->join('coefficients_salarys', 'positions.id', 'coefficients_salarys.position')
             ->where('profile_users.user_id', $id)
+            ->where('timekeepings.timekeeping_month', 'like', $month."%")
             ->select(
                 'users.name',
                 'profile_users.user_id',

@@ -43,7 +43,7 @@ class SalaryController extends Controller
     {
         $month = $request->get('month');
 
-        $salarys = Salary::getSalary($id);
+        $salarys = Salary::getSalary($id, $month);
         $basic_salary = BasicSalary::all();
         $total_reward = Salary::get_Total_RewardAndDiscipline($id, $month, 1);
         $total_discipline = Salary::get_Total_RewardAndDiscipline($id, $month, 2);
