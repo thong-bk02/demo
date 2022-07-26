@@ -12,7 +12,11 @@
     </thead>
     @if (blank($users))
         <tbody>
-            <tr><p class="alert alert-secondary text-center">Không có kết quả !</p></tr>
+            <tr>
+                <td colspan="7">
+                    <p class="alert alert-secondary text-center">Không có kết quả !</p>
+                </td>
+            </tr>
         </tbody>
     @endif
     <tbody id="personnel_search_list">

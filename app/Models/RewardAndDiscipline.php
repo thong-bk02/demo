@@ -84,7 +84,7 @@ class RewardAndDiscipline extends Model
                 ->join('users', 'profile_users.user_id', 'users.id')
                 ->join('positions', 'profile_users.position', 'positions.id')
                 ->join('departments', 'profile_users.department', 'departments.id')
-                ->select('users.name', 'profile_users.*', 'positions.position_name', 'departments.department')
+                ->select('users.name', 'profile_users.user_id', 'positions.position_name', 'departments.department')
                 ->where('profile_users.user_id', $id)
                 ->get();
             return $users;

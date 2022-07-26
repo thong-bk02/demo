@@ -2,55 +2,66 @@
 
 @section('content')
     <div class="container">
+        <h2 class="text-center mb-5">
+            Thông tin chấm công nhân viên
+        </h2>
         @foreach ($timekeepings as $timekeeping)
-            <h2 class="text-center mb-5">
-                Thông tin chấm công nhân viên
-            </h2>
-            <form action="{{ route('admin.timekeeping.update', $timekeeping->user_id) }}" method="post">
+            <form action="{{ route('admin.timekeeping.update', $timekeeping->timekeeping_code) }}" method="post">
                 @csrf
                 <div class="row mx-lg-5 mx-2">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Tên nhân viên</label>
-                            <input type="text" class="form-control" name="" 
-                                placeholder="" value="{{ $timekeeping->name }}" disabled>
+                            <input type="text" class="form-control"
+                                value="{{ $timekeeping->name }}" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="">Tháng lương</label>
+                            <input type="text" class="form-control"
+                                value="{{ date('m/Y', strtotime($timekeeping->timekeeping_month)) }}" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="">Ngày bắt đầu</label>
-                            <input type="date" class="form-control" name="from_date" 
-                                placeholder="" value="{{ $timekeeping->from_date }}">
+                            <label for="">Số lần về sớm</label>
+                            <input type="text" class="form-control" name="arrive_late" placeholder="Số điện thoại"
+                                value="{{ $timekeeping->arrive_late }}">
                         </div>
                         <div class="form-group">
-                            <label for="">Ngày kết thúc</label>
-                            <input type="date" class="form-control" name="to_date"
-                                value="{{ $timekeeping->to_date }}">
+                            <label for="">Tổng số giờ đi muộn</label>
+                            <input type="text" class="form-control" name="hours_early" placeholder="email@example.com"
+                                value="{{ $timekeeping->hours_early }}">
                         </div>
                         <div class="form-group">
-                            <label for="">Tổng số ngày làm</label>
-                            <input type="text" class="form-control" name="working_days"
-                                value="{{ $timekeeping->working_days }}">
+                            <label for="">Số ngày nghỉ</label>
+                            <input type="text" class="form-control" name="day_off" value="{{ $timekeeping->day_off }}">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="">Số lần về sớm</label>
-                            <input type="number" class="form-control" name="arrive_late"
-                                placeholder="Số điện thoại" value="{{ $timekeeping->arrive_late }}">
+                            <label for="">Chức vụ</label>
+                            <input type="text" class="form-control"
+                                value="{{ $timekeeping->position_name }}" readonly>
                         </div>
                         <div class="form-group">
+                            <label for="">Phòng ban</label>
+                            <input type="text" class="form-control"
+                                value="{{ $timekeeping->department }}" readonly>
+                        </div>
+                        
+                        <div class="form-group">
                             <label for="">Tổng số giờ về sớm</label>
-                            <input type="number" class="form-control" name="hours_late"
-                                placeholder="email@example.com" value="{{ $timekeeping->hours_late }}">
+                            <input type="number" class="form-control" name="hours_late" placeholder="email@example.com"
+                                value="{{ $timekeeping->hours_late }}">
                         </div>
                         <div class="form-group">
                             <label for="">Số lần đi muộn</label>
-                            <input type="number" class="form-control" name="leave_early"
-                                placeholder="Số điện thoại" value="{{ $timekeeping->leave_early }}">
+                            <input type="text" class="form-control" name="leave_early" placeholder="Số điện thoại"
+                                value="{{ $timekeeping->leave_early }}">
                         </div>
                         <div class="form-group">
-                            <label for="">Tổng số giờ đi muộn</label>
-                            <input type="number" class="form-control" name="hours_early"
-                                placeholder="email@example.com" value="{{ $timekeeping->hours_early }}">
+                            <label for="">Tổng ngày làm</label>
+                            <input type="text" class="form-control" name="working_days"
+                                value="{{ $timekeeping->working_days }}">
                         </div>
                     </div>
                 </div>
@@ -59,7 +70,6 @@
                     <input type="submit" class="btn btn-primary mx-3" value="Lưu">
                     <a href="{{ route('admin.timekeeping') }}" class="btn btn-secondary mx-3">Thoát</a>
                 </div>
-
             </form>
         @endforeach
     </div>

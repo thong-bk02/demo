@@ -10,37 +10,40 @@
         </tr>
     </thead>
     @if (blank($users))
-    <tbody>
-        <tr>
-            <p class="alert alert-secondary text-center">Không có kết quả !</p>
-        </tr>
-    </tbody>
-    @endif
-    <tbody id="personnel_search_list">
-        @foreach ($users as $user)
-            <tr class="border-bottom border-dark">
-                <th scope="row">
-                    {{ ($users->currentPage() - 1) * $users->links()->paginator->perPage() + $loop->iteration }}
-                </th>
-                <td>
-                    {{ $user->name }}
-                </td>
-                <td>
-                    {{ $user->user_code }}
-                </td>
-                <td>
-                    {{ $user->position_name }}
-                </td>
-                <td>
-                    {{ $user->department }}
-                </td>
-                <td class="w-25">
-                    <a href="{{ route('admin.salary.create',$user->user_id) }}" class="btn btn-primary">
-                        <i class="fa-solid fa-circle-plus"></i> Thêm Lương</a>
+        <tbody>
+            <tr>
+                <td colspan="6">
+                    <p class="alert alert-secondary text-center">Không có kết quả !</p>
                 </td>
             </tr>
-        @endforeach
-    </tbody>
+        </tbody>
+    @else
+        <tbody id="personnel_search_list">
+            @foreach ($users as $user)
+                <tr class="border-bottom border-dark">
+                    <th scope="row">
+                        {{ ($users->currentPage() - 1) * $users->links()->paginator->perPage() + $loop->iteration }}
+                    </th>
+                    <td>
+                        {{ $user->name }}
+                    </td>
+                    <td>
+                        {{ $user->user_code }}
+                    </td>
+                    <td>
+                        {{ $user->position_name }}
+                    </td>
+                    <td>
+                        {{ $user->department }}
+                    </td>
+                    <td class="w-25">
+                        <a href="{{ route('admin.salary.create', $user->user_id) }}" class="btn btn-primary">
+                            <i class="fa-solid fa-circle-plus"></i> Thêm Lương</a>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    @endif
 </table>
 <div id="pagination">
     {{ $users->links() }}

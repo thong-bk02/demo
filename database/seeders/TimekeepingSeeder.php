@@ -19,6 +19,7 @@ class TimekeepingSeeder extends Seeder
             [
                 'id' => 1,
                 'user_id' => 1,
+                'timekeeping_code' => '01-2022-07',
                 'timekeeping_month' => '2022-07-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -32,6 +33,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 2,
                 'user_id' => 2,
+                'timekeeping_code' => '02-2022-07',
                 'timekeeping_month' => '2022-07-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -45,6 +47,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 3,
                 'user_id' => 3,
+                'timekeeping_code' => '03-2022-07',
                 'timekeeping_month' => '2022-07-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -58,6 +61,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 4,
                 'user_id' => 4,
+                'timekeeping_code' => '04-2022-07',
                 'timekeeping_month' => '2022-07-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -71,6 +75,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 5,
                 'user_id' => 5,
+                'timekeeping_code' => '05-2022-07',
                 'timekeeping_month' => '2022-07-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -84,6 +89,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 6,
                 'user_id' => 6,
+                'timekeeping_code' => '06-2022-07',
                 'timekeeping_month' => '2022-07-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -97,6 +103,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 7,
                 'user_id' => 7,
+                'timekeeping_code' => '07-2022-07',
                 'timekeeping_month' => '2022-07-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -110,6 +117,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 8,
                 'user_id' => 8,
+                'timekeeping_code' => '08-2022-07',
                 'timekeeping_month' => '2022-07-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -123,6 +131,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 9,
                 'user_id' => 9,
+                'timekeeping_code' => '09-2022-07',
                 'timekeeping_month' => '2022-07-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -136,6 +145,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 10,
                 'user_id' => 10,
+                'timekeeping_code' => '10-2022-07',
                 'timekeeping_month' => '2022-07-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -149,6 +159,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 11,
                 'user_id' => 11,
+                'timekeeping_code' => '11-2022-03',
                 'timekeeping_month' => '2022-03-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -162,6 +173,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 12,
                 'user_id' => 12,
+                'timekeeping_code' => '12-2022-03',
                 'timekeeping_month' => '2022-03-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -175,6 +187,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 13,
                 'user_id' => 13,
+                'timekeeping_code' => '13-2022-03',
                 'timekeeping_month' => '2022-03-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -188,6 +201,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 14,
                 'user_id' => 14,
+                'timekeeping_code' => '14-2022-03',
                 'timekeeping_month' => '2022-03-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -201,6 +215,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 15,
                 'user_id' => 15,
+                'timekeeping_code' => '15-2022-03',
                 'timekeeping_month' => '2022-03-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -214,6 +229,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 16,
                 'user_id' => 16,
+                'timekeeping_code' => '16-2022-03',
                 'timekeeping_month' => '2022-03-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -227,6 +243,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 17,
                 'user_id' => 17,
+                'timekeeping_code' => '17-2022-03',
                 'timekeeping_month' => '2022-03-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -240,6 +257,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 18,
                 'user_id' => 18,
+                'timekeeping_code' => '18-2022-03',
                 'timekeeping_month' => '2022-03-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -253,6 +271,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 19,
                 'user_id' => 19,
+                'timekeeping_code' => '19-2022-03',
                 'timekeeping_month' => '2022-03-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -266,6 +285,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 20,
                 'user_id' => 20,
+                'timekeeping_code' => '20-2022-03',
                 'timekeeping_month' => '2022-03-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -279,6 +299,7 @@ class TimekeepingSeeder extends Seeder
             ],[
                 'id' => 21,
                 'user_id' => 1,
+                'timekeeping_code' => '01-2022-01',
                 'timekeeping_month' => '2022-01-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -292,6 +313,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 22,
                 'user_id' => 2,
+                'timekeeping_code' => '02-2022-01',
                 'timekeeping_month' => '2022-01-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -305,6 +327,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 23,
                 'user_id' => 3,
+                'timekeeping_code' => '03-2022-01',
                 'timekeeping_month' => '2022-01-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -318,6 +341,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 24,
                 'user_id' => 4,
+                'timekeeping_code' => '04-2022-01',
                 'timekeeping_month' => '2022-01-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -331,6 +355,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 25,
                 'user_id' => 5,
+                'timekeeping_code' => '05-2022-01',
                 'timekeeping_month' => '2022-01-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -344,6 +369,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 26,
                 'user_id' => 6,
+                'timekeeping_code' => '06-2022-01',
                 'timekeeping_month' => '2022-01-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -357,6 +383,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 27,
                 'user_id' => 7,
+                'timekeeping_code' => '07-2022-01',
                 'timekeeping_month' => '2022-01-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -370,6 +397,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 28,
                 'user_id' => 8,
+                'timekeeping_code' => '08-2022-01',
                 'timekeeping_month' => '2022-01-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -383,6 +411,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 29,
                 'user_id' => 9,
+                'timekeeping_code' => '09-2022-01',
                 'timekeeping_month' => '2022-01-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -396,6 +425,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 30,
                 'user_id' => 10,
+                'timekeeping_code' => '10-2022-01',
                 'timekeeping_month' => '2022-01-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -409,6 +439,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 31,
                 'user_id' => 11,
+                'timekeeping_code' => '11-2022-02',
                 'timekeeping_month' => '2022-02-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -422,6 +453,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 32,
                 'user_id' => 12,
+                'timekeeping_code' => '12-2022-02',
                 'timekeeping_month' => '2022-02-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -435,6 +467,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 33,
                 'user_id' => 13,
+                'timekeeping_code' => '13-2022-02',
                 'timekeeping_month' => '2022-02-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -448,6 +481,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 34,
                 'user_id' => 14,
+                'timekeeping_code' => '14-2022-02',
                 'timekeeping_month' => '2022-02-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -461,6 +495,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 35,
                 'user_id' => 15,
+                'timekeeping_code' => '15-2022-02',
                 'timekeeping_month' => '2022-02-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -474,6 +509,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 36,
                 'user_id' => 16,
+                'timekeeping_code' => '16-2022-02',
                 'timekeeping_month' => '2022-02-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -487,6 +523,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 37,
                 'user_id' => 17,
+                'timekeeping_code' => '17-2022-02',
                 'timekeeping_month' => '2022-02-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -500,6 +537,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 38,
                 'user_id' => 18,
+                'timekeeping_code' => '18-2022-02',
                 'timekeeping_month' => '2022-02-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -513,6 +551,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 39,
                 'user_id' => 19,
+                'timekeeping_code' => '19-2022-02',
                 'timekeeping_month' => '2022-02-01',
                 'overtime' => 2,
                 'day_off' => 1,
@@ -526,6 +565,7 @@ class TimekeepingSeeder extends Seeder
             ], [
                 'id' => 40,
                 'user_id' => 20,
+                'timekeeping_code' => '20-2022-02',
                 'timekeeping_month' => '2022-02-01',
                 'overtime' => 2,
                 'day_off' => 1,

@@ -18,7 +18,6 @@ return new class extends Migration
 
             $table->unsignedBigInteger('user_id');
             $table->string('salary_code')->unique();
-            $table->unsignedBigInteger('timekeeping');
             $table->date('month');
             $table->unsignedBigInteger('coefficients_salary');
             $table->double('subsidize')->nullable()->default(0);
@@ -29,7 +28,6 @@ return new class extends Migration
             $table->unsignedBigInteger('payment');
             $table->date('date_of_payment')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('timekeeping')->references('id')->on('timekeepings');
             $table->foreign('coefficients_salary')->references('id')->on('coefficients_salarys');
             $table->foreign('payment')->references('id')->on('payments');
             

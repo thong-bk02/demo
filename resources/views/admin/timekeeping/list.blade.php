@@ -1,36 +1,29 @@
 @extends('layouts.app')
 
-@section('title')
-    <title>Quản lí chấm công</title>
-@endsection
-
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/users/btn-clear-value-input.css') }}">
 @endsection
 
 @section('content')
     <div class="container">
-        {{-- Thông báo --}}
-        @include('layouts.message')
 
+        {{-- Thanh tìm kiếm --}}
         <table class="table">
             <thead class="thead-light">
                 <tr>
-                    <th scope="col">Tên nhân viên</th>
+                    <th scope="col">Họ và Tên</th>
                     <th scope="col">Chức vụ</th>
                     <th scope="col">Phòng ban</th>
-                    <th scope="col">Tháng công</th>
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <form id="searchform" name="searchform">
-                        @csrf
+                    <form id="searchform" name="searchform" method="post">
                         <td>
                             <span class="deleteicon w-100">
                                 <input type="text" name="name" id="search_name" placeholder="Họ và tên"
-                                    value="{{ Session('timekeeping.name') }}" class="form-control" autocomplete="off">
+                                    value="{{ Session('salary_listUser.name') }}" class="form-control" autocomplete="off">
                                 <span
                                     onclick="var input = this.previousElementSibling; input.value = ''; input.focus();">X</span>
                             </span>
@@ -40,7 +33,7 @@
                                 <option value="">tất cả</option>
                                 @foreach ($positions as $position)
                                     <option value="{{ $position->id }}"
-                                        {{ Session('timekeeping.position') == $position->id ? 'selected' : '' }}>
+                                        {{ Session('salary_listUser.position') == $position->id ? 'selected' : '' }}>
                                         {{ $position->position_name }}</option>
                                 @endforeach
                             </select>
@@ -50,22 +43,16 @@
                                 <option value="">tất cả</option>
                                 @foreach ($departments as $department)
                                     <option value="{{ $department->id }}"
-                                        {{ Session('timekeeping.department') == $department->id ? 'selected' : '' }}>
+                                        {{ Session('salary_listUser.department') == $department->id ? 'selected' : '' }}>
                                         {{ $department->department }}</option>
                                 @endforeach
                             </select>
                         </td>
                         <td>
-                            <input type="month" name="month" class="form-control"
-                                value="{{ session('timekeeping.month') }}" >
-                        </td>
-                        <td style="width: 25vw;">
-                            <a class='btn btn-primary' href='{{ url('admin/timekeeping') }}' id='search_btn'>
+                            <a class='btn btn-primary' href='{{ url('admin/salary/list-users') }}' id='search_btn'>
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </a>
-                            <a href="{{ route('admin.timekeeping.list') }}" class="btn btn-primary">Thêm chấm công</a>
-                            <a class="btn btn-warning float-end" href="{{ route('admin.timekeeping.export') }}">Xuất
-                                file</a>
+                            <a href="{{ route('admin.timekeeping') }}" class="btn btn-secondary">Thoát</a>
                         </td>
                     </form>
                 </tr>
@@ -74,53 +61,19 @@
 
         {{-- Kết quả tìm kiếm --}}
         <div id="pagination_data">
-            @include('admin.timekeeping.pagination_data', ['timekeepings' => $timekeepings])
+            @include('admin.timekeeping.list_page_data', ['users' => $users])
         </div>
-
     </div>
 
-    {{-- <form action="{{ route('admin.timekeeping.import') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <input type="file" name="file" class="form-control">
-        <br>
-        <button class="btn btn-success">Import Data</button>
-    </form> --}}
-
-    <script>
-        function confirmDelete() {
-            if (confirm("xóa bảng chấm công này ?") == true) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    </script>
-
-    <script>
-        $(function() {
-            $(document).on("click", "#pagination a,#search_btn", function() {
-                var url = $(this).attr("href");
-                var append = url.indexOf("?") == -1 ? "?" : "&";
-                var finalURL = url + append + $("#searchform").serialize();
-
-                $.get(finalURL, function(data) {
-                    $("#pagination_data").html(data);
-                });
-                return false;
-            })
-
-        });
-    </script>
-
-    @if (blank(session('timekeeping')))
+    @if (blank(session('salary_listUser')))
     @else
         <script>
             $(function() {
-                var page = '{{ Session('timekeeping.page') }}';
+                var page = '{{ Session('salary_listUser.page') }}';
                 if (page == "") {
-                    var finalURL = "timekeeping?" + $("#searchform").serialize();
+                    var finalURL = "list-users?" + $("#searchform").serialize();
                 } else {
-                    var finalURL = "timekeeping?page=" + page + "&" + $("#searchform").serialize();
+                    var finalURL = "list-users?page=" + page + "&" + $("#searchform").serialize();
                 }
 
                 $.get(finalURL, function(data) {
@@ -130,4 +83,30 @@
             });
         </script>
     @endif
+
+    <script>
+        $(function() {
+            //sự kiện nhấn enter khi nhập tên nhân viên
+            var input = document.getElementById("search_name");
+            input.addEventListener("keypress", function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    document.getElementById("search_btn").click();
+                }
+            });
+
+            $(document).on("click", "#pagination a,#search_btn", function() {
+                var url = $(this).attr("href");
+                var append = url.indexOf("?") == -1 ? "?" : "&";
+                var finalURL = url + append + $("#searchform").serialize();
+
+                event.preventDefault();
+                $.get(finalURL, function(data) {
+                    $("#pagination_data").html(data);
+                });
+                return false;
+            })
+
+        });
+    </script>
 @endsection

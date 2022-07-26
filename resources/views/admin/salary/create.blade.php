@@ -47,13 +47,11 @@
 
                         <div class="form-group">
                             <label>Số ngày công</label>
-                            <input type="text" class="form-control" id="working_days" value="{{ $salarys[0]->working_days }}"
+                            <input type="text" class="form-control" id="working_days" value=""
                                 readonly>
                         </div>
-                        <input type="hidden" name="timekeeping" value="{{ $salarys[0]->id }}">
                     </div>
                     <div class="col-sm-6">
-
                         <div class="row">
                             <div class="form-group col-6">
                                 <label for="text">Tổng thưởng</label>
@@ -147,6 +145,7 @@
                             success: function(data) {
                                 $('#total_reward').val(data.total_reward);
                                 $('#total_discipline').val(data.total_discipline);
+                                $('#working_days').val(data.working_days);
                                 let total_reward = Number($("#total_reward").val());
                                 let total_discipline = Number($("#total_discipline").val());
                                 let basic_salary = '{{ $salarys[0]->coefficients_salary }}';

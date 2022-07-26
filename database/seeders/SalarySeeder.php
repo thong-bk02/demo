@@ -15,7 +15,7 @@ class SalarySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('salarys')->insert([
+        DB::table('salary')->insert([
             [
                 'id' => 1,
                 'user_id' => "quỳnh",

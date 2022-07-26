@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('user_id');
+            $table->string('timekeeping_code')->unique();
             $table->date('timekeeping_month');
             $table->integer('overtime')->default(0);
             $table->integer('day_off')->default(0);

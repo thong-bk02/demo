@@ -62,11 +62,12 @@ class SalaryController extends Controller
 
         $total_reward = Salary::get_Total_RewardAndDiscipline($user_id, $month, 1);
         $total_discipline = Salary::get_Total_RewardAndDiscipline($user_id, $month, 2);
+        $working_days = Salary::getWorkingDays($user_id, $month);
         if ($request->ajax()) {
-            return ['total_reward' => $total_reward,'total_discipline' => $total_discipline];
+            return ['total_reward' => $total_reward,'total_discipline' => $total_discipline, 'working_days' => $working_days];
         }
-        // return view('admin.salary.create', compact('salarys', 'total_reward', 'total_discipline', 'basic_salary', 'payments', 'decisions'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -105,16 +106,6 @@ class SalaryController extends Controller
         $payments = Payment::all();
         $decisions = Salary::getDecision($id, $month);
         return view('admin.salary.show', compact('salarys', 'total_reward', 'total_discipline', 'payments', 'decisions'));
-
-        // $id = Str::substr($salary_code,0,2);
-        // $month = Str::substr($salary_code,-7);
-        // $salarys = Salary::getOne($salary_code);
-        // $total_reward = Salary::get_Total_RewardAndDiscipline($id, $month, 1);
-        // $total_discipline = Salary::get_Total_RewardAndDiscipline($id, $month, 2);
-        // $payments = Payment::all();
-        // $decisions = Salary::getDecisionMonth($id, $month);
-
-        // return view('admin.salary.show', compact('salarys', 'total_reward', 'total_discipline', 'payments', 'decisions'));
     }
 
     public function listUser(Request $request)

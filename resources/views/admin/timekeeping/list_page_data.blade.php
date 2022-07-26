@@ -18,7 +18,7 @@
             </tr>
         </tbody>
     @else
-        <tbody id="personnel_search_list">
+        <tbody>
             @foreach ($users as $user)
                 <tr class="border-bottom border-dark">
                     <th scope="row">
@@ -37,8 +37,8 @@
                         {{ $user->department }}
                     </td>
                     <td class="w-25">
-                        <a href="{{ route('admin.reward-discipline.create', $user->user_id) }}" class="btn btn-primary">
-                            <i class="fa-solid fa-circle-plus"></i> Thưởng - phạt</a>
+                        <a href="{{ route('admin.timekeeping.create', $user->user_id) }}" class="btn btn-primary">
+                            <i class="fa-solid fa-circle-plus"></i> Thêm Chấm công</a>
                     </td>
                 </tr>
             @endforeach

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class Salary extends Model
 {
@@ -37,17 +38,16 @@ class Salary extends Model
     {
         $salarys = DB::table('salary')
             ->join('users', 'salary.user_id', 'users.id')
-            ->join('timekeepings', 'salary.user_id', 'timekeepings.user_id')
             ->join('payments', 'salary.payment', 'payments.id')
             ->join('profile_users', 'salary.user_id', 'profile_users.user_id')
             ->join('positions', 'profile_users.position', 'positions.id')
             ->select(
                 'users.name',
                 'salary.*',
-                'timekeepings.working_days',
                 'payments.payment',
                 'profile_users.position',
-                'positions.position_name',)
+                'positions.position_name',
+            )
             ->when($request->has("name"), function ($q) use ($request) {
                 $q->where("name", "like", "%" . $request->get("name") . "%");
             })
@@ -58,7 +58,7 @@ class Salary extends Model
                 $q->where('profile_users.department', $request->get('department'));
             })
             ->when($request->get('month'), function ($q) use ($request) {
-                $q->where('month','like', $request->get('month')."%");
+                $q->where('month', 'like', $request->get('month') . "%");
             });
         return $salarys->orderByDesc('month')->orderBy('name')->paginate(8);
     }
@@ -68,6 +68,7 @@ class Salary extends Model
     */
     protected static function getOne($salary_code)
     {
+        $month = Str::substr($salary_code, -7);
         $salarys = DB::table('salary')
             ->join('users', 'salary.user_id', 'users.id')
             ->join('timekeepings', 'salary.user_id', 'timekeepings.user_id')
@@ -76,17 +77,18 @@ class Salary extends Model
             ->join('departments', 'profile_users.department', 'departments.id')
             ->join('coefficients_salarys', 'positions.id', 'coefficients_salarys.position')
             ->where('salary.salary_code', $salary_code)
+            ->where('timekeepings.timekeeping_month', 'like', $month . "%")
             ->select(
-                'users.*',
+                'users.name',
                 'salary.*',
-                'timekeepings.working_days',
+                'timekeepings.*',
                 'profile_users.position',
                 'positions.position_name',
                 'departments.department',
                 'coefficients_salarys.coefficients_salary'
             )
             ->get();
-
+        // dd($salarys);
         return $salarys;
     }
 
@@ -97,9 +99,10 @@ class Salary extends Model
     {
         $decision = DB::table('reward_and_disciplines')
             ->join('genre', 'reward_and_disciplines.type', 'genre.id')
+            ->join('reasion','reward_and_disciplines.reasion', 'reasion.id')
             ->where('reward_and_disciplines.user_id', $id)
-            ->where('reward_and_disciplines.date_created','like', $month."%")
-            ->select('reward_and_disciplines.*', 'genre.genre')
+            ->where('reward_and_disciplines.date_created', 'like', $month . "%")
+            ->select('reward_and_disciplines.*', 'genre.genre', 'reasion.reasion')
             ->orderByDesc('created_at')
             ->get();
         return $decision;
@@ -117,12 +120,27 @@ class Salary extends Model
                 $q->where('reward_and_disciplines.date_created', $month);
             })
             ->when($month, function ($q) use ($month) {
-                $q->where('reward_and_disciplines.date_created','like', $month."%");
+                $q->where('reward_and_disciplines.date_created', 'like', $month . "%");
             })
             ->where('type', $type)
             ->sum('money');
         return $reward;
     }
+
+    /*
+        lấy số ngày công của nhân sự theo tháng
+    */
+    protected static function getWorkingDays($id, $month)
+    {
+        $working_days = DB::table('timekeepings')
+            ->where('user_id', $id)
+            ->where('timekeeping_month', 'like', $month . "%")
+            ->select('working_days')
+            ->get();
+        $day  = data_get($working_days, '0.working_days');
+        return $day;
+    }
+
 
     /* 
         lấy danh sách những nhân sự chưa có lương  
@@ -166,7 +184,7 @@ class Salary extends Model
             ->join('departments', 'profile_users.department', 'departments.id')
             ->join('coefficients_salarys', 'positions.id', 'coefficients_salarys.position')
             ->where('profile_users.user_id', $id)
-            ->where('timekeepings.timekeeping_month', 'like', $month."%")
+            ->where('timekeepings.timekeeping_month', 'like', $month . "%")
             ->select(
                 'users.name',
                 'profile_users.user_id',
@@ -197,9 +215,11 @@ class Salary extends Model
     /* 
         cập nhật lương  
     */
-    protected static function updateSalary($input, $id){
+    protected static function updateSalary($input, $id)
+    {
+        $month = $input['month'];
         try {
-            Salary::where('user_id', $id)->update($input);
+            Salary::where('user_id', $id)->where('month', $month)->update($input);
         } catch (Exception $ex) {
             throw $ex;
         }
@@ -208,7 +228,8 @@ class Salary extends Model
     /* 
         xóa lương
     */
-    protected static function dlt($salary_code){
+    protected static function dlt($salary_code)
+    {
         try {
             Salary::where('salary_code', $salary_code)->delete();
         } catch (Exception $ex) {

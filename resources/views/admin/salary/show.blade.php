@@ -26,8 +26,9 @@
                         <div class="form-group">
                             <label>Lương cơ bản</label>
                             <input type="text" class="form-control" id="coefficients_salary"
-                                value="{{ number_format($salary->coefficients_salary, 0) }}" readonly>
+                                value="{{ $salary->coefficients_salary }}" readonly>
                         </div>
+                        <input type="hidden" name="month" value="{{ $salary->month }}">
                         <div class="form-group">
                             <label>Số ngày công</label>
                             <input type="text" class="form-control" id="working_days" value="{{ $salary->working_days }}"
@@ -105,32 +106,42 @@
 
             <script>
                 $(function() {
-                    var total_reward = "{{ $total_reward }}";
-                    var total_discipline = "{{ $total_discipline }}";
-                    var basic_salary = "{{ $salary->coefficients_salary }}";
-                    var working_days = "{{ $salary->working_days }}";
-                    var subsidize = parseInt($("#subsidize").val());
-                    $("#subsidize").change(function() {
-                        var subsidize = parseInt($("#subsidize").val());
-                        if (!subsidize) {
-                            var total = basic_salary * working_days + (total_reward - total_discipline);
+                    let total_reward = Number($("#total_reward").val());
+                    let total_discipline = Number($("#total_discipline").val());
+                    let basic_salary = '{{ $salary->coefficients_salary }}';
+                    let working_days = Number($("#working_days").val());
+                    let subsidize = Number($("#subsidize").val());
+                    let total = parseInt(basic_salary) * working_days + total_reward - total_discipline +
+                        subsidize;
+                    let income_tax = '{{ $salary->income_tax }}';
+                    let result = (total * (100 - income_tax)) / 100;
+                    $('#salary').val(total);
+                    $('#total_money').val(result);
+
+                    $("#subsidize").on("change", function() {
+                        let total_reward = Number($("#total_reward").val());
+                        let total_discipline = Number($("#total_discipline").val());
+                        let basic_salary = '{{ $salarys[0]->coefficients_salary }}';
+                        let working_days = Number($("#working_days").val());
+                        let subsidize = Number($("#subsidize").val());
+                        let total = parseInt(basic_salary) * working_days + total_reward - total_discipline +
+                            subsidize;
+                        if (total < 15000000) {
+                            $('#income_tax').val(5);
+                        } else if (total < 30000000) {
+                            $('#income_tax').val(10);
+                        } else if (total < 45000000) {
+                            $('#income_tax').val(15);
                         } else {
-                            var total = basic_salary * working_days + (total_reward - total_discipline) + subsidize;
+                            $('#income_tax').val(20);
                         }
-                        var incom_tax = "{{ $salary->income_tax }}";
-                        var result = (total * (100 - incom_tax)) / 100;
+                        let incom_tax = $("#income_tax").val();
+                        let result = (total * (100 - incom_tax)) / 100;
                         $('#salary').val(total);
                         $('#total_money').val(result);
                     });
-
-                    var total = basic_salary * working_days + (total_reward - total_discipline) + subsidize;
-                    $('#salary').val(total);
-                    var incom_tax = "{{ $salary->income_tax }}";
-                    var result = (total * (100 - incom_tax)) / 100;
-                    $('#total_money').val(result);
                 });
             </script>
-
         @endforeach
 
         <div class="text-center py-4 h2">Danh sách quyết định thưởng - phạt</div>

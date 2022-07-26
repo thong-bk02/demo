@@ -14,7 +14,9 @@
     @if (blank($reward_and_disciplines))
         <tbody>
             <tr>
-                <p class="alert alert-secondary text-center">Không có kết quả !</p>
+                <td colspan="8">
+                    <p class="alert alert-secondary text-center">Không có kết quả !</p>
+                </td>
             </tr>
         </tbody>
     @else
@@ -37,16 +39,16 @@
                         {{ $reward_and_discipline->genre }}
                     </td>
                     <td>
-                        {{ number_format($reward_and_discipline->money,0) }}
+                        {{ number_format($reward_and_discipline->money, 0) }}
                     </td>
                     <td>
-                        {{ $reward_and_discipline->date_created }}
+                        {{ date('m/Y', strtotime($reward_and_discipline->date_created)) }}
                     </td>
                     <td>
                         <a href="{{ route('admin.reward-discipline.show', $reward_and_discipline->id) }}"
                             class="mx-1"><i class="fa-solid fa-eye"></i></a>
-                        <a href="{{ route('admin.reward-discipline.delete', $reward_and_discipline->id) }}" class="mx-1" onclick="return confirmDelete()"><i
-                                class="fa-solid fa-trash-can"></i></a>
+                        <a href="{{ route('admin.reward-discipline.delete', $reward_and_discipline->id) }}"
+                            class="mx-1" onclick="return confirmDelete()"><i class="fa-solid fa-trash-can"></i></a>
                     </td>
                 </tr>
             @endforeach
