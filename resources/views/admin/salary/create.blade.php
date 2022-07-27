@@ -2,8 +2,6 @@
 
 @section('content')
     <div class="container">
-
-       
             <h2 class="text-center py-3">
                 Thêm Lương
             </h2>
