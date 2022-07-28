@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Timekeeping;
 use Illuminate\Http\Request;
 use App\Exports\TimeKeepingExport;
+use App\Exports\TimekeepingExportOne;
 use App\Http\Requests\TimekeepingCreateRequest;
 use App\Imports\TimeKeepingImport;
 use App\Models\Department;
 use App\Models\Position;
 use App\Models\RewardAndDiscipline;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class TimekeepingController extends Controller
@@ -148,13 +150,30 @@ class TimekeepingController extends Controller
         return Excel::download(new TimekeepingExport, 'Chấm_Công.xlsx');
     }
 
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function import()
+    public function exportOne($code)
     {
-        Excel::import(new TimekeepingImport, request()->file('file'));
+        session()->put('timekeeping_code', $code);
+        $user = DB::table('users')
+            ->join('timekeepings', 'timekeepings.user_id', 'users.id')
+            ->where('timekeepings.timekeeping_code', $code)
+            ->select('name')
+            ->pluck('name');
+        $user = $user->values();
+        $name = $user[0];
+        return Excel::download(new TimekeepingExportOne, 'Chấm_Công_' . $name . '.xlsx');
+    }
 
-        return back();
+    public function import(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            Timekeeping::truncate();
+            Excel::import(new TimeKeepingImport, $request->file('cham_cong'));
+            return redirect('admin/timekeeping')->with("success", 'import thành công');
+            DB::commit();
+        } catch (Exception $ex) {
+            DB::rollBack();
+            throw $ex;
+        }
     }
 }

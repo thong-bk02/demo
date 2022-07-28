@@ -72,6 +72,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::controller(TimekeepingController::class)->group(function () {
         Route::get('/admin/timekeeping', 'index')->name('admin.timekeeping');
         Route::get('/admin/timekeeping-export', 'export')->name('admin.timekeeping.export');
+        Route::get('/admin/timekeeping-exportOne/{id}', 'exportOne')->name('admin.timekeeping.exportOne');
         Route::post('/admin/timekeeping-import', 'import')->name('admin.timekeeping.import');
     });
     Route::get('/admin/timekeeping/delete/{id}', [TimekeepingController::class, 'destroy'])->name('admin.timekeeping.delete');

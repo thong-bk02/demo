@@ -21,7 +21,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 1,
                 'timekeeping_code' => '01-2022-07',
                 'timekeeping_month' => '2022-07-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 20,
                 'arrive_late' => 1,
@@ -35,7 +35,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 2,
                 'timekeeping_code' => '02-2022-07',
                 'timekeeping_month' => '2022-07-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 20,
                 'arrive_late' => 2,
@@ -49,7 +49,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 3,
                 'timekeeping_code' => '03-2022-07',
                 'timekeeping_month' => '2022-07-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 20,
                 'arrive_late' => 3,
@@ -63,7 +63,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 4,
                 'timekeeping_code' => '04-2022-07',
                 'timekeeping_month' => '2022-07-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 20,
                 'arrive_late' => 4,
@@ -77,7 +77,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 5,
                 'timekeeping_code' => '05-2022-07',
                 'timekeeping_month' => '2022-07-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 21,
                 'arrive_late' => 4,
@@ -91,7 +91,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 6,
                 'timekeeping_code' => '06-2022-07',
                 'timekeeping_month' => '2022-07-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 22,
                 'arrive_late' => 0,
@@ -105,7 +105,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 7,
                 'timekeeping_code' => '07-2022-07',
                 'timekeeping_month' => '2022-07-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 23,
                 'arrive_late' => 1,
@@ -119,7 +119,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 8,
                 'timekeeping_code' => '08-2022-07',
                 'timekeeping_month' => '2022-07-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 24,
                 'arrive_late' => 0,
@@ -133,7 +133,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 9,
                 'timekeeping_code' => '09-2022-07',
                 'timekeeping_month' => '2022-07-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 25,
                 'arrive_late' => 1,
@@ -147,7 +147,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 10,
                 'timekeeping_code' => '10-2022-07',
                 'timekeeping_month' => '2022-07-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 21,
                 'arrive_late' => 1,
@@ -161,7 +161,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 11,
                 'timekeeping_code' => '11-2022-03',
                 'timekeeping_month' => '2022-03-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 22,
                 'arrive_late' => 3,
@@ -175,7 +175,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 12,
                 'timekeeping_code' => '12-2022-03',
                 'timekeeping_month' => '2022-03-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 25,
                 'arrive_late' => 0,
@@ -189,7 +189,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 13,
                 'timekeeping_code' => '13-2022-03',
                 'timekeeping_month' => '2022-03-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 23,
                 'arrive_late' => 0,
@@ -203,7 +203,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 14,
                 'timekeeping_code' => '14-2022-03',
                 'timekeeping_month' => '2022-03-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 20,
                 'arrive_late' => 0,
@@ -217,7 +217,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 15,
                 'timekeeping_code' => '15-2022-03',
                 'timekeeping_month' => '2022-03-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 24,
                 'arrive_late' => 0,
@@ -231,7 +231,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 16,
                 'timekeeping_code' => '16-2022-03',
                 'timekeeping_month' => '2022-03-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 25,
                 'arrive_late' => 1,
@@ -245,7 +245,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 17,
                 'timekeeping_code' => '17-2022-03',
                 'timekeeping_month' => '2022-03-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 25,
                 'arrive_late' => 2,
@@ -259,7 +259,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 18,
                 'timekeeping_code' => '18-2022-03',
                 'timekeeping_month' => '2022-03-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 22,
                 'arrive_late' => 4,
@@ -273,7 +273,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 19,
                 'timekeeping_code' => '19-2022-03',
                 'timekeeping_month' => '2022-03-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 24,
                 'arrive_late' => 0,
@@ -287,7 +287,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 20,
                 'timekeeping_code' => '20-2022-03',
                 'timekeeping_month' => '2022-03-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 24,
                 'arrive_late' => 1,
@@ -301,7 +301,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 1,
                 'timekeeping_code' => '01-2022-01',
                 'timekeeping_month' => '2022-01-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 20,
                 'arrive_late' => 1,
@@ -315,7 +315,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 2,
                 'timekeeping_code' => '02-2022-01',
                 'timekeeping_month' => '2022-01-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 20,
                 'arrive_late' => 2,
@@ -329,7 +329,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 3,
                 'timekeeping_code' => '03-2022-01',
                 'timekeeping_month' => '2022-01-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 20,
                 'arrive_late' => 3,
@@ -343,7 +343,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 4,
                 'timekeeping_code' => '04-2022-01',
                 'timekeeping_month' => '2022-01-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 20,
                 'arrive_late' => 4,
@@ -357,7 +357,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 5,
                 'timekeeping_code' => '05-2022-01',
                 'timekeeping_month' => '2022-01-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 21,
                 'arrive_late' => 4,
@@ -371,7 +371,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 6,
                 'timekeeping_code' => '06-2022-01',
                 'timekeeping_month' => '2022-01-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 22,
                 'arrive_late' => 0,
@@ -385,7 +385,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 7,
                 'timekeeping_code' => '07-2022-01',
                 'timekeeping_month' => '2022-01-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 23,
                 'arrive_late' => 1,
@@ -399,7 +399,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 8,
                 'timekeeping_code' => '08-2022-01',
                 'timekeeping_month' => '2022-01-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 24,
                 'arrive_late' => 0,
@@ -413,7 +413,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 9,
                 'timekeeping_code' => '09-2022-01',
                 'timekeeping_month' => '2022-01-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 25,
                 'arrive_late' => 1,
@@ -427,7 +427,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 10,
                 'timekeeping_code' => '10-2022-01',
                 'timekeeping_month' => '2022-01-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 21,
                 'arrive_late' => 1,
@@ -441,7 +441,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 11,
                 'timekeeping_code' => '11-2022-02',
                 'timekeeping_month' => '2022-02-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 22,
                 'arrive_late' => 3,
@@ -455,7 +455,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 12,
                 'timekeeping_code' => '12-2022-02',
                 'timekeeping_month' => '2022-02-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 25,
                 'arrive_late' => 0,
@@ -469,7 +469,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 13,
                 'timekeeping_code' => '13-2022-02',
                 'timekeeping_month' => '2022-02-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 23,
                 'arrive_late' => 0,
@@ -483,7 +483,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 14,
                 'timekeeping_code' => '14-2022-02',
                 'timekeeping_month' => '2022-02-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 20,
                 'arrive_late' => 0,
@@ -497,7 +497,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 15,
                 'timekeeping_code' => '15-2022-02',
                 'timekeeping_month' => '2022-02-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 24,
                 'arrive_late' => 0,
@@ -511,7 +511,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 16,
                 'timekeeping_code' => '16-2022-02',
                 'timekeeping_month' => '2022-02-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 25,
                 'arrive_late' => 1,
@@ -525,7 +525,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 17,
                 'timekeeping_code' => '17-2022-02',
                 'timekeeping_month' => '2022-02-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 25,
                 'arrive_late' => 2,
@@ -539,7 +539,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 18,
                 'timekeeping_code' => '18-2022-02',
                 'timekeeping_month' => '2022-02-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 22,
                 'arrive_late' => 4,
@@ -553,7 +553,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 19,
                 'timekeeping_code' => '19-2022-02',
                 'timekeeping_month' => '2022-02-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 24,
                 'arrive_late' => 0,
@@ -567,7 +567,7 @@ class TimekeepingSeeder extends Seeder
                 'user_id' => 20,
                 'timekeeping_code' => '20-2022-02',
                 'timekeeping_month' => '2022-02-01',
-                'overtime' => 2,
+                
                 'day_off' => 1,
                 'working_days' => 24,
                 'arrive_late' => 1,

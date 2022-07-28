@@ -57,20 +57,26 @@
                         </td>
                         <td>
                             <input type="month" name="month" class="form-control"
-                                value="{{ session('timekeeping.month') }}" >
+                                value="{{ session('timekeeping.month') }}">
                         </td>
                         <td style="width: 25vw;">
                             <a class='btn btn-primary' href='{{ url('admin/timekeeping') }}' id='search_btn'>
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </a>
                             <a href="{{ route('admin.timekeeping.list') }}" class="btn btn-primary">Thêm chấm công</a>
-                            <a class="btn btn-warning float-end" href="{{ route('admin.timekeeping.export') }}">Xuất
-                                file</a>
+                            <a class="btn btn-outline-primary float-end"
+                                href="{{ route('admin.timekeeping.export') }}">Xuất excel</a>
+                            
                         </td>
                     </form>
                 </tr>
             </tbody>
         </table>
+        <form action="{{ route('admin.timekeeping.import') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="cham_cong" accept=".xlsx, .xls, .csv" required>
+            <input type="submit" value="Upload">
+        </form>
 
         {{-- Kết quả tìm kiếm --}}
         <div id="pagination_data">

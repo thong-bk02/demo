@@ -23,13 +23,13 @@
                         </div>
                         <div class="form-group">
                             <label for="">Số lần về sớm</label>
-                            <input type="text" class="form-control" name="arrive_late" placeholder="Số điện thoại"
-                                value="{{ $timekeeping->arrive_late }}">
+                            <input type="text" class="form-control" name="leave_early"
+                                value="{{ $timekeeping->leave_early }}">
                         </div>
                         <div class="form-group">
-                            <label for="">Tổng số giờ đi muộn</label>
-                            <input type="text" class="form-control" name="hours_early" placeholder="email@example.com"
-                                value="{{ $timekeeping->hours_early }}">
+                            <label for="">Số lần đi muộn</label>
+                            <input type="text" class="form-control" name="arrive_late"
+                                value="{{ $timekeeping->arrive_late }}">
                         </div>
                         <div class="form-group">
                             <label for="">Số ngày nghỉ</label>
@@ -50,13 +50,13 @@
                         
                         <div class="form-group">
                             <label for="">Tổng số giờ về sớm</label>
-                            <input type="number" class="form-control" name="hours_late" placeholder="email@example.com"
-                                value="{{ $timekeeping->hours_late }}">
+                            <input type="number" class="form-control" name="hours_early"
+                                value="{{ $timekeeping->hours_early }}">
                         </div>
                         <div class="form-group">
-                            <label for="">Số lần đi muộn</label>
-                            <input type="text" class="form-control" name="leave_early" placeholder="Số điện thoại"
-                                value="{{ $timekeeping->leave_early }}">
+                            <label for="">Tổng số giờ đi muộn</label>
+                            <input type="text" class="form-control" name="hours_late"
+                                value="{{ $timekeeping->hours_late }}">
                         </div>
                         <div class="form-group">
                             <label for="">Tổng ngày làm</label>

@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 class Timekeeping extends Model
 {
     use HasFactory;
+    protected $guarded=[];
 
     protected $fillable = [
         'user_id',

@@ -44,7 +44,9 @@
                         <a href="{{ route('admin.timekeeping.show', $timekeeping->timekeeping_code) }}"
                             class="mx-1"><i class="fa-solid fa-eye"></i></a>
                         <a href="{{ route('admin.timekeeping.delete', $timekeeping->timekeeping_code) }}" class="mx-1"
-                            onclick="return confirmDelete()"><i class="fa-solid fa-trash-can"></i></a>
+                            onclick="return confirmDelete()"><i class="fa-solid fa-trash-can text-danger"></i></a>
+                        <a class="btn btn-outline-success btn-sm float-end" href="{{ route('admin.timekeeping.exportOne', $timekeeping->timekeeping_code) }}">Xuất
+                            excel</a>
                     </td>
                 </tr>
             @endforeach
