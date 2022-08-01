@@ -66,7 +66,7 @@
                             <a href="{{ route('admin.timekeeping.list') }}" class="btn btn-primary">Thêm chấm công</a>
                             <a class="btn btn-outline-primary float-end"
                                 href="{{ route('admin.timekeeping.export') }}">Xuất excel</a>
-                            
+
                         </td>
                     </form>
                 </tr>
@@ -74,8 +74,18 @@
         </table>
         <form action="{{ route('admin.timekeeping.import') }}" method="post" enctype="multipart/form-data">
             @csrf
-            <input type="file" name="cham_cong" accept=".xlsx, .xls, .csv" required>
-            <input type="submit" value="Upload">
+            {{-- <input type="file" name="cham_cong" accept=".xlsx, .xls, .csv" required> --}}
+            <div class="row mx-1 mb-3">
+                <div class="col">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="customFile"  name="cham_cong" accept=".xlsx, .xls, .csv" required>
+                        <label class="custom-file-label" for="customFile">Chọn file</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <input type="submit" value="Tải lên" class="btn btn-primary">
+                </div>
+            </div>
         </form>
 
         {{-- Kết quả tìm kiếm --}}

@@ -26,12 +26,12 @@
     </a>
 </li>
 
-<li class="nav-item">
+{{-- <li class="nav-item">
     <a href="{{ route('admin.access-rights') }}" class="nav-link {{ Request::is('admin/access-rights*') ? 'active' : '' }}">
         <i class="nav-icon fa-solid fa-eye-low-vision"></i>
         <p>Quản lí quyền</p>
     </a>
-</li>
+</li> --}}
 
 <li class="nav-item">
     <a href="{{ route('admin.timekeeping') }}" class="nav-link {{ Request::is('admin/timekeeping*') ? 'active' : '' }}">

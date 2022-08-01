@@ -37,7 +37,7 @@
                         </div>
 
                         <div class="card-footer">
-                            <button class="btn btn-success">Submit</button>
+                            <button class="btn btn-success">Cập nhật</button>
                         </div>
 
                     </form>

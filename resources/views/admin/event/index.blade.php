@@ -59,12 +59,12 @@
             </div>
         </div>
 
-        <table class="table table-hover table-sm">
+        <table class="table table-hover table-sm table-bordered">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Stt</th>
                     <th scope="col">Tên sự kiện</th>
-                    <th scope="col">Nội dung sự kiện</th>
+                    <th scope="col" class="w-25">Nội dung sự kiện</th>
                     <th scope="col">Ngày bắt đầu</th>
                     <th scope="col">Ngày kết thúc</th>
                     <th scope="col">Trạng thái</th>
