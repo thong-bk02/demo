@@ -8,10 +8,16 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+ 
     /**
      * Show the application dashboard.
      *
@@ -113,5 +119,12 @@ class HomeController extends Controller
             'go_out',
             'homemade',
         ));
+    }
+
+    public function main(){
+        if(Auth::user()->admin == 1){
+            return redirect()->route('home');
+        }
+        return redirect()->route('users');
     }
 }

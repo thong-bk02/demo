@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SalaryExport;
+use App\Imports\SalaryImport;
 use App\Models\BasicSalary;
 use App\Models\Department;
 use App\Models\Payment;
@@ -9,11 +11,19 @@ use App\Models\Position;
 use App\Models\Salary;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SalaryController extends Controller
 {
     public $_KEY = 'salary';
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+ 
     /**
      * Display a listing of the resource.
      *
@@ -164,6 +174,38 @@ class SalaryController extends Controller
             return redirect()->route('admin.salary')->with('success', 'Xóa thành công !');
         } catch (Exception $ex) {
             return redirect()->route('admin.salary')->with('failed', 'Xoá không thành công !');
+        }
+    }
+
+    public function export()
+    {
+        return Excel::download(new SalaryExport, 'Bảng_lương.xlsx');
+    }
+
+    // public function exportOne($code)
+    // {
+    //     session()->put('timekeeping_code', $code);
+    //     $user = DB::table('users')
+    //         ->join('timekeepings', 'timekeepings.user_id', 'users.id')
+    //         ->where('timekeepings.timekeeping_code', $code)
+    //         ->select('name')
+    //         ->pluck('name');
+    //     $user = $user->values();
+    //     $name = $user[0];
+    //     return Excel::download(new SalaryExport, 'Chấm_Công_' . $name . '.xlsx');
+    // }
+
+    public function import(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            Salary::truncate();
+            Excel::import(new SalaryImport, $request->file('bang_luong'));
+            return redirect('admin/salary')->with("success", 'cập nhật dữ liệu thành công');
+            DB::commit();
+        } catch (Exception $ex) {
+            DB::rollBack();
+            throw $ex;
         }
     }
 }

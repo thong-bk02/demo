@@ -12,11 +12,6 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function saveSearchSession($_KEY, $value)
     {
         session()->put($_KEY, $value);

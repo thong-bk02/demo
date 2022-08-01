@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\PowerController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReasionController;
 use App\Http\Controllers\RewardAndDisciplineController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\StaffController;
@@ -25,9 +26,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'main'])->name('main');
 
 Auth::routes();
 Auth::routes(['register' => false]);
@@ -70,7 +69,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('/admin/timekeeping/{id}/create', [TimekeepingController::class, 'store'])->name('admin.timekeeping.store');
     Route::get('/admin/timekeeping/list-users', [TimekeepingController::class, 'list'])->name('admin.timekeeping.list');
     Route::controller(TimekeepingController::class)->group(function () {
-        Route::get('/admin/timekeeping', 'index')->name('admin.timekeeping');
         Route::get('/admin/timekeeping-export', 'export')->name('admin.timekeeping.export');
         Route::get('/admin/timekeeping-exportOne/{id}', 'exportOne')->name('admin.timekeeping.exportOne');
         Route::post('/admin/timekeeping-import', 'import')->name('admin.timekeeping.import');
@@ -86,6 +84,9 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/reward-discipline/list-users', [RewardAndDisciplineController::class, 'list'])->name('admin.reward-discipline.list');
     Route::get('/admin/reward-discipline/delete/{id}', [RewardAndDisciplineController::class, 'destroy'])->name('admin.reward-discipline.delete');
 
+    // quản lí lý do thưởng phạt
+    Route::get('/admin/reward-discipline/reasion', [ReasionController::class, 'index'])->name('admin.reasion');
+
     //quản lí lương
     Route::get('/admin/salary', [SalaryController::class, 'index'])->name('admin.salary');
     Route::get('/admin/salary/create/money', [SalaryController::class, 'demo'])->name('admin.salary.money');
@@ -96,12 +97,11 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('/admin/salary/{id}/create', [SalaryController::class, 'store'])->name('admin.salary.store');
     Route::get('/admin/salary/delete/{id}', [SalaryController::class, 'destroy'])->name('admin.salary.delete');
     Route::get('/admin/salary/dataSlary', [SalaryController::class, 'month'])->name('admin.salary.dataSlary');
-
-    //thông tin cá nhân
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::get('/change-password', [ProfileController::class, 'changePassword'])->name('change-password');
-    Route::post('/change-password', [ProfileController::class, 'updatePassword'])->name('update-password');
+    Route::controller(SalaryController::class)->group(function () {
+        Route::get('/admin/salary-export', 'export')->name('admin.salary.export');
+        Route::get('/admin/salary-exportOne/{id}', 'exportOne')->name('admin.salary.exportOne');
+        Route::post('/admin/salary-import', 'import')->name('admin.salary.import');
+    });
 
     //quản lí sự kiện
     Route::get('admin/event', [EventController::class, 'index'])->name('admin.event');
@@ -109,6 +109,13 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/event/delete/{id}', [EventController::class, 'destroy'])->name('admin.event.delete');
     Route::post('admin/event/update/{id}', [EventController::class, 'update'])->name('admin.event.update');
 });
+
+
+//thông tin cá nhân
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::get('/change-password', [ProfileController::class, 'changePassword'])->name('change-password');
+Route::post('/change-password', [ProfileController::class, 'updatePassword'])->name('update-password');
 
 // danh sách nhân sự
 Route::get('/users', [StaffController::class, 'users'])->name('users');

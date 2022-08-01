@@ -6,6 +6,7 @@
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/users/btn-clear-value-input.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/input-file.css') }}">
 @endsection
 
 @section('content')
@@ -63,30 +64,41 @@
                             <a class='btn btn-primary' href='{{ url('admin/timekeeping') }}' id='search_btn'>
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </a>
-                            <a href="{{ route('admin.timekeeping.list') }}" class="btn btn-primary">Thêm chấm công</a>
+                            <a href="{{ route('admin.timekeeping.list') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-plus"></i>
+                            </a>
                             <a class="btn btn-outline-primary float-end"
                                 href="{{ route('admin.timekeeping.export') }}">Xuất excel</a>
+                            <a class="btn btn-outline-primary float-end" href="" data-toggle="modal"
+                                data-target="#exampleModal">Cập nhật</a>
 
                         </td>
                     </form>
                 </tr>
             </tbody>
         </table>
-        <form action="{{ route('admin.timekeeping.import') }}" method="post" enctype="multipart/form-data">
-            @csrf
-            {{-- <input type="file" name="cham_cong" accept=".xlsx, .xls, .csv" required> --}}
-            <div class="row mx-1 mb-3">
-                <div class="col">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="customFile"  name="cham_cong" accept=".xlsx, .xls, .csv" required>
-                        <label class="custom-file-label" for="customFile">Chọn file</label>
+       
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form action="{{ route('admin.timekeeping.import') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Cập nhật thông tin chấm công</h5>
+                        </div>
+                        <div class="modal-body">
+                            <input type="file" class="" id="customFile" name="cham_cong" accept=".xlsx, .xls, .csv"
+                                required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <input type="submit" value="Tải lên" class="btn btn-primary">
+                        </div>
                     </div>
-                </div>
-                <div class="col">
-                    <input type="submit" value="Tải lên" class="btn btn-primary">
-                </div>
+                </form>
             </div>
-        </form>
+        </div>
 
         {{-- Kết quả tìm kiếm --}}
         <div id="pagination_data">
@@ -94,13 +106,6 @@
         </div>
 
     </div>
-
-    {{-- <form action="{{ route('admin.timekeeping.import') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <input type="file" name="file" class="form-control">
-        <br>
-        <button class="btn btn-success">Import Data</button>
-    </form> --}}
 
     <script>
         function confirmDelete() {

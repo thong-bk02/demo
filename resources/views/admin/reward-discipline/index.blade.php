@@ -55,12 +55,14 @@
                             <input type="date" name="date_created" class="form-control"
                                 value="{{ Session('reward_and_discipline.date_created') }}">
                         </td>
-                        <td>
+                        <td style="width: 25vw;">
                             <a class='btn btn-primary' href='{{ url('admin/reward-discipline') }}' id='search_btn'>
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </a>
                             <a href="{{ route('admin.reward-discipline.list') }}" class="btn btn-primary">
                                 Thêm Thưởng phạt</a>
+                            <a href="{{ route('admin.reasion') }}" class="btn btn-primary">
+                                Quyết định</a>
                         </td>
                     </form>
                 </tr>
@@ -76,7 +78,7 @@
     </div>
     <script>
         function confirmDelete() {
-            if (confirm("xóa người nhân viên này ?") == true) {
+            if (confirm("xóa quyết định này ?") == true) {
                 return true;
             } else {
                 return false;

@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+ 
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +27,10 @@ class ProfileController extends Controller
     {
         try {
             $profile = Profile::getProfile(Auth::user()->id);
-            return view('profile', compact('profile'));
+            if(Auth::user()->admin == 1){
+                return view('admin.profile', compact('profile'));
+            }
+            return view('staff.profile', compact('profile'));
         } catch (Exception $ex) {
             throw $ex;
         }
@@ -57,7 +66,10 @@ class ProfileController extends Controller
 
     public function changePassword()
     {
-        return view('change-password');
+        if(Auth::user()->admin == 1){
+            return view('admin.change-password');
+        }
+        return view('staff.change-password');
     }
 
     public function updatePassword(ProfileRequest $request)

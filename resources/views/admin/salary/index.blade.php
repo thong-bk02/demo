@@ -62,11 +62,12 @@
                             <input type="month" name="month" class="form-control"
                                 value="{{ Session('salary.month') }}">
                         </td>
-                        <td>
+                        <td style="width: 25vw;">
                             <a class='btn btn-primary' href='{{ url('admin/salary') }}' id='search_btn'>
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </a>
                             <a href="{{ route('admin.salary.list') }}" class="btn btn-primary">Thêm Lương</a>
+                            <a href="{{ route('admin.salary.export') }}" class="btn btn-outline-primary">Xuất Excel</a>
                         </td>
                     </form>
                 </tr>

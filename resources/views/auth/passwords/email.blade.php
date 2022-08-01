@@ -39,7 +39,7 @@
                     <input type="email"
                            name="email"
                            class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                           placeholder="Email">
+                           placeholder="Email" value="{{ old('email') }}">
                     <div class="input-group-append">
                         <div class="input-group-text"><span class="fas fa-envelope"></span></div>
                     </div>

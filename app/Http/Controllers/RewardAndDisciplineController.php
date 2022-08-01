@@ -14,6 +14,12 @@ use Illuminate\Http\Request;
 class RewardAndDisciplineController extends Controller
 {
     public $_KEY = 'reward_and_discipline';
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+ 
     /**
      * Display a listing of the resource.
      *
@@ -117,8 +123,8 @@ class RewardAndDisciplineController extends Controller
             RewardAndDiscipline::upd($data,$id);
             return redirect()->route('admin.reward-discipline')->with('success', 'Cập nhật thành công');
         } catch (Exception $ex) {
-            // throw $ex;
-            return redirect()->route('admin.reward-discipline')->with('failed', 'Sửa thất bại !');
+            throw $ex;
+            // return redirect()->route('admin.reward-discipline')->with('failed', 'Sửa thất bại !');
         }
     }
 

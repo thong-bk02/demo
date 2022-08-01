@@ -32,16 +32,54 @@
         <p>Quản lí quyền</p>
     </a>
 </li> --}}
+{{-- 
+<li class="nav-item" id="reward-discipline">
+    <a class="nav-link accordion-toggle collapsed" data-toggle="collapse" data-target="#list">
+        <i class="nav-icon fa-solid fa-sack-dollar"></i>
+        <p>Quản lí thưởng-phạt</p>
+    </a>
+    <div id="list" class="collapse d-block">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('admin/reward-discipline/reasion*') ? 'active' : '' }}"
+                    href="{{ route('admin.reasion') }}">
+                    <i class="fa-regular fa-circle pl-3 pr-2"></i>Lý do</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link pl-5 {{ Request::is('admin/department*') ? 'active' : '' }}"
+                    href="#">Transazioni</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link pl-5 {{ Request::is('admin/department*') ? 'active' : '' }}"
+                    href="#">Transazioni</a>
+            </li>
+        </ul>
+    </div>
+</li>
+@if (Request::is('admin/reward-discipline/reasion*'))
+    <script>
+        $(function() {
+            $(document).on("click", "#reward-discipline", function() {
+                if ($("#list").hasClass("d-block")) {
+                    $("#list").removeClass("d-block");
+                }
+            });
+        });
+    </script>
+@endif --}}
+
 
 <li class="nav-item">
-    <a href="{{ route('admin.timekeeping') }}" class="nav-link {{ Request::is('admin/timekeeping*') ? 'active' : '' }}">
+    <a href="{{ route('admin.timekeeping') }}"
+        class="nav-link {{ Request::is('admin/timekeeping*') ? 'active' : '' }}">
         <i class="nav-icon fa-solid fa-calendar-plus"></i>
         <p>Quản lí chấm công</p>
     </a>
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('admin.reward-discipline') }}" class="nav-link {{ Request::is('admin/reward-discipline*') ? 'active' : '' }}">
+    <a href="{{ route('admin.reward-discipline') }}"
+        class="nav-link {{ Request::is('admin/reward-discipline*') ? 'active' : '' }}">
         <i class="nav-icon fa-solid fa-sack-dollar"></i>
         <p>Quản lí thưởng-phạt</p>
     </a>

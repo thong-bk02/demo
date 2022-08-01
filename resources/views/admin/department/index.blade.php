@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <table class="table">
+        <table class="table table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Stt</th>

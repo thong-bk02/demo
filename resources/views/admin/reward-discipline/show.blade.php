@@ -52,7 +52,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Lí do</label>
-                            <select class="form-control" name="payment">
+                            <select class="form-control" name="reasion">
                                 @foreach ($data_reasion as $reasion)
                                     <option value="{{ $reasion->id }}"
                                         {{ $reasion->id == $decision->reasion ? 'selected' : '' }}>

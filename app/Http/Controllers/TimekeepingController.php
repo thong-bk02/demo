@@ -18,6 +18,12 @@ use Maatwebsite\Excel\Facades\Excel;
 class TimekeepingController extends Controller
 {
     public $_KEY = 'timekeeping';
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+ 
     /**
      * Display a listing of the resource.
      *
@@ -169,7 +175,7 @@ class TimekeepingController extends Controller
             DB::beginTransaction();
             Timekeeping::truncate();
             Excel::import(new TimeKeepingImport, $request->file('cham_cong'));
-            return redirect('admin/timekeeping')->with("success", 'import thành công');
+            return redirect('admin/timekeeping')->with("success", 'cập nhật dữ liệu thành công');
             DB::commit();
         } catch (Exception $ex) {
             DB::rollBack();
