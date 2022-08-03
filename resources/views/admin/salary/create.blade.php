@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    <title>Thêm Lương</title>
+@endsection
+
 @section('content')
     <div class="container">
             <h2 class="text-center py-3">

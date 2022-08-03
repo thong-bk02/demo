@@ -1,5 +1,9 @@
 @extends('staff.layouts.app')
 
+@section('title')
+    <title>Danh sách thưởng phạt</title>
+@endsection
+
 @section('content')
     <div class="container">
         <table class="table">

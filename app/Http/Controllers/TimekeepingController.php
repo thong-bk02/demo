@@ -156,6 +156,19 @@ class TimekeepingController extends Controller
         return Excel::download(new TimekeepingExport, 'Chấm_Công.xlsx');
     }
 
+    public function exportOne($code)
+    {
+        session()->put('timekeeping_code', $code);
+        $user = DB::table('users')
+            ->join('timekeepings', 'timekeepings.user_id', 'users.id')
+            ->where('timekeepings.timekeeping_code', $code)
+            ->select('name')
+            ->pluck('name');
+        $user = $user->values();
+        $name = $user[0];
+        return Excel::download(new TimekeepingExportOne, 'Chấm_Công_' . $name . '.xlsx');
+    }
+
     public function import(Request $request)
     {
         try {

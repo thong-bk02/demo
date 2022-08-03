@@ -1,5 +1,9 @@
 @extends('staff.layouts.app')
 
+@section('title')
+    <title>Danh sách phòng ban</title>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-6">

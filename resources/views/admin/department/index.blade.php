@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    <title>Quản lý phòng ban</title>
+@endsection
+
 @section('content')
     <div class="container">
 
@@ -70,6 +74,8 @@
                                 data-target="#staticBackdrop{{ $department->id }}">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
+                            <a href="{{ route('admin.department.delete', $department->id) }}" class="mx-1"
+                                onclick="return confirmDelete()"><i class="fa-solid fa-trash-can"></i></a>
                         </td>
                         <div class="modal fade" id="staticBackdrop{{ $department->id }}" data-backdrop="static"
                             data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

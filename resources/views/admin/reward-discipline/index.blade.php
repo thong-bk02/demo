@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    <title>Quản lý thưởng phạt</title>
+@endsection
+
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/users/btn-clear-value-input.css') }}">
 @endsection
@@ -60,7 +64,7 @@
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </a>
                             <a href="{{ route('admin.reward-discipline.list') }}" class="btn btn-primary">
-                                Thêm Thưởng phạt</a>
+                                <i class="fa-solid fa-plus"></i></a>
                             <a href="{{ route('admin.reasion') }}" class="btn btn-primary">
                                 Quyết định</a>
                         </td>

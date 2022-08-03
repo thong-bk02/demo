@@ -1,5 +1,9 @@
 @extends('staff.layouts.app')
 
+@section('title')
+    <title>Danh sách sự kiện</title>
+@endsection
+
 @section('content')
     <div class="container">
         @include('layouts.message')

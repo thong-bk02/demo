@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    <title>Thông tin cá nhân</title>
+@endsection
+
 @section('content')
     <div class="container">
 

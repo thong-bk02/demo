@@ -1,7 +1,7 @@
 @extends('staff.layouts.app')
 
 @section('title')
-    <title>Quản lí tài khoản</title>
+    <title>Danh sách nhân sự</title>
 @endsection
 
 @section('css')

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    <title>Trang chủ</title>
+@endsection
+
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -40,11 +44,20 @@
         const data = {
             labels: labels,
             datasets: [{
-                label: 'Lương cao nhất',backgroundColor: 'rgb(52, 235, 183)',borderColor: 'rgb(52, 235, 183)',data: data_max_salary,
+                label: 'Lương cao nhất',
+                backgroundColor: 'rgb(52, 235, 183)',
+                borderColor: 'rgb(52, 235, 183)',
+                data: data_max_salary,
             }, {
-                label: 'Lương thấp nhất',backgroundColor: 'rgb(3, 36, 252)',borderColor: 'rgb(3, 36, 252)',data: data_min_salary,
+                label: 'Lương thấp nhất',
+                backgroundColor: 'rgb(3, 36, 252)',
+                borderColor: 'rgb(3, 36, 252)',
+                data: data_min_salary,
             }, {
-                label: 'Lương trung bình',backgroundColor: 'rgb(252, 11, 3)',borderColor: 'rgb(252, 11, 3)',data: data_avg_salary,
+                label: 'Lương trung bình',
+                backgroundColor: 'rgb(252, 11, 3)',
+                borderColor: 'rgb(252, 11, 3)',
+                data: data_avg_salary,
             }]
         };
         const config = {
@@ -66,7 +79,7 @@
                 }
             }
         };
-        const myChart = new Chart(document.getElementById('SalaryChart'),config);
+        const myChart = new Chart(document.getElementById('SalaryChart'), config);
     </script>
 
     {{-- bảng thôgns kê nhân sự --}}

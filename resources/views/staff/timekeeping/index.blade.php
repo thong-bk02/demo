@@ -1,5 +1,9 @@
 @extends('staff.layouts.app')
 
+@section('title')
+    <title>Thông tin chấm công</title>
+@endsection
+
 @section('content')
     <div class="container">
         <h2 class="mb-4">
