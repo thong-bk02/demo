@@ -63,8 +63,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/timekeeping', [TimekeepingController::class, 'index'])->name('admin.timekeeping');
     Route::get('/admin/timekeeping/show/{code}', [TimekeepingController::class, 'show'])->name('admin.timekeeping.show');
     Route::post('/admin/timekeeping/update/{id}', [TimekeepingController::class, 'update'])->name('admin.timekeeping.update');
-    // Route::get('/admin/timekeeping/create', [TimekeepingController::class, 'create'])->name('admin.timekeeping.create');
-    // Route::post('/admin/timekeeping', [TimekeepingController::class, 'store'])->name('admin.timekeeping.store');
     Route::get('/admin/timekeeping/{id}/create', [TimekeepingController::class, 'create'])->name('admin.timekeeping.create');
     Route::post('/admin/timekeeping/{id}/create', [TimekeepingController::class, 'store'])->name('admin.timekeeping.store');
     Route::get('/admin/timekeeping/list-users', [TimekeepingController::class, 'list'])->name('admin.timekeeping.list');

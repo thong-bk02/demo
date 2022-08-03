@@ -24,7 +24,6 @@ class TimeKeepingExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder
     public function collection()
     {
         $request = session('timekeeping');
-        // $demo = session()->get('timekeeping.name'); dd($demo);
         $timekeeping = DB::table('timekeepings')
             ->join('users', 'timekeepings.user_id', '=', 'users.id')
             ->join('profile_users', 'timekeepings.user_id', 'profile_users.user_id')

@@ -116,7 +116,7 @@
                     document.getElementById("search_btn").click();
                 }
             });
-
+            // sử dụng ajax đẻ tìm kiếm khi click phân trang nút tìm kiếm
             $(document).on("click", "#pagination a,#search_btn", function() {
                 var url = $(this).attr("href");
                 var append = url.indexOf("?") == -1 ? "?" : "&";

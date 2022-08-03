@@ -92,9 +92,7 @@ class Salary extends Model
         return $salarys;
     }
 
-    /* 
-        lấy dánh sách thưởng phạt của nhân sự đang tạo lương  
-    */
+    /* lấy dánh sách thưởng phạt của nhân sự đang tạo lương  */
     protected static function getDecision($id, $month)
     {
         $decision = DB::table('reward_and_disciplines')
@@ -108,9 +106,7 @@ class Salary extends Model
         return $decision;
     }
 
-    /* 
-        tính tổng thưởng và tổng phạt
-    */
+    /* tính tổng thưởng và tổng phạt */
     protected static function get_Total_RewardAndDiscipline($id, $month, $type)
     {
         $reward = DB::table('reward_and_disciplines')

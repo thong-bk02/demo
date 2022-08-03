@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        
+
         @include('layouts.message')
 
         <div class="py-3">
@@ -70,15 +70,12 @@
                                 data-target="#staticBackdrop{{ $department->id }}">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
-                            <a href="{{ route('admin.department.delete',$department->id) }}" class="mx-1" onclick="return confirmDelete()"><i
-                                    class="fa-solid fa-trash-can"></i></a>
                         </td>
                         <div class="modal fade" id="staticBackdrop{{ $department->id }}" data-backdrop="static"
                             data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <form action="{{ route('admin.department.update', $department->id) }}"
-                                        method="post">
+                                    <form action="{{ route('admin.department.update', $department->id) }}" method="post">
                                         @csrf
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="staticBackdropLabel">Thông tin phòng ban:
