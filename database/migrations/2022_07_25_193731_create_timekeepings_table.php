@@ -19,11 +19,11 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('timekeeping_code')->unique();
             $table->date('timekeeping_month');
-            $table->integer('day_off')->default(0)->nullable();
             $table->integer('working_days')->default(0);
-            $table->integer('arrive_late')->default(0)->nullable();
+            $table->double('day_off')->default(0)->nullable();
+            $table->double('arrive_late')->default(0)->nullable();
             $table->double('hours_late')->default(0)->nullable();
-            $table->integer('leave_early')->default(0)->nullable();
+            $table->double('leave_early')->default(0)->nullable();
             $table->double('hours_early')->default(0)->nullable();
             $table->foreign('user_id')->references('id')->on('users');
 

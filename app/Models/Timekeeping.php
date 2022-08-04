@@ -93,10 +93,10 @@ class Timekeeping extends Model
         return $timekeepings;
     }
 
-    protected static function dlt($id)
+    protected static function dlt($timekeeping_code)
     {
         try {
-            Timekeeping::where('user_id', $id)->delete();
+            Timekeeping::where('timekeeping_code', $timekeeping_code)->delete();
         } catch (Exception $ex) {
             throw $ex;
         }

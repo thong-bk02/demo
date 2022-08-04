@@ -47,34 +47,38 @@ class TimekeepingExportOne implements FromCollection, ShouldAutoSize, WithHeadin
     public function headings(): array
     {
         return [
-
-            ["Stt", "Id nhân sự", "Tên nhân sự", "Chức vụ", "Phòng ban", "Tháng công", "mã chấm công", "Số công", "số ngày nghỉ", "Số lần đi muộn", "Số giờ đi muộn", "Số lần về sớm", "Số giờ về sớm", "Thời gian tạo"]
+            ['Thông tin chấm công'],
+            ["Stt", "Tên nhân sự", "Chức vụ", "Phòng ban", "Tháng công", "mã chấm công", "Số công", "số ngày nghỉ", "Số lần đi muộn", "Số giờ đi muộn", "Số lần về sớm", "Số giờ về sớm"]
         ];
     }
 
     public function styles(Worksheet $sheet)
     {
-        // $sheet->getStyle('1')->getFont()->setBold(true)->setSize(18);
         $sheet->getStyle('1')->getFont()->setBold(true);
-        $sheet->getStyle('1')->getFont()->setSize(14);
-        $sheet->getStyle('A1:L1')->getBorders()->getBottom();
-        $cellRange = 'A1:N1';
-        $color = 'c4c1c0';
-        $sheet->getStyle($cellRange)->getFill()
+        $sheet->getStyle('1')->getFont()->setSize(18);
+        $sheet->getStyle('2')->getFont()->setBold(true);
+        $sheet->getStyle('2')->getFont()->setSize(14);
+
+        
+        $sheet->getStyle('A2:L2')->getFill()
             ->setFillType(Fill::FILL_SOLID)
-            ->getStartColor()->setRGB($color);
+            ->getStartColor()->setRGB('c4c1c0');
     }
 
     public function registerEvents(): array
     {
         return [
             AfterSheet::class    => function (AfterSheet $event) {
-                $event->sheet->getDelegate()->getStyle('A:N')
+                $event->sheet->getDelegate()->getStyle('A:L')
                     ->getAlignment()
                     ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 $event->sheet->getDelegate()->getStyle('C')
                     ->getAlignment()
                     ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+                $event->sheet->mergeCells('A1:L1');
+                $event->sheet->getDelegate()->getStyle('C2')
+                    ->getAlignment()
+                    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             },
         ];
     }
@@ -83,7 +87,6 @@ class TimekeepingExportOne implements FromCollection, ShouldAutoSize, WithHeadin
     {
         return [
             $timekeeping->stt,
-            $timekeeping->user_id,
             $timekeeping->name,
             $timekeeping->position_name,
             $timekeeping->department,
@@ -95,19 +98,18 @@ class TimekeepingExportOne implements FromCollection, ShouldAutoSize, WithHeadin
             $timekeeping->hours_late,
             $timekeeping->leave_early,
             $timekeeping->hours_early,
-            date('d-m-Y', strtotime($timekeeping->created_at)),
         ];
     }
 
     public function columnFormats(): array
     {
         return [
+            'G' => '0.0',
             'H' => '0.0',
             'I' => '0.0',
             'J' => '0.0',
             'K' => '0.0',
             'L' => '0.0',
-            'M' => '0.0',
         ];
     }
 }

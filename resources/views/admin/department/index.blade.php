@@ -25,12 +25,12 @@
                                 <div class="form-group">
                                     <label>Mã phòng ban</label>
                                     <input type="text" class="form-control" name="department_code"
-                                        placeholder="Mã phòng ban">
+                                        placeholder="Mã phòng ban" required autocomplete="off">
                                 </div>
                                 <div class="form-group">
                                     <label>Tên phòng ban</label>
                                     <input type="text" class="form-control" name="department"
-                                        placeholder="Tên phòng ban">
+                                        placeholder="Tên phòng ban" required autocomplete="off">
                                 </div>
                             </div>
                             <div class="modal-footer">

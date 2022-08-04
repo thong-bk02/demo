@@ -27,7 +27,7 @@
                         {{ number_format($decision->money, 0) }}
                     </td>
                     <td>
-                        {{ $decision->date_created }}
+                        {{ date('d-m-Y', strtotime($decision->date_created)) }}
                     </td>
                     <td>
                         <a href="{{ route('admin.reward-discipline.show', $decision->user_id) }}" class="mx-1"><i

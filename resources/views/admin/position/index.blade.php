@@ -24,7 +24,7 @@
                                 <div class="form-group">
                                     <label for="position_code">Mã chức vụ</label>
                                     <input type="text" class="form-control @error('position_code') is-invalid @enderror"
-                                        name="position_code" id="position_code" placeholder="Mã chức vụ">
+                                        name="position_code" id="position_code" placeholder="Mã chức vụ" required autocomplete="off">
                                     @error('position_code')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -32,7 +32,7 @@
                                 <div class="form-group">
                                     <label for="position_name">Tên chức vụ</label>
                                     <input type="text" class="form-control @error('position_name') is-invalid @enderror"
-                                        name="position_name" id="position_name" placeholder="Tên chức vụ">
+                                        name="position_name" id="position_name" placeholder="Tên chức vụ" required autocomplete="off">
                                     @error('position_name')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror

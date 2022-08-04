@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use Exception;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
@@ -86,7 +87,7 @@ class DepartmentController extends Controller
     {
         $input = $request->except(['_token']);
         if ( Department::upd($input, $id) == true) {
-            return redirect()->route('admin.department')->with('success', 'Sửa thành công !');
+            return redirect()->route('admin.department')->with('success', 'Sửa thành công.');
         } else {
             return redirect()->route('admin.department')->with('failed', 'Sửa không thành công !');
         }
@@ -100,7 +101,12 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
-        Department::where('id', $id)->delete();
-        return redirect()->route('admin.department')->with('success', 'Xóa phòng ban thành công !');
+        try{
+            Department::where('id', $id)->delete();
+            return redirect()->route('admin.department')->with('success', 'Xóa phòng ban thành công.');
+        } catch (Exception $ex) {
+            return redirect()->route('admin.department')->with('failed', 'Phòng ban đang được sử dụng!');
+        }
+        
     }
 }

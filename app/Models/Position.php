@@ -20,7 +20,6 @@ class Position extends Model
     {
         try {
             Position::create($input);
-            return true;
         } catch (Exception $ex) {
             return false;
         }
@@ -31,6 +30,16 @@ class Position extends Model
         try {
             Position::where('id', $id)
             ->update($input);
+            return true;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    protected static function dlt($id)
+    {
+        try {
+            Position::where('id', $id)->delete();
             return true;
         } catch (Exception $ex) {
             throw $ex;

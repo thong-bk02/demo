@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Support\Str;
 
 class TimekeepingImport implements ToCollection, WithHeadingRow
 {
@@ -16,23 +17,22 @@ class TimekeepingImport implements ToCollection, WithHeadingRow
      */
     public function collection(Collection $rows)
     {
-        
         try {
             DB::beginTransaction();
-            
             foreach ($rows as $row) {
+                $month = Str::substr($row['thang_cong'],-4).'-'.Str::substr($row['thang_cong'], 0, 2).'-01';
                 $data = [
-                    'user_id'           => $row['stt'],
-                    'name'              => $row['ten_nhan_su'],
-                    'timekeeping_month' => $row['thang_cong'],
+                    'user_id'           => $row['id_nhan_su'],
                     'timekeeping_code'  => $row['ma_cham_cong'],
+                    'timekeeping_month' => $month,
                     'day_off'           => $row['so_ngay_nghi'],
-                    'working_days'      => $row['so_ngay_cong'],
+                    'working_days'      => $row['so_cong'],
                     'arrive_late'       => $row['so_lan_di_muon'],
                     'hours_late'        => $row['so_gio_di_muon'],
                     'leave_early'       => $row['so_lan_ve_som'],
                     'hours_early'       => $row['so_gio_ve_som'],
                 ];
+                // dd($month);
                 Timekeeping::create($data);
             }
             DB::commit();
@@ -41,5 +41,10 @@ class TimekeepingImport implements ToCollection, WithHeadingRow
             DB::rollBack();
             return redirect()->back()->with('failed', 'import dữ liệu không thành công !');
         }
+    }
+
+    public function headingRow(): int
+    {
+        return 2;
     }
 }

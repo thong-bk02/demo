@@ -43,7 +43,7 @@ class TimeKeepingExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder
             })
             ->orderByDesc('timekeeping_month')
             ->orderBy('users.id')
-            ->select('timekeepings.user_id', 'users.name', 'positions.position_name', 'departments.department', 'timekeeping_month', 'timekeeping_code', 'day_off', 'working_days', 'arrive_late', 'hours_late', 'leave_early', 'hours_early', 'timekeepings.created_at')
+            ->select('timekeepings.user_id', 'users.name', 'positions.position_name', 'departments.department', 'timekeeping_month', 'timekeeping_code', 'day_off', 'working_days', 'arrive_late', 'hours_late', 'leave_early', 'hours_early')
             ->get();
         $row = 1;
         foreach ($timekeeping as $value) {
@@ -61,34 +61,39 @@ class TimeKeepingExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder
     public function headings(): array
     {
         return [
-
-            ["Stt", "Id nhân sự", "Tên nhân sự", "Chức vụ", "Phòng ban", "Tháng công", "mã chấm công", "Số công", "số ngày nghỉ", "Số lần đi muộn", "Số giờ đi muộn", "Số lần về sớm", "Số giờ về sớm", "Thời gian tạo"]
+            ['Thông tin chấm công'],
+            ["Stt", "Id nhân sự", "Tên nhân sự", "Chức vụ", "Phòng ban", "Tháng công", "mã chấm công", "Số công", "số ngày nghỉ", "Số lần đi muộn", "Số giờ đi muộn", "Số lần về sớm", "Số giờ về sớm"]
         ];
     }
 
     public function styles(Worksheet $sheet)
     {
-        // $sheet->getStyle('1')->getFont()->setBold(true)->setSize(18);
         $sheet->getStyle('1')->getFont()->setBold(true);
-        $sheet->getStyle('1')->getFont()->setSize(14);
-        $sheet->getStyle('A1:L1')->getBorders()->getBottom();
-        $cellRange = 'A1:N1';
-        $color = 'c4c1c0';
-        $sheet->getStyle($cellRange)->getFill()
+        $sheet->getStyle('1')->getFont()->setSize(18);
+        $sheet->getStyle('2')->getFont()->setBold(true);
+        $sheet->getStyle('2')->getFont()->setSize(14);
+
+
+        $sheet->getStyle('A2:M2')->getFill()
             ->setFillType(Fill::FILL_SOLID)
-            ->getStartColor()->setRGB($color);
+            ->getStartColor()->setRGB('c4c1c0');
     }
 
     public function registerEvents(): array
     {
         return [
             AfterSheet::class    => function (AfterSheet $event) {
-                $event->sheet->getDelegate()->getStyle('A:N')
+                $event->sheet->getDelegate()->getStyle('A:M')
                     ->getAlignment()
                     ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 $event->sheet->getDelegate()->getStyle('C')
                     ->getAlignment()
                     ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+                $event->sheet->mergeCells('A1:M1');
+                $event->sheet->getDelegate()->getStyle('C2')
+                    ->getAlignment()
+                    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $event->sheet->getDelegate()->freezePane('A3');
             },
         ];
     }
@@ -109,7 +114,6 @@ class TimeKeepingExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder
             $timekeeping->hours_late,
             $timekeeping->leave_early,
             $timekeeping->hours_early,
-            date('d-m-Y', strtotime($timekeeping->created_at)),
         ];
     }
 

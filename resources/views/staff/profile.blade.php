@@ -45,7 +45,7 @@
             </div>
             <div class="mx-lg-5 m-2">
                 <input type="submit" class="btn btn-primary mr-3" value="Cập nhật">
-                <a href="{{ route('home') }}" class="btn btn-secondary mx-3">Thoát</a>
+                <a href="{{ route('users') }}" class="btn btn-secondary mx-3">Thoát</a>
             </div>
 
         </form>

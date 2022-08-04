@@ -138,10 +138,10 @@ class TimekeepingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($timekeeping_code)
     {
         try {
-            Timekeeping::dlt($id);
+            Timekeeping::dlt($timekeeping_code);
             return redirect()->route('admin.timekeeping')->with('success', 'Xóa thành công !');
         } catch (Exception $ex) {
             return redirect()->route('admin.timekeeping')->with('failed', 'Lỗi !');
@@ -179,7 +179,7 @@ class TimekeepingController extends Controller
             DB::commit();
         } catch (Exception $ex) {
             DB::rollBack();
-            throw $ex;
+            return redirect('admin/timekeeping')->with("failed", 'dữ liệu cập nhật không phù hợp!');
         }
     }
 }

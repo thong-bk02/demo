@@ -4,17 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PositionRequest;
 use App\Models\Position;
+use Exception;
 use Illuminate\Http\Request;
 
 class PositionController extends Controller
 {
     public $_KEY = 'position';
-    
+
     public function __construct()
     {
         $this->middleware('auth');
     }
- 
+
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +35,6 @@ class PositionController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -43,38 +43,15 @@ class PositionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PositionRequest $request)
+    public function store(Request $request)
     {
-        $request->validate();
         $input = $request->all();
-        // dd($input);
-        if (Position::newPosition($input) == true) {
+        try{
+            Position::newPosition($input);
             return redirect()->route('admin.position')->with('success', 'Thêm chức vụ ' . $input['position_name'] . ' thành công ');
-        } else {
+        } catch (Exception $ex) {
             return redirect()->route('admin.position')->with('failed', 'Lỗi không thêm được chức vụ');
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -84,13 +61,13 @@ class PositionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PositionRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $request->validated();
         $input = $request->except(['_token']);
-        if ( Position::upd($input, $id) == true) {
+        try{
+            Position::upd($input, $id);
             return redirect()->route('admin.position')->with('success', 'Sửa thành công !');
-        } else {
+        } catch (Exception $ex) {
             return redirect()->route('admin.position')->with('failed', 'Sửa không thành công !');
         }
     }
@@ -103,7 +80,11 @@ class PositionController extends Controller
      */
     public function destroy($id)
     {
-        Position::where('id', $id)->delete();
-        return redirect()->route('admin.position')->with('success', 'Xóa chức vụ thành công !');
+        try {
+            Position::dlt($id);
+            return redirect()->route('admin.position')->with('success', 'Xóa chức vụ thành công !');
+        } catch (Exception $ex) {
+            return redirect()->route('admin.position')->with('failed', 'Không thể xóa chức vụ này !');
+        }
     }
 }
