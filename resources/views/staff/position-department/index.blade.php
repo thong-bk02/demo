@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    @include('layouts.message')
     <div class="row">
         <div class="col-6">
             <div class="text-center h2 py-3">Danh sách chức vụ</div>
@@ -28,7 +29,7 @@
                                 {{ $position->position_name }}
                             </td>
                             <td>
-                                {{ date('H:i:s d/m/Y', strtotime($position->created_at)) }}
+                                {{ date('d/m/Y', strtotime($position->created_at)) }}
                             </td>
                         </tr>
                     @endforeach
@@ -57,7 +58,7 @@
                                 {{ $department->department }}
                             </td>
                             <td>
-                                {{ date('H:i:s d/m/Y', strtotime($department->created_at)) }}
+                                {{ date('d/m/Y', strtotime($department->created_at)) }}
                             </td>
                         </tr>
                     @endforeach

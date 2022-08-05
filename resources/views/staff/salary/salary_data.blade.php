@@ -10,7 +10,7 @@
             <tbody>
                 <tr>
                     <th scope="row">Tháng lương</th>
-                    <td>{{ $salary->month }}</td>
+                    <td>{{ date('m/Y', strtotime($salary->month)) }}</td>
                     <td></td>
                     <th scope="row">Lương cơ bản</th>
                     <td>{{ number_format($salary->coefficients_salary, 0) }}đ</td>
@@ -45,7 +45,7 @@
                         @if (blank($salary->date_of_payment))
                             chưa thanh toán
                         @else
-                            {{ $salary->date_of_payment }}
+                            {{ date('d-m-Y', strtotime($salary->date_of_payment)) }}
                         @endif
                     </td>
                     <td></td>

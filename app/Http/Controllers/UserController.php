@@ -41,6 +41,15 @@ class UserController extends Controller
         return view('admin.users.index', compact('users', 'positions', 'departments'));
     }
 
+    public function accessRights($id, $admin){
+        try {
+            User::access($id, $admin);
+            return redirect()->route('admin.user')->with('success', 'Sửa quyền truy cập thành công ');
+        } catch (Exception $ex) {
+            return redirect()->route('admin.user')->with('failed', 'Không thể sửa quyền truy cập !');
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -101,17 +110,6 @@ class UserController extends Controller
         } catch (Exception $ex) {
             throw $ex;
         }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**

@@ -6,30 +6,30 @@
             </p>
         </div>
     @else
-
+        @foreach ($timekeeping as $time)
             <tbody>
                 <tr>
                     <th scope="row">Số công</th>
-                    <td>{{ $timekeeping->working_days }}</td>
+                    <td>{{ $time->working_days }}</td>
                     <td></td>
                     <th scope="row">Số ngày nghỉ</th>
-                    <td>{{ $timekeeping->day_off }}</td>
+                    <td>{{ $time->day_off }}</td>
                 </tr>
                 <tr>
                     <th scope="row">Số lần đi muộn</th>
-                    <td>{{ $timekeeping->arrive_late }}</td>
+                    <td>{{ $time->arrive_late }}</td>
                     <td></td>
                     <th scope="row">Số lần về sớm</th>
-                    <td>{{ $timekeeping->leave_early }}</td>
+                    <td>{{ $time->leave_early }}</td>
                 </tr>
                 <tr>
                     <th scope="row">Tổng thời gian đi muộn</th>
-                    <td>{{ $timekeeping->hours_late }}</td>
+                    <td>{{ $time->hours_late }}</td>
                     <td></td>
                     <th scope="row">Tổng thời gian về sớm</th>
-                    <td>{{ $timekeeping->hours_early }}</td>
+                    <td>{{ $time->hours_early }}</td>
                 </tr>
             </tbody>
-
+        @endforeach
     @endif
 </table>

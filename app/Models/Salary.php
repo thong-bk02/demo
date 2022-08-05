@@ -64,7 +64,7 @@ class Salary extends Model
     }
 
     /* 
-        lấy thông tin người dùng có id = $id
+        lấy thông tin lương có mã lương $salary_code
     */
     protected static function getOne($salary_code)
     {
@@ -97,7 +97,7 @@ class Salary extends Model
     {
         $decision = DB::table('reward_and_disciplines')
             ->join('genre', 'reward_and_disciplines.type', 'genre.id')
-            ->join('reasion','reward_and_disciplines.reasion', 'reasion.id')
+            ->join('reasion', 'reward_and_disciplines.reasion', 'reasion.id')
             ->where('reward_and_disciplines.user_id', $id)
             ->where('reward_and_disciplines.date_created', 'like', $month . "%")
             ->select('reward_and_disciplines.*', 'genre.genre', 'reasion.reasion')
@@ -139,20 +139,16 @@ class Salary extends Model
 
 
     /* 
-        lấy danh sách những nhân sự chưa có lương  
+        lấy danh sách  nhân sự để thêm 
     */
     protected static function listSearch($request)
     {
         try {
-            // $salary = DB::table('salary')->select('user_id')->get();
-            // $array = json_decode(json_encode($salary), true);
-            // $demo = Arr::flatten($array);
             $users = DB::table('profile_users')
                 ->join('users', 'profile_users.user_id', 'users.id')
                 ->join('positions', 'profile_users.position', 'positions.id')
                 ->join('departments', 'profile_users.department', 'departments.id')
                 ->select('users.*', 'profile_users.*', 'positions.position_name', 'departments.department')
-                // ->whereNotIn('profile_users.user_id', $demo)
                 ->when($request->has("name"), function ($q) use ($request) {
                     $q->where("name", "like", "%" . $request->get("name") . "%");
                 })
@@ -171,28 +167,33 @@ class Salary extends Model
     /* 
         lấy thông tin của người dùng để đưa vào form tạo lương  
     */
-    protected static function getSalary($id, $month)
+    protected static function getSalary($user_id, $month)
     {
         $salarys = DB::table('profile_users')
             ->join('users', 'profile_users.user_id', 'users.id')
-            ->join('timekeepings', 'profile_users.user_id', 'timekeepings.user_id')
+            ->when($month, function ($q) {
+                $q ->join('timekeepings', 'profile_users.user_id', 'timekeepings.user_id');
+            })
             ->join('positions', 'profile_users.position', 'positions.id')
             ->join('departments', 'profile_users.department', 'departments.id')
             ->join('coefficients_salarys', 'positions.id', 'coefficients_salarys.position')
-            ->where('profile_users.user_id', $id)
-            ->where('timekeepings.timekeeping_month', 'like', $month . "%")
+            ->where('profile_users.user_id', $user_id)
+            // ->where('timekeepings.timekeeping_month', 'like', $month . "%")
+            ->when($month, function ($q) use ($month) {
+                $q->where("timekeeping_month", 'like', $month . "%");
+            })
             ->select(
                 'users.name',
                 'profile_users.user_id',
-                'timekeepings.working_days',
-                'timekeepings.id',
+                // 'timekeepings.working_days',
+                // 'timekeepings.id',
                 'profile_users.position',
                 'positions.position_name',
                 'departments.department',
                 'coefficients_salarys.coefficients_salary',
             )
             ->get();
-
+        // dd($salarys);
         return $salarys;
     }
 

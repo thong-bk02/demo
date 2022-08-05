@@ -46,6 +46,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // lấy dữ liệu tìm kiếm cho trang quản lí tài khoản
     protected static function search($request)
     {
         try {
@@ -70,6 +71,18 @@ class User extends Authenticatable
             return $users->orderBy('name')->paginate(8);
         } catch (Exception $ex) {
             throw $ex;
+        }
+    }
+
+    // cập nhật quyền truy cập (1: là admin / 0: là người dùng)
+    protected static function access($id, $admin)
+    {
+        if ($admin == 1) {
+            User::where('id', $id)
+                ->update(['admin' => 0]);
+        } else {
+            User::where('id', $id)
+                ->update(['admin' => 1]);
         }
     }
 
@@ -105,7 +118,7 @@ class User extends Authenticatable
     }
 
     // tìm kiếm nhân sự
-   
+
 
     // tạo nhân sự mới
     protected static function newUser($user, $profile)

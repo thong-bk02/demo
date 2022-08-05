@@ -28,6 +28,17 @@ class Staff extends Model
         return $timekeepings;
     }
 
+    protected static function getUserInfo(){
+        $user = DB::table('profile_users')
+        ->join('users', 'profile_users.user_id', 'users.id')
+        ->join('positions', 'profile_users.position', 'positions.id')
+        ->join('departments', 'profile_users.department', 'departments.id')
+        ->select('users.name','positions.position_name','departments.department')
+        ->where('profile_users.user_id', Auth::user()->id)
+        ->get();
+        return $user;
+    }
+
     protected static function getDecision($request)
     {
         try {

@@ -47,11 +47,12 @@ class StaffController extends Controller
     public function timekeeping(Request $request)
     {
         $timekeeping = Staff::getTimekeeping($request);
-        $timekeeping = $timekeeping[0];
+        // $timekeeping = $timekeeping[0];
+        $user_info = Staff::getUserInfo();
         if ($request->ajax()) {
             return view('staff.timekeeping.list', compact('timekeeping'));
         }
-        return view('staff.timekeeping.index', compact('timekeeping'));
+        return view('staff.timekeeping.index', compact('user_info','timekeeping'));
     }
 
     /*

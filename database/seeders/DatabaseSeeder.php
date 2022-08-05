@@ -26,14 +26,12 @@ class DatabaseSeeder extends Seeder
             PowerSeeder::class,
             UserSeeder::class,
             ProfileUserSeeder::class,
-            TimekeepingSeeder::class,
+            // TimekeepingSeeder::class,
             GenreSeeder::class,
             BasicSalarySeeder::class,
             ReasionSeeder::class,
             RewardAndDisciplineSeeder::class,
             PaymentSeeder::class,
-            // SalarySeeder::class,
-            // RulesAndRegulations::class,
         ]);
     }
 }

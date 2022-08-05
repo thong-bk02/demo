@@ -40,6 +40,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/users/create', [UserController::class, 'create'])->name('admin.user.create');
     Route::post('/admin/users/create', [UserController::class, 'store'])->name('admin.users.store');
     Route::get('/admin/users/delete/{id}', [UserController::class, 'destroy'])->name('admin.user.delete');
+    Route::get('/admin/users/access-right/{id}/{admin}', [UserController::class, 'accessRights'])->name('admin.access-rights');
 
     //quản lí chức vụ
     Route::get('/admin/position', [PositionController::class, 'index'])->name('admin.position');
@@ -52,12 +53,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('/admin/department/update/{id}', [DepartmentController::class, 'update'])->name('admin.department.update');
     Route::post('/admin/department/create', [DepartmentController::class, 'store'])->name('admin.department.store');
     Route::get('/admin/department/delete/{id}', [DepartmentController::class, 'destroy'])->name('admin.department.delete');
-
-    //quản lí quyền
-    Route::get('/admin/access-rights', [PowerController::class, 'index'])->name('admin.access-rights');
-    Route::get('/admin/access-rights/show/{id}', [PowerController::class, 'show'])->name('admin.access-rights.show');
-    Route::post('/admin/access-rights/update/{id}', [PowerController::class, 'update'])->name('admin.access-rights.update');
-    Route::get('/admin/access-rights/create', [PowerController::class, 'create'])->name('admin.access-rights.create');
 
     //quản lí chấm công
     Route::get('/admin/timekeeping', [TimekeepingController::class, 'index'])->name('admin.timekeeping');

@@ -6,6 +6,7 @@
 
 @section('content')
     <div class="container">
+        @include('layouts.message')
         <table class="table">
             <thead class="thead-light">
                 <tr>
