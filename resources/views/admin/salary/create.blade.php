@@ -38,10 +38,10 @@
                     </div>
                     <div class="form-group">
                         <label for="">Lương cơ bản</label>
-                        <select class="form-control" name="coefficients_salary" id="coefficients_salary">
+                        <select class="form-control" name="basic_salary" id="basic_salary">
                             @foreach ($basic_salary as $basic)
-                                {!! $basic->coefficients_salary == $salarys[0]->coefficients_salary
-                                    ? '<option value="' . $basic->id . '">' . $basic->coefficients_salary . '</option>'
+                                {!! $basic->basic_salary == $salarys[0]->basic_salary
+                                    ? '<option value="' . $basic->id . '">' . $basic->basic_salary . '</option>'
                                     : '' !!}
                             @endforeach
                         </select>
@@ -123,7 +123,7 @@
         <script>
             $(function() {
                 $("#save").on("click", function() {
-                    if ($('#working_days').val() === "") {
+                    if ($('#working_days').val() === "" && $('#date_input').val() != "") {
                         alert('nhân sự ' + '{{ $salarys[0]->name }}' + ' chưa có bảng công tháng ' +
                             $('#date_input').val().substr(5, 2));
                         return false;
@@ -160,7 +160,7 @@
                             $('#working_days').val(data.working_days);
                             let total_reward = Number($("#total_reward").val());
                             let total_discipline = Number($("#total_discipline").val());
-                            let basic_salary = '{{ $salarys[0]->coefficients_salary }}';
+                            let basic_salary = '{{ $salarys[0]->basic_salary }}';
                             let working_days = Number($("#working_days").val());
                             let subsidize = Number($("#subsidize").val());
                             let total = parseInt(basic_salary) * working_days + total_reward -
@@ -192,7 +192,7 @@
                 $("#subsidize").on("change", function() {
                     let total_reward = Number($("#total_reward").val());
                     let total_discipline = Number($("#total_discipline").val());
-                    let basic_salary = '{{ $salarys[0]->coefficients_salary }}';
+                    let basic_salary = '{{ $salarys[0]->basic_salary }}';
                     let working_days = Number($("#working_days").val());
                     let subsidize = Number($("#subsidize").val());
                     let total = parseInt(basic_salary) * working_days + total_reward - total_discipline +

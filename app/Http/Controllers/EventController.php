@@ -44,6 +44,11 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+        $start_date = strtotime($input['start_date']);
+        $end_date = strtotime($input['end_date']);
+        if($start_date > $end_date){
+            return redirect()->back()->with('failed', 'Thời gian bắt đầu không thể lớn hơn thời gian kểt thúc');
+        }
         try{
             Event::createEvent($input);
             return redirect()->route('admin.event')->with('success', 'Thêm thành công sự kiện');

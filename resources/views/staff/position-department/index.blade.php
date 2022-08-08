@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-6">
             <div class="text-center h2 py-3">Danh sách chức vụ</div>
-            <table class="table">
+            <table class="table table-hover table-bordered">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Stt</th>
@@ -38,7 +38,7 @@
         </div>
         <div class="col-6">
             <div class="text-center h2 py-3">Danh sách phòng ban</div>
-            <table class="table">
+            <table class="table table-hover table-bordered">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Stt</th>

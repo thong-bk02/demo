@@ -3,8 +3,9 @@
         <tr>
             <th scope="col">Stt</th>
             <th scope="col">Tên nhân viên</th>
+            <th scope="col">Giới tính</th>
             <th scope="col">Chức vụ</th>
-            <th scope="col">Tháng</th>
+            <th scope="col">Tháng lương</th>
             <th scope="col">Tổng lương</th>
             <th scope="col">Ngày quyết toán</th>
             <th scope="col">Thao tác</th>
@@ -29,13 +30,16 @@
                             {{ $salary->name }}
                         </td>
                         <td>
+                            {{ $salary->gender }}
+                        </td>
+                        <td>
                             {{ $salary->position_name }}
                         </td>
                         <td>
                             {{ date('m/Y', strtotime($salary->month)) }}
                         </td>
                         <td>
-                            {{ number_format($salary->total_money, 0) }}
+                            {{ number_format($salary->total_money, 0) }} VNĐ
                         </td>
                         <td>
                             @if (blank($salary->date_of_payment))

@@ -29,8 +29,8 @@
                         </div>
                         <div class="form-group">
                             <label>Lương cơ bản</label>
-                            <input type="text" class="form-control" id="coefficients_salary"
-                                value="{{ $salary->coefficients_salary }}" readonly>
+                            <input type="text" class="form-control" id="basic_salary"
+                                value="{{ $salary->basic_salary }}" readonly>
                         </div>
                         <input type="hidden" name="month" value="{{ $salary->month }}">
                         <div class="form-group">
@@ -112,7 +112,7 @@
                 $(function() {
                     let total_reward = Number($("#total_reward").val());
                     let total_discipline = Number($("#total_discipline").val());
-                    let basic_salary = '{{ $salary->coefficients_salary }}';
+                    let basic_salary = '{{ $salary->basic_salary }}';
                     let working_days = Number($("#working_days").val());
                     let subsidize = Number($("#subsidize").val());
                     let total = parseInt(basic_salary) * working_days + total_reward - total_discipline +
@@ -125,7 +125,7 @@
                     $("#subsidize").on("change", function() {
                         let total_reward = Number($("#total_reward").val());
                         let total_discipline = Number($("#total_discipline").val());
-                        let basic_salary = '{{ $salarys[0]->coefficients_salary }}';
+                        let basic_salary = '{{ $salarys[0]->basic_salary }}';
                         let working_days = Number($("#working_days").val());
                         let subsidize = Number($("#subsidize").val());
                         let total = parseInt(basic_salary) * working_days + total_reward - total_discipline +

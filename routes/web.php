@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BasicSalaryController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +42,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('/admin/users/create', [UserController::class, 'store'])->name('admin.users.store');
     Route::get('/admin/users/delete/{id}', [UserController::class, 'destroy'])->name('admin.user.delete');
     Route::get('/admin/users/access-right/{id}/{admin}', [UserController::class, 'accessRights'])->name('admin.access-rights');
+    Route::get('/admin/users/status/{id}/{admin}', [UserController::class, 'userStatus'])->name('admin.status');
 
     //quản lí chức vụ
     Route::get('/admin/position', [PositionController::class, 'index'])->name('admin.position');
@@ -95,6 +97,9 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/admin/salary-exportOne/{id}', 'exportOne')->name('admin.salary.exportOne');
         Route::post('/admin/salary-import', 'import')->name('admin.salary.import');
     });
+
+    //quản lí lương cơ bản
+    Route::get('/admin/salary/basic-salary', [BasicSalaryController::class, 'index'])->name('admin.basic-salary');
 
     //quản lí sự kiện
     Route::get('admin/event', [EventController::class, 'index'])->name('admin.event');

@@ -3,6 +3,7 @@
         <tr>
             <th scope="col">Stt</th>
             <th scope="col">Tên nhân sự</th>
+            <th scope="col">Giới tính</th>
             <th scope="col">Chức vụ</th>
             <th scope="col">Phòng ban</th>
             <th scope="col">Tháng lương</th>
@@ -13,7 +14,7 @@
     @if (blank($timekeepings))
         <tbody>
             <tr>
-                <td colspan="7">
+                <td colspan="8">
                     <p class="alert alert-secondary text-center">Không có kết quả !</p>
                 </td>
             </tr>
@@ -27,6 +28,9 @@
                     </th>
                     <td>
                         {{ $timekeeping->name }}
+                    </td>
+                    <td>
+                        {{ $timekeeping->gender }}
                     </td>
                     <td>
                         {{ $timekeeping->position_name }}

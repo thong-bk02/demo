@@ -54,7 +54,8 @@ class User extends Authenticatable
                 ->join('users', 'profile_users.user_id', 'users.id')
                 ->join('positions', 'profile_users.position', 'positions.id')
                 ->join('departments', 'profile_users.department', 'departments.id')
-                ->select('users.*', 'profile_users.*', 'positions.position_name', 'departments.department')
+                ->join('gender', 'profile_users.gender', 'gender.id')
+                ->select('users.*', 'profile_users.*', 'gender.gender', 'positions.position_name', 'departments.department')
                 ->where('name', '<>', Auth::user()->name)
                 ->when($request->has("name"), function ($q) use ($request) {
                     $q->where("name", "like", "%" . $request->get("name") . "%");
@@ -83,6 +84,18 @@ class User extends Authenticatable
         } else {
             User::where('id', $id)
                 ->update(['admin' => 1]);
+        }
+    }
+
+    // cập nhật trạng thái hoạt động (1: là hoạt động / 2: không hoạt động)
+    protected static function status($id, $status)
+    {
+        if ($status == 1) {
+            User::where('id', $id)
+                ->update(['status' => 2]);
+        } else {
+            User::where('id', $id)
+                ->update(['status' => 1]);
         }
     }
 
@@ -132,6 +145,7 @@ class User extends Authenticatable
             DB::commit();
         } catch (Exception $ex) {
             DB::rollBack();
+            throw $ex;
         }
     }
 

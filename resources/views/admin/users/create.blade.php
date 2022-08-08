@@ -21,13 +21,26 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="form-group">
-                        <label for="birthday">Ngày sinh</label>
-                        <input type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday"
-                            placeholder="" value="{{ old('birthday') }}">
-                        @error('birthday')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="birthday">Ngày sinh</label>
+                                <input type="date" class="form-control @error('birthday') is-invalid @enderror"
+                                    name="birthday" placeholder="" value="{{ old('birthday') }}">
+                                @error('birthday')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="">Giới tính</label>
+                                <select name="gender" class="form-control">
+                                    <option value="1">nam</option>
+                                    <option value="2">nữ</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="">Chức vụ</label>

@@ -37,20 +37,24 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown user-menu">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                        <img src="https://assets.infyom.com/logo/blue_logo_150x150.png"
+                        <img src="https://o.akb.com.vn/imgs/user-blank.jpg"
                             class="user-image img-circle elevation-2" alt="User Image">
-                        <span class="d-none d-md-inline">{{ Auth::user()->name }} <i class="fa-solid fa-user-gear pl-md-2"></i></span>
+                        <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <!-- User image -->
                         <li class="user-header bg-primary">
-                            <img src="https://assets.infyom.com/logo/blue_logo_150x150.png"
-                                class="img-circle elevation-2" alt="User Image">
+                            <a href="@if (Auth::user()->admin == 1) {{ route('home') }}
+                            @else
+                            {{ route('users') }} @endif"
+                                class="text-light"><img src="https://o.akb.com.vn/imgs/user-blank.jpg"
+                                    class="img-circle elevation-2" alt="User Image"></a>
                             <p class="pb-3">
                                 {{ Auth::user()->name }}
                                 {{-- <small>Member since {{ Auth::user()->created_at->format('M. Y') }}</small> --}}
                             </p>
-                            <div class="text-center"><a href="{{ route('change-password') }}" class="text-light">Đổi mật khẩu</a></div>
+                            <div class="text-center"><a href="{{ route('change-password') }}" class="text-light">Đổi mật
+                                    khẩu</a></div>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">

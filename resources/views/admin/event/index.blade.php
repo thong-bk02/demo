@@ -27,14 +27,14 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="event_name">Tên sự kiện</label>
-                                        <textarea name="event_name" class="form-control" required></textarea>
+                                        <textarea name="event_name" class="form-control" value="{{ old('event_name') }}" required></textarea>
                                     </div>
 
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="event_content">Nội dung sự kiện</label>
-                                        <textarea name="event_content" class="form-control" required></textarea>
+                                        <textarea name="event_content" class="form-control" value="{{ old('event_content') }}" required></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -42,14 +42,14 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="start_date">Ngày bắt đầu</label>
-                                        <input type="date" class="form-control" name="start_date" value=""
+                                        <input type="date" class="form-control" name="start_date" value="{{ old('start_date') }}"
                                             required>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="end_date">Ngày kết thúc</label>
-                                        <input type="date" class="form-control" name="end_date" value="" required>
+                                        <input type="date" class="form-control" name="end_date" value="{{ old('end_date') }}" required>
                                     </div>
                                 </div>
                             </div>

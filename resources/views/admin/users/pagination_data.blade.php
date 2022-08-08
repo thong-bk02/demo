@@ -4,6 +4,7 @@
             <th scope="col">Stt</th>
             <th scope="col">Tên nhân viên</th>
             <th scope="col">Mã nhân viên</th>
+            <th scope="col">Giới tính</th>
             <th scope="col">Chức vụ</th>
             <th scope="col">Phòng ban</th>
             <th scope="col">Truy cập</th>
@@ -28,23 +29,26 @@
                 </th>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->user_code }}</td>
+                <td>{{ $user->gender }}</td>
                 <td>{{ $user->position_name }}</td>
                 <td>{{ $user->department }}</td>
                 <td>
                     @if ($user->admin == 1)
                         <a href="" class="badge badge-primary" data-toggle="modal"
-                            data-target="#exampleModal{{ $user->user_id }}">Quản trị viên</a>
+                            data-target="#access_right{{ $user->user_id }}">Quản trị viên</a>
                     @else
                         <a href="" class="badge badge-dark" data-toggle="modal"
-                            data-target="#exampleModal{{ $user->user_id }}">Người dùng</a>
+                            data-target="#access_right{{ $user->user_id }}">Người dùng</a>
                     @endif
 
                 </td>
                 <td>
                     @if ($user->status == 2)
-                        <span class="badge badge-secondary">đã nghỉ</span>
+                        <a href="" class="badge badge-secondary" data-toggle="modal"
+                        data-target="#status_{{ $user->user_id }}">đã nghỉ</a>
                     @elseif ($user->status == 1)
-                        <span class="badge badge-success">đang làm</span>
+                        <a href="" class="badge badge-success" data-toggle="modal"
+                        data-target="#status_{{ $user->user_id }}">đang làm</a>
                     @endif
                 </td>
                 <td>
@@ -54,7 +58,9 @@
                         onclick="return confirmDelete()"><i class="fa-solid fa-trash-can"></i></a>
                 </td>
             </tr>
-            <div class="modal fade" id="exampleModal{{ $user->user_id }}" tabindex="-1" role="dialog"
+
+            {{-- modal chỉnh sửa quyền truy cập --}}
+            <div class="modal fade" id="access_right{{ $user->user_id }}" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -78,6 +84,35 @@
                     </div>
                 </div>
             </div>
+            {{-- modal chỉnh sửa quyền truy cập --}}
+
+            {{-- modal chỉnh sửa trạng thái hoạt động --}}
+            <div class="modal fade" id="status_{{ $user->user_id }}" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Xác Nhận Hoạt Động</h5>
+                        </div>
+                        <div class="modal-body">
+                            <p style="line-height: 30px;">Bạn có chắc muốn thay đổi trạng thái của tài khoản <br> {{ $user->name }} từ 
+                            @if ($user->admin == 1)
+                                <span class="badge badge-primary p-2">Hoạt Động</span> sang <span
+                                    class="badge badge-secondary p-2">Không Hoạt Động</span> ? </p>
+                            @else
+                                <span class="badge badge-secondary p-2">Không Hoạt Động</span> thành <span
+                                    class="badge badge-primary p-2">Hoạt Động</span> ?</p>
+                            @endif
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                            <a href="{{ route('admin.status', [$user->user_id, $user->status]) }}"
+                                class="btn btn-primary">Chấp Nhận</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- modal chỉnh sửa trạng thái hoạt động --}}
         @endforeach
     </tbody>
 </table>

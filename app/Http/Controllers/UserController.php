@@ -21,10 +21,8 @@ class UserController extends Controller
         $this->middleware('auth');
     }
  
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+    /*
+        controller xử lí trang index quản lí tài khoản 
      */
     public function index(Request $request)
     {
@@ -41,6 +39,9 @@ class UserController extends Controller
         return view('admin.users.index', compact('users', 'positions', 'departments'));
     }
 
+    /*
+        xử lý chỉnh sửa quyền truy cập của tài khoản
+     */
     public function accessRights($id, $admin){
         try {
             User::access($id, $admin);
@@ -50,10 +51,20 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+    /*
+        xử lý chỉnh sửa trạng thái hoạt động của tài khoản
+     */
+    public function userStatus($id, $status){
+        try {
+            User::status($id, $status);
+            return redirect()->route('admin.user')->with('success', 'Sửa trạng thái thành công ');
+        } catch (Exception $ex) {
+            return redirect()->route('admin.user')->with('failed', 'Không thể sửa trạng thái !');
+        }
+    }
+
+    /*
+        xử lý hiển thị form tạo tài khoản
      */
     public function create()
     {
@@ -62,11 +73,8 @@ class UserController extends Controller
         return view('admin.users.create', compact('positions', 'departments'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+    /*
+        hàm xử lý và lưu trữ tài khoản
      */
     public function store(UserStoreRequest $request)
     {
@@ -78,6 +86,7 @@ class UserController extends Controller
             'password' => Hash::make($input['pword'])
         ];
         $profile = [
+            'gender' => $input['gender'],
             'address' => $input['address'],
             'phone' => $input['phone'],
             'birthday' => $input['birthday'],
@@ -88,17 +97,14 @@ class UserController extends Controller
 
         try {
             User::newUser($user, $profile);
-            return redirect()->route('admin.user')->with('success', 'Thêm nhân sự ' . $input['name'] . ' thành công ');
+            return redirect()->route('admin.user')->with('success', 'Thêm thành công nhân sự : ' . $input['name']);
         } catch (Exception $ex) {
             return redirect()->route('admin.user')->with('failed', 'Không thêm được nhân sự');
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+    /*
+        xử lý form hiển thị thông tin tài khoản
      */
     public function show($id)
     {
@@ -112,12 +118,8 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+    /*
+        cập nhật thông tin tài khoản
      */
     public function update(UserUpdateRequest $request, $id)
     {
@@ -127,9 +129,9 @@ class UserController extends Controller
         $user = [
             'name' => $input['name'],
             'email' => $input['email'],
-            'status' => $input['status']
         ];
         $profile = [
+            'gender' => $input['gender'],
             'address' => $input['address'],
             'phone' => $input['phone'],
             'birthday' => $input['birthday'],
@@ -139,17 +141,14 @@ class UserController extends Controller
 
         try {
             User::upd($user, $profile, $id);
-            return redirect()->route('admin.user')->with('success', 'Sửa thành công nhân sự: ' . $input['name']);
+            return redirect()->route('admin.user')->with('success', 'Sửa thông tin nhân sự: ' . $input['name'] . ' thành công');
         } catch (Exception $ex) {
-            return redirect()->route('admin.user')->with('failed', 'Lỗi sửa thông tin nhân viên !');
+            return redirect()->route('admin.user')->with('failed', 'Lỗi sửa thông tin nhân sự !');
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+    /*
+        xóa tài khoản
      */
     public function destroy($id)
     {

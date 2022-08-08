@@ -16515,7 +16515,7 @@ body.text-sm .control-sidebar {
   text-align: center;
 }
 
-.navbar-nav>.user-menu>.dropdown-menu>li.user-header>img {
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header>a>img {
   z-index: 5;
   height: 90px;
   width: 90px;

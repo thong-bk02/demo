@@ -25,11 +25,18 @@
                         <td>{{ $user->department }}</td>
                         <td></td>
                         <th>
-                            Tháng công:
-                            <form id="searchform" name="searchform" method="post">
-                                <input type="month" name="month" id="month" class="form-control" value="{{ date('Y-m') }}">
-                                <a href='{{ url('timekeeping') }}' id='search_btn'></a>
-                            </form>
+                            <div class="row">
+                                <div class="col-3 d-flex justify-content-center mt-1">
+                                    <span>Tháng công:</span>
+                                </div>
+                                <div class="col-6">
+                                    <form id="searchform" name="searchform" method="post">
+                                        <input type="month" name="month" id="month" class="form-control"
+                                            value="{{ date('Y-m') }}">
+                                        <a href='{{ url('timekeeping') }}' id='search_btn'></a>
+                                    </form>
+                                </div>
+                            </div>
                         </th>
                     </tr>
                 </tbody>

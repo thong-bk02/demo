@@ -24,10 +24,8 @@ class TimekeepingController extends Controller
         $this->middleware('auth');
     }
  
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+    /*
+        xử lý và tìm kiếm chấm công
      */
     public function index(Request $request)
     {
@@ -43,6 +41,9 @@ class TimekeepingController extends Controller
         return view('admin.timekeeping.index', compact('timekeepings', 'positions', 'departments'));
     }
 
+    /*
+        hiển thị và tìm kiếm nhân sự để đưa ra quyết định thưởng phạt
+     */
     public function list(Request $request)
     {
         $positions = Position::all();

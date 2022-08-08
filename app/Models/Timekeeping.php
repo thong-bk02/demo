@@ -26,6 +26,9 @@ class Timekeeping extends Model
         'hours_early'
     ];
 
+    /**
+     *  lấy dữ liệu danh sách thưởng phạt theo từ khóa tìm kiếm( hoặc không)
+     */
     protected static function getAll($request)
     {
         try {
@@ -34,7 +37,8 @@ class Timekeeping extends Model
                 ->join('profile_users', 'timekeepings.user_id', 'profile_users.user_id')
                 ->join('positions', 'profile_users.position', 'positions.id')
                 ->join('departments', 'profile_users.department', 'departments.id')
-                ->select('users.name', 'timekeepings.*', 'positions.position_name', 'departments.department')
+                ->join('gender', 'profile_users.gender', 'gender.id')
+                ->select('users.name', 'gender.gender', 'timekeepings.*', 'positions.position_name', 'departments.department')
                 ->when($request->has("name"), function ($q) use ($request) {
                     $q->where("name", "like", "%" . $request->get("name") . "%");
                 })

@@ -3,6 +3,7 @@
         <tr>
             <th scope="col">Stt</th>
             <th scope="col">Tên nhân viên</th>
+            <th scope="col">Giới tính</th>
             <th scope="col">Mã nhân viên</th>
             <th scope="col">Chức vụ</th>
             <th scope="col">Phòng ban</th>
@@ -12,7 +13,7 @@
     @if (blank($users))
         <tbody>
             <tr>
-                <td colspan="6">
+                <td colspan="7">
                     <p class="alert alert-secondary text-center">Không có kết quả !</p>
                 </td>
             </tr>
@@ -26,6 +27,9 @@
                     </th>
                     <td>
                         {{ $user->name }}
+                    </td>
+                    <td>
+                        {{ $user->gender }}
                     </td>
                     <td>
                         {{ $user->user_code }}

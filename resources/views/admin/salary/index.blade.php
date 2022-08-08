@@ -59,14 +59,18 @@
                             </div>
                         </td>
                         <td>
-                            <input type="month" name="month" class="form-control"
-                                value="{{ Session('salary.month') }}">
+                            <input type="month" name="month" class="form-control" value="{{ Session('salary.month') }}">
                         </td>
                         <td style="width: 25vw;">
                             <a class='btn btn-primary' href='{{ url('admin/salary') }}' id='search_btn'>
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </a>
-                            <a href="{{ route('admin.salary.list') }}" class="btn btn-primary">Thêm Lương</a>
+                            <a href="{{ route('admin.salary.list') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-plus"></i>
+                            </a>
+                            <a href="{{ route('admin.basic-salary') }}" class="btn p-0 text-primary">
+                                <i class="fa-solid fa-money-check-dollar" style="font-size: 50px;"></i>
+                            </a>
                             <a href="{{ route('admin.salary.export') }}" class="btn btn-outline-primary">Xuất Excel</a>
                         </td>
                     </form>

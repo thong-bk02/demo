@@ -61,8 +61,8 @@ class Staff extends Model
         try {
             $salarys = DB::table('salary')
                 ->join('payments', 'salary.payment', 'payments.id')
-                ->join('coefficients_salarys','coefficients_salarys.id', 'salary.coefficients_salary')
-                ->select('salary.*','payments.payment','coefficients_salarys.coefficients_salary')
+                ->join('basic_salary','basic_salary.id', 'salary.basic_salary')
+                ->select('salary.*','payments.payment','basic_salary.basic_salary')
                 ->where('salary.user_id', Auth::user()->id)
                 ->when($request->get('month'), function ($q) use ($request) {
                     $q->where('month', 'like', $request->get('month') . "%");

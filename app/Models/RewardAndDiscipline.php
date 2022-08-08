@@ -23,6 +23,9 @@ class RewardAndDiscipline extends Model
         'date_created',
     ];
 
+    /**
+     *  lấy dánh sách thưởng phạt theo từ khóa tìm kiếm (hoặc không)
+     */
     protected static function indexSearch($request)
     {
         try {
@@ -32,7 +35,8 @@ class RewardAndDiscipline extends Model
                 ->join('positions', 'profile_users.position', 'positions.id')
                 ->join('departments', 'profile_users.department', 'departments.id')
                 ->join('genre', 'reward_and_disciplines.type', 'genre.id')
-                ->select('users.name', 'reward_and_disciplines.*', 'genre.genre', 'positions.position_name', 'departments.department')
+                ->join('gender', 'profile_users.gender', 'gender.id')
+                ->select('users.name', 'reward_and_disciplines.*', 'gender.gender', 'genre.genre', 'positions.position_name', 'departments.department')
                 ->when($request->has("name"), function ($q) use ($request) {
                     $q->where("name", "like", "%" . $request->get("name") . "%");
                 })
@@ -52,6 +56,9 @@ class RewardAndDiscipline extends Model
         }
     }
 
+    /**
+     *  lấy danh sách người dùng để quản lý chọn
+     */
     protected static function listSearch($request)
     {
         try {
@@ -59,7 +66,8 @@ class RewardAndDiscipline extends Model
                 ->join('users', 'profile_users.user_id', 'users.id')
                 ->join('positions', 'profile_users.position', 'positions.id')
                 ->join('departments', 'profile_users.department', 'departments.id')
-                ->select('users.*', 'profile_users.*', 'positions.position_name', 'departments.department')
+                ->join('gender', 'profile_users.gender', 'gender.id')
+                ->select('users.*', 'profile_users.*', 'gender.gender', 'positions.position_name', 'departments.department')
                 ->where('name', '<>', Auth::user()->name)
                 ->when($request->has("name"), function ($q) use ($request) {
                     $q->where("name", "like", "%" . $request->get("name") . "%");
@@ -77,6 +85,9 @@ class RewardAndDiscipline extends Model
         }
     }
 
+    /**
+     * lấy dữ liệu cho form tạo thưởng phạt
+     */
     protected static function createUser($id)
     {
         try {
@@ -94,6 +105,9 @@ class RewardAndDiscipline extends Model
         }
     }
 
+    /**
+     * lấy thông tin về quyết định thưởng phạt
+     */
     protected static function showRAD($id)
     {
         try {
@@ -113,6 +127,9 @@ class RewardAndDiscipline extends Model
         }
     }
 
+    /**
+     * thêm thông tin thưởng phạt vào DB
+     */
     protected static function createRAD($data)
     {
         try {
@@ -122,7 +139,9 @@ class RewardAndDiscipline extends Model
         }
     }
 
-
+    /**
+     * xóa thông tin thưởng phạt
+     */
     protected static function deleteDecision($id)
     {
         try {
@@ -132,6 +151,9 @@ class RewardAndDiscipline extends Model
         }
     }
 
+    /**
+     * cập nhật thông tin thưởng phạt
+     */
     protected static function upd($request, $id)
     {
         try {

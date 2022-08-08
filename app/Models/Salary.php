@@ -20,7 +20,7 @@ class Salary extends Model
         'user_id',
         'salary_code',
         'timekeeping',
-        'coefficients_salary',
+        'basic_salary',
         'subsidize',
         'total_reward',
         'total_discipline',
@@ -41,12 +41,14 @@ class Salary extends Model
             ->join('payments', 'salary.payment', 'payments.id')
             ->join('profile_users', 'salary.user_id', 'profile_users.user_id')
             ->join('positions', 'profile_users.position', 'positions.id')
+            ->join('gender', 'profile_users.gender', 'gender.id')
             ->select(
                 'users.name',
                 'salary.*',
                 'payments.payment',
                 'profile_users.position',
                 'positions.position_name',
+                'gender.gender',
             )
             ->when($request->has("name"), function ($q) use ($request) {
                 $q->where("name", "like", "%" . $request->get("name") . "%");
@@ -75,7 +77,7 @@ class Salary extends Model
             ->join('profile_users', 'salary.user_id', 'profile_users.user_id')
             ->join('positions', 'profile_users.position', 'positions.id')
             ->join('departments', 'profile_users.department', 'departments.id')
-            ->join('coefficients_salarys', 'positions.id', 'coefficients_salarys.position')
+            ->join('basic_salary', 'positions.id', 'basic_salary.position')
             ->where('salary.salary_code', $salary_code)
             ->where('timekeepings.timekeeping_month', 'like', $month . "%")
             ->select(
@@ -85,7 +87,7 @@ class Salary extends Model
                 'profile_users.position',
                 'positions.position_name',
                 'departments.department',
-                'coefficients_salarys.coefficients_salary'
+                'basic_salary.basic_salary'
             )
             ->get();
         // dd($salarys);
@@ -176,7 +178,7 @@ class Salary extends Model
             })
             ->join('positions', 'profile_users.position', 'positions.id')
             ->join('departments', 'profile_users.department', 'departments.id')
-            ->join('coefficients_salarys', 'positions.id', 'coefficients_salarys.position')
+            ->join('basic_salary', 'positions.id', 'basic_salary.position')
             ->where('profile_users.user_id', $user_id)
             // ->where('timekeepings.timekeeping_month', 'like', $month . "%")
             ->when($month, function ($q) use ($month) {
@@ -190,7 +192,7 @@ class Salary extends Model
                 'profile_users.position',
                 'positions.position_name',
                 'departments.department',
-                'coefficients_salarys.coefficients_salary',
+                'basic_salary.basic_salary',
             )
             ->get();
         // dd($salarys);

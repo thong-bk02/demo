@@ -18,6 +18,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('user_id')->unique();
             $table->string('user_code')->unique();
+            $table->unsignedBigInteger('gender');
             $table->string('address');
             $table->string('phone')->unique();
             $table->date('birthday');
@@ -27,6 +28,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('position')->references('id')->on('positions');
             $table->foreign('department')->references('id')->on('departments');
+            $table->foreign('gender')->references('id')->on('gender');
             
             $table->timestamps();
         });

@@ -9,5 +9,5 @@ class BasicSalary extends Model
 {
     use HasFactory;
 
-    protected $table = 'coefficients_salarys';
+    protected $table = 'basic_salary';
 }

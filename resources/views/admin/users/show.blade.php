@@ -31,19 +31,19 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="">Giới tính</label>
+                            <select name="gender" class="form-control">
+                                <option value="1" {{ old('status', $user->gender) == 1 ? 'selected' : '' }}>nam</option>
+                                <option value="2" {{ old('status', $user->gender) == 2 ? 'selected' : '' }}>nữ</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="address">Quê quán</label>
                             <input type="text" class="form-control @error('address') is-invalid @enderror" name="address"
                                 id="address" placeholder="Quê quán" value="{{old('address', $user->address)}}">
                             @error('address')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="">tình trạng làm việc</label>
-                            <select name="status" class="form-control">
-                                <option value="1" {{ old('status', $user->status) == 1 ? 'selected' : '' }}>đang làm</option>
-                                <option value="2" {{ old('status', $user->status) == 2 ? 'selected' : '' }}>đã nghỉ</option>
-                            </select>
                         </div>
                     </div>
                     <div class="col-sm-6">

@@ -3,11 +3,12 @@
         <tr>
             <th scope="col">Stt</th>
             <th scope="col">Tên nhân viên</th>
+            <th scope="col">Giới tính</th>
             <th scope="col">chức vụ</th>
             <th scope="col">phòng ban</th>
             <th scope="col">Hình thức</th>
             <th scope="col">Số tiền</th>
-            <th scope="col">Ngày quyết định</th>
+            <th scope="col">Ngày tạo</th>
             <th scope="col">Thao tác</th>
         </tr>
     </thead>
@@ -30,6 +31,9 @@
                         {{ $reward_and_discipline->name }}
                     </td>
                     <td>
+                        {{ $reward_and_discipline->gender }}
+                    </td>
+                    <td>
                         {{ $reward_and_discipline->position_name }}
                     </td>
                     <td>
@@ -39,10 +43,10 @@
                         {{ $reward_and_discipline->genre }}
                     </td>
                     <td>
-                        {{ number_format($reward_and_discipline->money, 0) }}
+                        {{ number_format($reward_and_discipline->money, 0) }} VNĐ
                     </td>
                     <td>
-                        {{ date('m/Y', strtotime($reward_and_discipline->date_created)) }}
+                        {{ date('d-m-Y', strtotime($reward_and_discipline->date_created)) }}
                     </td>
                     <td>
                         <a href="{{ route('admin.reward-discipline.show', $reward_and_discipline->id) }}"
