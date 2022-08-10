@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('timekeepings', function (Blueprint $table) {
             $table->id();
-
             $table->unsignedBigInteger('user_id');
             $table->string('timekeeping_code')->unique();
             $table->date('timekeeping_month');
@@ -26,8 +25,8 @@ return new class extends Migration
             $table->double('leave_early')->default(0)->nullable();
             $table->double('hours_early')->default(0)->nullable();
             $table->foreign('user_id')->references('id')->on('users');
-
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

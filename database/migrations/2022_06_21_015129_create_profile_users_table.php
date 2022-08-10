@@ -31,6 +31,7 @@ return new class extends Migration
             $table->foreign('gender')->references('id')->on('gender');
             
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

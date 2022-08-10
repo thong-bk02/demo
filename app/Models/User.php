@@ -5,6 +5,7 @@ namespace App\Models;
 use Exception;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -56,6 +57,7 @@ class User extends Authenticatable
                 ->join('departments', 'profile_users.department', 'departments.id')
                 ->join('gender', 'profile_users.gender', 'gender.id')
                 ->select('users.*', 'profile_users.*', 'gender.gender', 'positions.position_name', 'departments.department')
+                ->whereNull('users.deleted_at')
                 ->where('name', '<>', Auth::user()->name)
                 ->when($request->has("name"), function ($q) use ($request) {
                     $q->where("name", "like", "%" . $request->get("name") . "%");
@@ -65,9 +67,6 @@ class User extends Authenticatable
                 })
                 ->when($request->get('department'), function ($q) use ($request) {
                     $q->where('profile_users.department', $request->get('department'));
-                })
-                ->when($request->get('status'), function ($q) use ($request) {
-                    $q->where('users.status', $request->get('status'));
                 });
             return $users->orderBy('name')->paginate(8);
         } catch (Exception $ex) {
@@ -159,6 +158,50 @@ class User extends Authenticatable
             DB::commit();
         } catch (Exception $ex) {
             DB::rollBack();
+            throw $ex;
+        }
+    }
+
+    /**
+     * lấy danh sách nhân sự đã nghỉ việc
+     */
+    protected static function deletedAccount($request)
+    {
+        try {
+            $users = ProfileUser::onlyTrashed()
+                ->join('users', 'profile_users.user_id', 'users.id')
+                ->join('positions', 'profile_users.position', 'positions.id')
+                ->join('departments', 'profile_users.department', 'departments.id')
+                ->join('gender', 'profile_users.gender', 'gender.id')
+                ->select('users.*', 'profile_users.*', 'gender.gender', 'positions.position_name', 'departments.department')
+                ->where('name', '<>', Auth::user()->name)
+                ->when($request->has("name"), function ($q) use ($request) {
+                    $q->where("name", "like", "%" . $request->get("name") . "%");
+                })
+                ->when($request->get('position'), function ($q) use ($request) {
+                    $q->where("profile_users.position", $request->get("position"));
+                })
+                ->when($request->get('department'), function ($q) use ($request) {
+                    $q->where('profile_users.department', $request->get('department'));
+                });
+            return $users->orderBy('name')->paginate(8);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    /**
+     * khôi phục tài khoản
+     */
+    protected static function restoreUser($user_id){
+        DB::beginTransaction();
+        try {
+            ProfileUser::onlyTrashed()->where('user_id', $user_id)->restore();
+            User::onlyTrashed()->where('id', $user_id)->restore();
+            DB::commit();
+        } catch (Exception $ex) {
+            DB::rollBack();
+            throw $ex;
         }
     }
 }

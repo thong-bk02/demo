@@ -9,7 +9,7 @@
 
         @foreach ($salarys as $salary)
             <h2 class="text-center py-3">
-                Thông tin Lương tháng {{ $salary->month }}
+                Thông tin Lương tháng {{ date('m-Y', strtotime($salary->month)) }}
             </h2>
             <form action="{{ route('admin.salary.update', $salary->user_id) }}" method="post">
                 @csrf

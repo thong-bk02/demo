@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProfileUser extends Model
 {
@@ -21,7 +22,6 @@ class ProfileUser extends Model
         'date_start'
     ];
 
-    use HasFactory;
-
+    use HasFactory, SoftDeletes;
 
 }

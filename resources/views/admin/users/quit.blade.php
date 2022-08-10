@@ -1,11 +1,15 @@
-@extends('staff.layouts.app')
+@extends('layouts.app')
 
 @section('title')
-    <title>Danh sách nhân sự</title>
+    <title>Nhân sự đã nghỉ</title>
 @endsection
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/users/btn-clear-value-input.css') }}">
+@endsection
+
+@section('header_page')
+    Danh sách nhân sự đã nghỉ
 @endsection
 
 @section('content')
@@ -29,7 +33,7 @@
                         <td>
                             <span class="deleteicon w-100">
                                 <input type="text" name="name" id="search_name" placeholder="Họ và tên"
-                                    value="" class="form-control" autocomplete="off">
+                                    value="{{ Session('users.name') }}" class="form-control" autocomplete="off">
                                 <span
                                     onclick="var input = this.previousElementSibling; input.value = ''; input.focus();">X</span>
                             </span>
@@ -38,7 +42,8 @@
                             <select class="form-control" name="position" id="position">
                                 <option value="">tất cả</option>
                                 @foreach ($positions as $position)
-                                    <option value="{{ $position->id }}">
+                                    <option value="{{ $position->id }}"
+                                        {{ Session('users.position') == $position->id ? 'selected' : '' }}>
                                         {{ $position->position_name }}</option>
                                 @endforeach
                             </select>
@@ -47,15 +52,17 @@
                             <select class="form-control" name="department" id="department">
                                 <option value="">tất cả</option>
                                 @foreach ($departments as $department)
-                                    <option value="{{ $department->id }}">
+                                    <option value="{{ $department->id }}"
+                                        {{ Session('users.department') == $department->id ? 'selected' : '' }}>
                                         {{ $department->department }}</option>
                                 @endforeach
                             </select>
                         </td>
                         <td>
-                            <a class='btn btn-primary' href='{{ url('admin/users') }}' id='search_btn'>
+                            <a class='btn btn-primary' href='{{ url('admin/users/quit') }}' id='search_btn'>
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </a>
+                            <a href="{{ route('admin.user') }}" class="btn btn-secondary mx-2">Thoát</a>
                         </td>
                     </form>
                 </tr>
@@ -64,15 +71,15 @@
 
         {{-- Kết quả tìm kiếm --}}
         <div id="pagination_data">
-            @include('staff.users.pagination_data', ['users' => $users])
+            @include('admin.users.quit_page_data', ['users' => $users])
         </div>
 
     </div>
 
-    {{-- Xác nhận xóa nhân sự --}}
+    {{-- Xác nhận khởi tạo lại tài khoản --}}
     <script>
-        function confirmDelete() {
-            if (confirm("xóa nhân viên này ?") == true) {
+        function confirmRestore() {
+            if (confirm("Khôi phục lại tài khoản này ?") == true) {
                 return true;
             } else {
                 return false;
@@ -91,7 +98,7 @@
                     document.getElementById("search_btn").click();
                 }
             });
-
+            // sử dụng ajax để tìm kiếm
             $(document).on("click", "#pagination a,#search_btn", function() {
                 var url = $(this).attr("href");
                 var append = url.indexOf("?") == -1 ? "?" : "&";
@@ -105,23 +112,4 @@
             })
         });
     </script>
-
-    @if (blank(session('users')))
-    @else
-        <script>
-            $(function() {
-                var page = '{{ Session('users.page') }}';
-                if (page == "") {
-                    var finalURL = "users?" + $("#searchform").serialize();
-                } else {
-                    var finalURL = "users?page=" + page + "&" + $("#searchform").serialize();
-                }
-
-                $.get(finalURL, function(data) {
-                    $("#pagination_data").html(data);
-                });
-                return false;
-            });
-        </script>
-    @endif
 @endsection

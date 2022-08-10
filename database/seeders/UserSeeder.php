@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
                 'name' => "Nguyễn Thúy Quỳnh",
                 'email' => "quynh@gmail.com",
                 'admin' => '1',
-                'status' => 1,
+                
                 'password' => Hash::make('thongbk02'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
                 'name' => "Phạm Đoàn Anh Tuấn",
                 'email' => "tuan@gmail.com",
                 'admin' => '',
-                'status' => 1,
+                
                 'password' => Hash::make('thongbk02'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
                 'name' => "Hà Anh Hoàng",
                 'email' => "hoang@gmail.com",
                 'admin' => '',
-                'status' => 1,
+                
                 'password' => Hash::make('thongbk02'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
@@ -49,7 +49,7 @@ class UserSeeder extends Seeder
                 'name' => "Phạm Thanh Sơn",
                 'email' => "son@gmail.com",
                 'admin' => '',
-                'status' => 1,
+                
                 'password' => Hash::make('thongbk02'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
@@ -58,7 +58,7 @@ class UserSeeder extends Seeder
                 'name' => "Trần Công Minh",
                 'email' => "minh@gmail.com",
                 'admin' => '1',
-                'status' => 1,
+                
                 'password' => Hash::make('thongbk02'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
@@ -67,7 +67,7 @@ class UserSeeder extends Seeder
                 'name' => "Trần Đức Thắng",
                 'email' => "thang@gmail.com",
                 'admin' => '',
-                'status' => 1,
+                
                 'password' => Hash::make('thongbk02'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
@@ -76,7 +76,7 @@ class UserSeeder extends Seeder
                 'name' => "Trần Mạnh Cường",
                 'email' => "cuong@gmail.com",
                 'admin' => '',
-                'status' => 1,
+                
                 'password' => Hash::make('thongbk02'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
@@ -85,7 +85,7 @@ class UserSeeder extends Seeder
                 'name' => "Nguyễn Chí Hào",
                 'email' => "hao@gmail.com",
                 'admin' => '',
-                'status' => 1,
+                
                 'password' => Hash::make('thongbk02'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
@@ -94,7 +94,7 @@ class UserSeeder extends Seeder
                 'name' => "Phạm Tân Đại",
                 'email' => "dai@gmail.com",
                 'admin' => '',
-                'status' => 1,
+                
                 'password' => Hash::make('thongbk02'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
@@ -103,7 +103,7 @@ class UserSeeder extends Seeder
                 'name' => "Lâm Thị Thúy",
                 'email' => "thuy@gmail.com",
                 'admin' => '',
-                'status' => 1,
+                
                 'password' => Hash::make('thongbk02'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
@@ -113,7 +113,7 @@ class UserSeeder extends Seeder
             //     'name' => "Vũ Quý Văn",
             //     'email' => "van@gmail.com",
             //     'admin' => '',
-            //     'status' => 1,
+            //     
             //     'password' => Hash::make('thongbk02'),
             //     'created_at' => date('Y-m-d H:i:s'),
             //     'updated_at' => date('Y-m-d H:i:s')
@@ -122,7 +122,7 @@ class UserSeeder extends Seeder
             //     'name' => "Nguyễn Đăng Đức",
             //     'email' => "duc@gmail.com",
             //     'admin' => '',
-            //     'status' => 1,
+            //     
             //     'password' => Hash::make('thongbk02'),
             //     'created_at' => date('Y-m-d H:i:s'),
             //     'updated_at' => date('Y-m-d H:i:s')
@@ -131,7 +131,7 @@ class UserSeeder extends Seeder
             //     'name' => "Nguyễn Đình Hùng",
             //     'email' => "hung@gmail.com",
             //     'admin' => '',
-            //     'status' => 1,
+            //     
             //     'password' => Hash::make('thongbk02'),
             //     'created_at' => date('Y-m-d H:i:s'),
             //     'updated_at' => date('Y-m-d H:i:s')
@@ -140,7 +140,7 @@ class UserSeeder extends Seeder
             //     'name' => "Trần Minh Trang",
             //     'email' => "trang@gmail.com",
             //     'admin' => '',
-            //     'status' => 1,
+            //     
             //     'password' => Hash::make('thongbk02'),
             //     'created_at' => date('Y-m-d H:i:s'),
             //     'updated_at' => date('Y-m-d H:i:s')
@@ -149,7 +149,7 @@ class UserSeeder extends Seeder
             //     'name' => "Đào Văn Phúc",
             //     'email' => "phuc@gmail.com",
             //     'admin' => '',
-            //     'status' => 1,
+            //     
             //     'password' => Hash::make('thongbk02'),
             //     'created_at' => date('Y-m-d H:i:s'),
             //     'updated_at' => date('Y-m-d H:i:s')
@@ -157,7 +157,7 @@ class UserSeeder extends Seeder
             //     'id' => 16,
             //     'name' => "Trần Duy Chiến",
             //     'email' => "chien@gmail.com",
-            //     'admin' => '','status' => 1,
+            //     'admin' => '',
             //     'password' => Hash::make('thongbk02'),
             //     'created_at' => date('Y-m-d H:i:s'),
             //     'updated_at' => date('Y-m-d H:i:s')
@@ -165,7 +165,7 @@ class UserSeeder extends Seeder
             //     'id' => 17,
             //     'name' => "Đỗ Thị Oanh",
             //     'email' => "oanh@gmail.com",
-            //     'admin' => '','status' => 1,
+            //     'admin' => '',
             //     'password' => Hash::make('thongbk02'),
             //     'created_at' => date('Y-m-d H:i:s'),
             //     'updated_at' => date('Y-m-d H:i:s')
@@ -173,7 +173,7 @@ class UserSeeder extends Seeder
             //     'id' => 18,
             //     'name' => "Vũ Hương Giang",
             //     'email' => "giang@gmail.com",
-            //     'admin' => '','status' => 1,
+            //     'admin' => '',
             //     'password' => Hash::make('thongbk02'),
             //     'created_at' => date('Y-m-d H:i:s'),
             //     'updated_at' => date('Y-m-d H:i:s')
@@ -181,7 +181,7 @@ class UserSeeder extends Seeder
             //     'id' => 19,
             //     'name' => "Trần Thu Hằng",
             //     'email' => "hang@gmail.com",
-            //     'admin' => '','status' => 1,
+            //     'admin' => '',
             //     'password' => Hash::make('thongbk02'),
             //     'created_at' => date('Y-m-d H:i:s'),
             //     'updated_at' => date('Y-m-d H:i:s')
@@ -189,7 +189,7 @@ class UserSeeder extends Seeder
             //     'id' => 20,
             //     'name' => "Đinh Quốc Việt",
             //     'email' => "viet@gmail.com",
-            //     'admin' => '','status' => 1,
+            //     'admin' => '',
             //     'password' => Hash::make('thongbk02'),
             //     'created_at' => date('Y-m-d H:i:s'),
             //     'updated_at' => date('Y-m-d H:i:s')

@@ -61,16 +61,23 @@
                                 value="{{ session('timekeeping.month') }}">
                         </td>
                         <td style="width: 25vw;">
-                            <a class='btn btn-primary' href='{{ url('admin/timekeeping') }}' id='search_btn'>
+                            <a class='btn btn-outline-primary' href='{{ url('admin/timekeeping') }}' id='search_btn'>
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </a>
-                            <a href="{{ route('admin.timekeeping.list') }}" class="btn btn-primary">
+                            <a href="{{ route('admin.timekeeping.list') }}" class="btn btn-outline-primary">
                                 <i class="fa-solid fa-plus"></i>
                             </a>
+                            <a href=""  class="btn btn-outline-primary">
+                                <i class="fa-solid fa-eye-slash"></i>
+                            </a>
                             <a class="btn btn-outline-primary float-end"
-                                href="{{ route('admin.timekeeping.export') }}">Xuất excel</a>
+                                href="{{ route('admin.timekeeping.export') }}">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            </a>
                             <a class="btn btn-outline-primary float-end" href="" data-toggle="modal"
-                                data-target="#exampleModal">Cập nhật</a>
+                                data-target="#exampleModal">
+                                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                            </a>
                         </td>
                     </form>
                 </tr>

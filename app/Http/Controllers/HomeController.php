@@ -54,21 +54,18 @@ class HomeController extends Controller
         /*  
             DATA BẢNG THỐNG KÊ NHÂN SỰ
         */
-        $data_users = DB::table('users')->where('status', '1')->count();
-        $quit = DB::table('users')->where('status', '2')->count();
+        $data_users = DB::table('users')->whereNull('deleted_at')->count();
+        $quit = User::onlyTrashed()->count();
         $staff = DB::table('profile_users')
             ->join('users', 'profile_users.user_id', 'users.id')
-            ->where('status', 1)
             ->where('position', 1)
             ->count();
         $manager = DB::table('profile_users')
             ->join('users', 'profile_users.user_id', 'users.id')
-            ->where('status', 1)
             ->where('position', 2)
             ->count();
         $chief_of_department = DB::table('profile_users')
             ->join('users', 'profile_users.user_id', 'users.id')
-            ->where('status', 1)
             ->whereBetween('position', [3, 5])
             ->count();
 

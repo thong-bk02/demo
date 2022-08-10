@@ -5,12 +5,13 @@ namespace App\Models;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class Timekeeping extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $guarded=[];
 
     protected $fillable = [
@@ -38,7 +39,8 @@ class Timekeeping extends Model
                 ->join('positions', 'profile_users.position', 'positions.id')
                 ->join('departments', 'profile_users.department', 'departments.id')
                 ->join('gender', 'profile_users.gender', 'gender.id')
-                ->select('users.name', 'gender.gender', 'timekeepings.*', 'positions.position_name', 'departments.department')
+                ->select('users.*', 'gender.gender', 'timekeepings.*', 'positions.position_name', 'departments.department')
+                ->whereNull('profile_users.deleted_at')
                 ->when($request->has("name"), function ($q) use ($request) {
                     $q->where("name", "like", "%" . $request->get("name") . "%");
                 })

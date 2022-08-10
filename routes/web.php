@@ -42,7 +42,8 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('/admin/users/create', [UserController::class, 'store'])->name('admin.users.store');
     Route::get('/admin/users/delete/{id}', [UserController::class, 'destroy'])->name('admin.user.delete');
     Route::get('/admin/users/access-right/{id}/{admin}', [UserController::class, 'accessRights'])->name('admin.access-rights');
-    Route::get('/admin/users/status/{id}/{admin}', [UserController::class, 'userStatus'])->name('admin.status');
+    Route::get('/admin/users/quit', [UserController::class, 'quit'])->name('admin.user.quit');
+    Route::get('/admin/users/{id}/restore', [UserController::class, 'restore'])->name('admin.user.restore');
 
     //quản lí chức vụ
     Route::get('/admin/position', [PositionController::class, 'index'])->name('admin.position');

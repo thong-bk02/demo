@@ -33,7 +33,7 @@
                             class="fas fa-bars"></i></a>
                 </li>
             </ul>
-
+            <div class="navbar-nav ml-auto text-uppercase font-weight-bold">@yield('header_page')</div>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown user-menu">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">

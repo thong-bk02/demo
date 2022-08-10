@@ -43,13 +43,14 @@ class Salary extends Model
             ->join('positions', 'profile_users.position', 'positions.id')
             ->join('gender', 'profile_users.gender', 'gender.id')
             ->select(
-                'users.name',
+                'users.*',
                 'salary.*',
                 'payments.payment',
                 'profile_users.position',
                 'positions.position_name',
                 'gender.gender',
             )
+            ->whereNull('profile_users.deleted_at')
             ->when($request->has("name"), function ($q) use ($request) {
                 $q->where("name", "like", "%" . $request->get("name") . "%");
             })
@@ -141,7 +142,7 @@ class Salary extends Model
 
 
     /* 
-        lấy danh sách  nhân sự để thêm 
+        lấy danh sách  nhân sự để thêm lương 
     */
     protected static function listSearch($request)
     {
@@ -151,6 +152,7 @@ class Salary extends Model
                 ->join('positions', 'profile_users.position', 'positions.id')
                 ->join('departments', 'profile_users.department', 'departments.id')
                 ->select('users.*', 'profile_users.*', 'positions.position_name', 'departments.department')
+                ->whereNull('profile_users.deleted_at')
                 ->when($request->has("name"), function ($q) use ($request) {
                     $q->where("name", "like", "%" . $request->get("name") . "%");
                 })

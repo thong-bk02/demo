@@ -36,7 +36,8 @@ class RewardAndDiscipline extends Model
                 ->join('departments', 'profile_users.department', 'departments.id')
                 ->join('genre', 'reward_and_disciplines.type', 'genre.id')
                 ->join('gender', 'profile_users.gender', 'gender.id')
-                ->select('users.name', 'reward_and_disciplines.*', 'gender.gender', 'genre.genre', 'positions.position_name', 'departments.department')
+                ->select('users.*', 'reward_and_disciplines.*', 'gender.gender', 'genre.genre', 'positions.position_name', 'departments.department')
+                ->whereNull('users.deleted_at')
                 ->when($request->has("name"), function ($q) use ($request) {
                     $q->where("name", "like", "%" . $request->get("name") . "%");
                 })
@@ -68,6 +69,7 @@ class RewardAndDiscipline extends Model
                 ->join('departments', 'profile_users.department', 'departments.id')
                 ->join('gender', 'profile_users.gender', 'gender.id')
                 ->select('users.*', 'profile_users.*', 'gender.gender', 'positions.position_name', 'departments.department')
+                ->whereNull('profile_users.deleted_at')
                 ->where('name', '<>', Auth::user()->name)
                 ->when($request->has("name"), function ($q) use ($request) {
                     $q->where("name", "like", "%" . $request->get("name") . "%");

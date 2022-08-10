@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             ReasionSeeder::class,
             RewardAndDisciplineSeeder::class,
             PaymentSeeder::class,
+            WageAgreement::class,
         ]);
     }
 }

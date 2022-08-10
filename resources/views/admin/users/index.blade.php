@@ -20,7 +20,6 @@
                     <th scope="col">Họ và Tên</th>
                     <th scope="col">Chức vụ</th>
                     <th scope="col">Phòng ban</th>
-                    <th scope="col">Trạng thái</th>
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
@@ -56,23 +55,15 @@
                             </select>
                         </td>
                         <td>
-                            <select class="form-control" name="status" id="status">
-                                <option value="" {{ Session('users.status') == '' ? 'selected' : '' }}>
-                                    tất cả
-                                </option>
-                                <option value="1" {{ Session('users.status') == 1 ? 'selected' : '' }}>
-                                    đang làm
-                                </option>
-                                <option value="2" {{ Session('users.status') == 2 ? 'selected' : '' }}>
-                                    đã nghỉ
-                                </option>
-                            </select>
-                        </td>
-                        <td>
                             <a class='btn btn-primary' href='{{ url('admin/users') }}' id='search_btn'>
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </a>
-                            <a href="{{ route('admin.user.create') }}" class="btn btn-primary">Thêm nhân sự</a>
+                            <a href="{{ route('admin.user.create') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-circle-plus"></i>
+                            </a>
+                            <a class='btn btn-primary' href='{{ route('admin.user.quit') }}'>
+                                <i class="fa-solid fa-users-slash"></i>
+                            </a>
                         </td>
                     </form>
                 </tr>

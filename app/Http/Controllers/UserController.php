@@ -52,18 +52,6 @@ class UserController extends Controller
     }
 
     /*
-        xử lý chỉnh sửa trạng thái hoạt động của tài khoản
-     */
-    public function userStatus($id, $status){
-        try {
-            User::status($id, $status);
-            return redirect()->route('admin.user')->with('success', 'Sửa trạng thái thành công ');
-        } catch (Exception $ex) {
-            return redirect()->route('admin.user')->with('failed', 'Không thể sửa trạng thái !');
-        }
-    }
-
-    /*
         xử lý hiển thị form tạo tài khoản
      */
     public function create()
@@ -148,7 +136,7 @@ class UserController extends Controller
     }
 
     /*
-        xóa tài khoản
+        xóa tài khoản : soft delete
      */
     public function destroy($id)
     {
@@ -157,6 +145,33 @@ class UserController extends Controller
             return redirect()->back()->withInput()->with('success', 'Xóa thành công !');
         } catch (Exception $ex) {
             return redirect()->route('admin.user')->with('failed', 'Lỗi !');
+        }
+    }
+
+    /**
+     * danh sách tài khoản đã xóa
+     */
+    public function quit(Request $request){
+        $positions = Position::all();
+        $departments = Department::all();
+        $users = User::deletedAccount($request);
+        
+        if ($request->ajax()) {
+            $this->saveSearchSession($this->_KEY, $request->all());
+            return view('admin.users.quit_page_data', compact('users', 'positions', 'departments'));
+        }
+        return view('admin.users.quit', compact('users', 'positions', 'departments'));
+    }
+
+    /**
+     * mở lại tài khoản đã xóa
+     */
+    public function restore($user_id){
+        try{
+            User::restoreUser($user_id);
+            return redirect()->route('admin.user')->with('success', 'Khôi phục tài khoản thành công !');
+        } catch (Exception $ex) {
+            throw $ex;
         }
     }
 }

@@ -95,12 +95,12 @@
                                             <div class="form-group">
                                                 <label for="position">Mã chức vụ</label>
                                                 <input type="text" class="form-control" name="position_code"
-                                                    value="{{ $position->position_code }}">
+                                                    value="{{ $position->position_code }}" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="position_code">Tên chức vụ</label>
                                                 <input type="text" class="form-control" name="position_name"
-                                                    value="{{ $position->position_name }}">
+                                                    value="{{ $position->position_name }}" required>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
