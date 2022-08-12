@@ -22,7 +22,7 @@ class TimekeepingImport implements ToCollection, WithHeadingRow
             foreach ($rows as $row) {
                 $month = Str::substr($row['thang_cong'],-4).'-'.Str::substr($row['thang_cong'], 0, 2).'-01';
                 $data = [
-                    'user_id'           => $row['id_nhan_su'],
+                    'user_id'           => $row['id'],
                     'timekeeping_code'  => $row['ma_cham_cong'],
                     'timekeeping_month' => $month,
                     'day_off'           => $row['so_ngay_nghi'],

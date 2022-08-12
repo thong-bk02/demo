@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\SalaryExport;
+use App\Exports\SalaryExportOne;
 use App\Imports\SalaryImport;
 use App\Models\BasicSalary;
 use App\Models\Department;
@@ -31,7 +32,7 @@ class SalaryController extends Controller
      */
     public function index(Request $request)
     {
-        $this->clearSession(6);
+        $this->clearSession(3);
         $salarys = Salary::getAll($request);
         $positions = Position::all();
         $departments = Department::all();
@@ -40,7 +41,6 @@ class SalaryController extends Controller
             $this->saveSearchSession($this->_KEY, $request->all());
             return view('admin.salary.index_page_data', compact('salarys', 'positions', 'departments'));
         }
-
         return view('admin.salary.index', compact('salarys', 'positions', 'departments'));
     }
 
@@ -133,22 +133,7 @@ class SalaryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * cập nhật thông tin lương
      */
     public function update(Request $request, $id)
     {
@@ -162,10 +147,7 @@ class SalaryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * xóa tạm thời lương tháng
      */
     public function destroy($salary_code)
     {
@@ -177,35 +159,53 @@ class SalaryController extends Controller
         }
     }
 
+    /**
+     * lấy danh sách các tháng lương đã xóa
+     */
+    public function recycleBin(Request $request){
+        $positions = Position::all();
+        $departments = Department::all();
+        $salarys = Salary::deletedSalary($request);
+
+        if ($request->ajax()) {
+            return view('admin.salary.recycle_bin_page_data', compact('salarys', 'positions', 'departments'));
+        }
+        return view('admin.salary.recycle_bin', compact('salarys', 'positions', 'departments'));
+    }
+
+    /**
+     * khôi phục lại lương tháng đã xóa
+     */
+    public function restore($salary_code){
+        try {
+            Salary::restoreSalary($salary_code);
+            return redirect()->route('admin.salary.recycle-bin')->with('success', 'Khôi phục thành công !');
+        } catch (Exception $ex) {
+            return redirect()->route('admin.salary.recycle-bin')->with('failed', 'Không thể khôi phục !');
+        }
+    }
+
+    /**
+     * xuất thông tin lương theo tìm kiến của người quản trị
+     */
     public function export()
     {
         return Excel::download(new SalaryExport, 'Bảng_lương.xlsx');
     }
 
-    // public function exportOne($code)
-    // {
-    //     session()->put('timekeeping_code', $code);
-    //     $user = DB::table('users')
-    //         ->join('timekeepings', 'timekeepings.user_id', 'users.id')
-    //         ->where('timekeepings.timekeeping_code', $code)
-    //         ->select('name')
-    //         ->pluck('name');
-    //     $user = $user->values();
-    //     $name = $user[0];
-    //     return Excel::download(new SalaryExport, 'Chấm_Công_' . $name . '.xlsx');
-    // }
-
-    public function import(Request $request)
+    /**
+     * xuất thông tin về tháng chấm công của nhân viên được chọn
+     */
+    public function exportOne($salary_code)
     {
-        try {
-            DB::beginTransaction();
-            Salary::truncate();
-            Excel::import(new SalaryImport, $request->file('bang_luong'));
-            return redirect('admin/salary')->with("success", 'cập nhật dữ liệu thành công');
-            DB::commit();
-        } catch (Exception $ex) {
-            DB::rollBack();
-            throw $ex;
-        }
+        session()->put('salary_code', $salary_code);
+        $user = DB::table('users')
+            ->join('salary', 'salary.user_id', 'users.id')
+            ->where('salary.salary_code', $salary_code)
+            ->select('name')
+            ->pluck('name');
+        $user = $user->values();
+        $name = $user[0];
+        return Excel::download(new SalaryExportOne, 'Chấm_Công_' . $name . '.xlsx');
     }
 }

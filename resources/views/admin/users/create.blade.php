@@ -4,11 +4,12 @@
     <title>Tạo tài khoản</title>
 @endsection
 
+@section('header_page')
+    Thêm nhân sự
+@endsection
+
 @section('content')
-    <div class="container">
-        <h2 class="text-center p-3">
-            Thêm nhân sự
-        </h2>
+    <div class="container pt-4">
         <form action="{{ route('admin.users.store') }}" method="post">
             @csrf
             <div class="row mx-lg-5 mx-2">

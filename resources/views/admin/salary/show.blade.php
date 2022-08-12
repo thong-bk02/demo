@@ -5,10 +5,9 @@
 @endsection
 
 @section('content')
-    <div class="container">
-
+    <div class="container pt-4">
         @foreach ($salarys as $salary)
-            <h2 class="text-center py-3">
+            <h2 class="text-center pb-3">
                 Thông tin Lương tháng {{ date('m-Y', strtotime($salary->month)) }}
             </h2>
             <form action="{{ route('admin.salary.update', $salary->user_id) }}" method="post">

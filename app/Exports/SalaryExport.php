@@ -31,6 +31,8 @@ class SalaryExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder impl
             ->join('gender', 'profile_users.gender', 'gender.id')
             ->join('payments', 'salary.payment', 'payments.id')
             ->join('basic_salary', 'basic_salary.id', 'salary.basic_salary')
+            ->whereNull('profile_users.deleted_at')
+            ->whereNull('salary.deleted_at')
             ->when(session()->has("salary.name"), function ($q) {
                 $q->where("name", "like", "%" . session()->get('salary.name') . "%");
             })

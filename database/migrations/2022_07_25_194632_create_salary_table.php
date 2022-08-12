@@ -32,6 +32,7 @@ return new class extends Migration
             $table->foreign('payment')->references('id')->on('payments');
             
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

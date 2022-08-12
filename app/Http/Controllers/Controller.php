@@ -20,8 +20,7 @@ class Controller extends BaseController
     public function clearSession($_KEY)
     {
         $arraySession = [
-            'users','position','department','access_right',
-            'timekeeping','reward_and_discipline','salary','list_users'
+            'users','timekeeping','reward_and_discipline','salary'
         ];
         $filtered = Arr::except($arraySession, [$_KEY]);
         session()->forget($filtered);

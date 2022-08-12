@@ -5,12 +5,13 @@ namespace App\Models;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class RewardAndDiscipline extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'reward_and_disciplines';
 
@@ -38,6 +39,7 @@ class RewardAndDiscipline extends Model
                 ->join('gender', 'profile_users.gender', 'gender.id')
                 ->select('users.*', 'reward_and_disciplines.*', 'gender.gender', 'genre.genre', 'positions.position_name', 'departments.department')
                 ->whereNull('users.deleted_at')
+                ->whereNull('reward_and_disciplines.deleted_at')
                 ->when($request->has("name"), function ($q) use ($request) {
                     $q->where("name", "like", "%" . $request->get("name") . "%");
                 })
@@ -51,7 +53,7 @@ class RewardAndDiscipline extends Model
                     $q->where('date_created', $request->get('date_created'));
                 });
 
-            return $reward_and_disciplines->orderBy('date_created', 'desc')->paginate(8);
+            return $reward_and_disciplines->orderBy('name')->orderBy('date_created', 'desc')->paginate(8);
         } catch (Exception $ex) {
             throw $ex;
         }
@@ -144,7 +146,7 @@ class RewardAndDiscipline extends Model
     /**
      * xóa thông tin thưởng phạt
      */
-    protected static function deleteDecision($id)
+    protected static function dlt($id)
     {
         try {
             RewardAndDiscipline::find($id)->delete();
@@ -162,6 +164,50 @@ class RewardAndDiscipline extends Model
             RewardAndDiscipline::where('user_id', $id)
                 ->update($request);
             DB::commit();
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    /**
+     * lấy danh sách các quyết định đã xóa
+     */
+    protected static function deletedDecision($request){
+        try {
+            $reward_and_disciplines = RewardAndDiscipline::onlyTrashed()
+                ->join('users', 'reward_and_disciplines.user_id', 'users.id')
+                ->join('profile_users', 'reward_and_disciplines.user_id', 'profile_users.user_id')
+                ->join('positions', 'profile_users.position', 'positions.id')
+                ->join('departments', 'profile_users.department', 'departments.id')
+                ->join('genre', 'reward_and_disciplines.type', 'genre.id')
+                ->join('gender', 'profile_users.gender', 'gender.id')
+                ->whereNull('profile_users.deleted_at')
+                ->select('users.*', 'reward_and_disciplines.*', 'gender.gender', 'genre.genre', 'positions.position_name', 'departments.department')
+                ->when($request->has("name"), function ($q) use ($request) {
+                    $q->where("name", "like", "%" . $request->get("name") . "%");
+                })
+                ->when($request->get('position'), function ($q) use ($request) {
+                    $q->where("profile_users.position", $request->get("position"));
+                })
+                ->when($request->get('department'), function ($q) use ($request) {
+                    $q->where('profile_users.department', $request->get('department'));
+                })
+                ->when($request->get('date_created'), function ($q) use ($request) {
+                    $q->where('date_created', $request->get('date_created'));
+                });
+
+            return $reward_and_disciplines->orderBy('reward_and_disciplines.deleted_at', 'desc')->paginate(8);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    /**
+     * khôi phục lại quyết định
+     */
+    protected static function restoreDecision($id){
+        try {
+            RewardAndDiscipline::onlyTrashed()->where('id', $id)->restore();
         } catch (Exception $ex) {
             throw $ex;
         }

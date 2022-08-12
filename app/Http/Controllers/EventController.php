@@ -21,6 +21,7 @@ class EventController extends Controller
      */
     public function index()
     {
+        $this->clearSession(4);
         $data_event = Event::getAllEvent();
         return view('admin.event.index' , compact('data_event'));
     }

@@ -17,7 +17,7 @@
                     <form action="{{ route('admin.event.create') }}" method="post">
                         @csrf
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                            <h5 class="modal-title" id="exampleModalLongTitle">Thêm sự kiện</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -115,7 +115,7 @@
                                         <form action="{{ route('admin.event.update', $event->id) }}" method="POST">
                                             @csrf
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Thông tin sự kiện</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>

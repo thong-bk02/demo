@@ -22,19 +22,9 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $this->clearSession(2);
+        $this->clearSession(4);
         $departments = Department::all();
         return view('admin.department.index', compact('departments'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -52,28 +42,6 @@ class DepartmentController extends Controller
         } else {
             return redirect()->route('admin.department')->with('failed', 'Lỗi không thêm được phòng ban');
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**

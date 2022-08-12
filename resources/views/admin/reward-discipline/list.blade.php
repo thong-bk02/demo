@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('header_page')
+    Danh sách nhân sự 
+@endsection
+
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/users/btn-clear-value-input.css') }}">
 @endsection

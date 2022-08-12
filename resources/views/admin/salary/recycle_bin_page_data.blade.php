@@ -3,11 +3,11 @@
         <tr>
             <th scope="col">Stt</th>
             <th scope="col">Tên nhân viên</th>
-            <th scope="col">Giới tính</th>
-            <th scope="col">Chức vụ</th>
+            <th scope="col">Mã nhân viên</th>
             <th scope="col">Tháng lương</th>
             <th scope="col">Tổng lương</th>
             <th scope="col">Ngày quyết toán</th>
+            <th scope="col">Ngày xóa</th>
             <th scope="col">Thao tác</th>
         </tr>
     </thead>
@@ -30,10 +30,7 @@
                         {{ $salary->name }}
                     </td>
                     <td>
-                        {{ $salary->gender }}
-                    </td>
-                    <td>
-                        {{ $salary->position_name }}
+                        {{ $salary->user_code }}
                     </td>
                     <td>
                         {{ date('m/Y', strtotime($salary->month)) }}
@@ -49,14 +46,14 @@
                         @endif
                     </td>
                     <td>
-                        <a href="{{ route('admin.salary.show', $salary->salary_code) }}" class="btn btn-outline-primary btn-sm"><i
+                        {{ date('H:i:s d/m/Y', strtotime($salary->deleted_at)) }}
+                    </td>
+                    <td>
+                        <a href="{{ route('admin.salary.show', $salary->salary_code) }}" class="mx-1"><i
                                 class="fa-solid fa-eye"></i></a>
-                        <a class="btn btn-outline-success btn-sm"
-                            href="{{ route('admin.salary.exportOne', $salary->salary_code) }}">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                        </a>
-                        <a href="{{ route('admin.salary.delete', $salary->salary_code) }}" class="btn btn-outline-primary btn-sm"
-                            onclick="return confirmDelete()"><i class="fa-solid fa-trash-can"></i></a>
+                        <a href="{{ route('admin.salary.restore', $salary->salary_code) }}"
+                            class="mx-1" onclick="return confirmRestore()">
+                            <i class="fa-solid fa-arrow-rotate-left"></i></a>
                     </td>
                 </tr>
             @endforeach

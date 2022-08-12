@@ -33,7 +33,9 @@
                             class="fas fa-bars"></i></a>
                 </li>
             </ul>
-            <div class="navbar-nav ml-auto text-uppercase font-weight-bold">@yield('header_page')</div>
+            <div class="navbar-nav ml-auto text-uppercase font-weight-bold">
+                <h4 style="margin-left: 8rem !important;">@yield('header_page')</h4>
+            </div>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown user-menu">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">

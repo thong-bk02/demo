@@ -23,18 +23,9 @@ class PositionController extends Controller
      */
     public function index()
     {
-        $this->clearSession(1);
+        $this->clearSession(4);
         $positions = Position::all();
         return view('admin.position.index', compact('positions'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
     }
 
     /**

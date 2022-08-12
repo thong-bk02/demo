@@ -4,15 +4,16 @@
     <title>Thông tin Thưởng - Phạt</title>
 @endsection
 
+@section('header_page')
+    Thông tin thưởng phạt
+@endsection
+
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/users/btn-clear-value-input.css') }}">
 @endsection
 
 @section('content')
-    <div class="container">
-        <h2 class="text-center pt-3 pb-4">
-            Thông tin Thưởng - Phạt
-        </h2>
+    <div class="container pt-4">
         @foreach ($decisions as $decision)
             <form action="{{ route('admin.reward-discipline.update', $decision->user_id) }}" method="post">
                 @csrf

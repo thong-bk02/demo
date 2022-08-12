@@ -29,6 +29,8 @@ class TimeKeepingExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder
             ->join('positions', 'profile_users.position', 'positions.id')
             ->join('departments', 'profile_users.department', 'departments.id')
             ->join('gender', 'profile_users.gender', 'gender.id')
+            ->whereNull('timekeepings.deleted_at')
+            ->whereNull('profile_users.deleted_at')
             ->when(session()->has("timekeeping.name"), function ($q) {
                 $q->where("name", "like", "%" . session()->get('timekeeping.name') . "%");
             })
@@ -62,7 +64,7 @@ class TimeKeepingExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder
     {
         return [
             ['Thông tin chấm công'],
-            ["Stt", "Id nhân sự", "Tên nhân sự",'Giới tính', "Chức vụ", "Phòng ban", "Tháng công", "mã chấm công", "Số công", "số ngày nghỉ", "Số lần đi muộn", "Số giờ đi muộn", "Số lần về sớm", "Số giờ về sớm"]
+            ["Stt", "Id", "Tên nhân sự",'Giới tính', "Chức vụ", "Phòng ban", "Tháng công", "mã chấm công", "Số công", "số ngày nghỉ", "Số lần đi muộn", "Số giờ đi muộn", "Số lần về sớm", "Số giờ về sớm"]
         ];
     }
 

@@ -40,7 +40,7 @@
                     <td>
                         {{ $user->department }}
                     </td>
-                    <td class="w-25">
+                    <td>
                         <a href="{{ route('admin.reward-discipline.create', $user->user_id) }}" class="btn btn-primary">
                             <i class="fa-solid fa-circle-plus"></i> Thưởng - phạt</a>
                     </td>

@@ -4,6 +4,7 @@
             <th scope="col">Stt</th>
             <th scope="col">Tên nhân viên</th>
             <th scope="col">Mã nhân viên</th>
+            <th scope="col">Giới tính</th>
             <th scope="col">Chức vụ</th>
             <th scope="col">Phòng ban</th>
             <th scope="col">Thao tác</th>
@@ -31,12 +32,15 @@
                         {{ $user->user_code }}
                     </td>
                     <td>
+                        {{ $user->gender }}
+                    </td>
+                    <td>
                         {{ $user->position_name }}
                     </td>
                     <td>
                         {{ $user->department }}
                     </td>
-                    <td class="w-25">
+                    <td>
                         <a href="{{ route('admin.salary.create', $user->user_id) }}" class="btn btn-primary">
                             <i class="fa-solid fa-circle-plus"></i> Thêm Lương</a>
                     </td>

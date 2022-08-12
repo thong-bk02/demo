@@ -21,13 +21,11 @@ class RewardAndDisciplineController extends Controller
     }
  
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Lấy danh sách thưởng phạt
      */
     public function index(Request $request)
     {
-        $this->clearSession(5);
+        $this->clearSession(2);
         $_KEY = 'reward_and_discipline';
         $positions = Position::all();
         $departments = Department::all();
@@ -37,10 +35,12 @@ class RewardAndDisciplineController extends Controller
             $this->saveSearchSession($this->_KEY, $request->all());
             return view('admin.reward-discipline.index_page_data', compact('reward_and_disciplines', 'positions', 'departments'));
         }
-
         return view('admin.reward-discipline.index', compact('reward_and_disciplines', 'positions', 'departments'));
     }
 
+    /**
+     * lấy danh sách nhân sự thêm thưởng phạt
+     */
     public function list(Request $request)
     {
         $positions = Position::all();
@@ -55,9 +55,7 @@ class RewardAndDisciplineController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * form thêm thưởng phạt
      */
     public function create($id)
     {
@@ -67,6 +65,9 @@ class RewardAndDisciplineController extends Controller
         return view('admin.reward-discipline.create', compact('user', 'genres','reasions'));
     }
 
+    /**
+     * tạo mới 1 record thưởng phạt trong DB
+     */
     public function store(Request $request, $id)
     {
         $data = $request->all();
@@ -84,10 +85,7 @@ class RewardAndDisciplineController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * hiển thị thông tin thưởng phạt
      */
     public function show($id)
     {
@@ -98,22 +96,7 @@ class RewardAndDisciplineController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * cập nhật thông tin thưởng phạt
      */
     public function update(Request $request, $id)
     {
@@ -129,18 +112,41 @@ class RewardAndDisciplineController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * xóa tạm thời thông tin thưởng phạt
      */
     public function destroy($id)
     {
         try {
-            RewardAndDiscipline::deleteDecision($id);
+            RewardAndDiscipline::dlt($id);
             return redirect()->route('admin.reward-discipline')->with('success', 'Xóa thành công');
         } catch (Exception $ex) {
             return redirect()->route('admin.reward-discipline')->with('failed', 'Xóa thất bại !');
+        }
+    }
+
+    /**
+     * lấy danh sách thông tin thưởng phạt đã xóa tạm thời
+     */
+    public function recycleBin(Request $request){
+        $positions = Position::all();
+        $departments = Department::all();
+        $reward_and_disciplines = RewardAndDiscipline::deletedDecision($request);
+
+        if ($request->ajax()) {
+            return view('admin.reward-discipline.recycle_bin_page_data', compact('reward_and_disciplines', 'positions', 'departments'));
+        }
+        return view('admin.reward-discipline.recycle_bin', compact('reward_and_disciplines', 'positions', 'departments'));
+    }
+
+    /**
+     * khôi phục lại quyết định thưởng phạt
+     */
+    public function restore($id){
+        try{
+            RewardAndDiscipline::restoreDecision($id);
+            return redirect()->route('admin.reward-discipline.recycle-bin')->with('success', 'Khôi phục quyết định thành công !');
+        } catch (Exception $ex) {
+            throw $ex;
         }
     }
 }

@@ -18,18 +18,18 @@ use Maatwebsite\Excel\Facades\Excel;
 class TimekeepingController extends Controller
 {
     public $_KEY = 'timekeeping';
-    
+
     public function __construct()
     {
         $this->middleware('auth');
     }
- 
+
     /*
         xử lý và tìm kiếm chấm công
      */
     public function index(Request $request)
     {
-        $this->clearSession(4);
+        $this->clearSession(1);
         $positions = Position::all();
         $departments = Department::all();
         $timekeepings = Timekeeping::getAll($request);
@@ -58,9 +58,7 @@ class TimekeepingController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Hiển thị form thêm chấm công
      */
     public function create($id)
     {
@@ -70,10 +68,7 @@ class TimekeepingController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Tạo mới 1 record chấm công vào DB
      */
     public function store(TimekeepingCreateRequest $request, $id)
     {
@@ -91,10 +86,7 @@ class TimekeepingController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Hiển thị thông tin chấm công
      */
     public function show($code)
     {
@@ -103,22 +95,7 @@ class TimekeepingController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Cập nhật dữ liệu chấm công
      */
     public function update(Request $request, $code)
     {
@@ -134,10 +111,7 @@ class TimekeepingController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Xóa tạm thời bảng công
      */
     public function destroy($timekeeping_code)
     {
@@ -150,13 +124,42 @@ class TimekeepingController extends Controller
     }
 
     /**
-     * @return \Illuminate\Support\Collection
+     * lấy danh sách các record chấm công đã xóa tạm thời
+     */
+    public function recycleBin(Request $request){
+        $positions = Position::all();
+        $departments = Department::all();
+        $timekeepings = Timekeeping::deletedTimekeeping($request);
+
+        if ($request->ajax()) {
+            return view('admin.timekeeping.recycle_bin_page_data', compact('timekeepings', 'positions', 'departments'));
+        }
+        return view('admin.timekeeping.recycle_bin', compact('timekeepings', 'positions', 'departments'));
+    }
+
+    /**
+     * khôi phục lại các record đã xóa
+     */
+    public function restore($user_id){
+        try{
+            Timekeeping::restoreTimekeeping($user_id);
+            return redirect()->route('admin.timekeeping.recycle-bin')->with('success', 'Khôi phục bảng công thành công !');
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    /**
+     * Xuất thông tin chấm công mà người quản trị tìm kiếm
      */
     public function export()
     {
         return Excel::download(new TimekeepingExport, 'Chấm_Công.xlsx');
     }
 
+    /**
+     * xuất thông tin về tháng chấm công của nhân viên được chọn
+     */
     public function exportOne($code)
     {
         session()->put('timekeeping_code', $code);
@@ -170,6 +173,9 @@ class TimekeepingController extends Controller
         return Excel::download(new TimekeepingExportOne, 'Chấm_Công_' . $name . '.xlsx');
     }
 
+    /**
+     * lấy thông tin chấm công từ file excel
+     */
     public function import(Request $request)
     {
         try {

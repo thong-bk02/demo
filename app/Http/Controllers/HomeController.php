@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $this->clearSession(10);
+        $this->clearSession(4);
         /* 
             DATA BẢNG THỐNG KÊ LƯƠNG
         */

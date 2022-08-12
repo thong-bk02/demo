@@ -30,7 +30,7 @@
                 <td>{{ $user->department }}</td>
                 <td>{{ $user->gender }}</td>
                 <td>{{ $user->address }}</td>
-                <td>{{ $user->birthday }}</td>
+                <td>{{ date('d/m/Y', strtotime($user->birthday)) }}</td>
             </tr>
         @endforeach
     </tbody>

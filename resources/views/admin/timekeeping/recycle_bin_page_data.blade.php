@@ -46,17 +46,9 @@
                     </td>
                     <td>
                         <a href="{{ route('admin.timekeeping.show', $timekeeping->timekeeping_code) }}"
-                            class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-eye"></i>
-                        </a>
-                        <a class="btn btn-outline-success btn-sm float-end"
-                            href="{{ route('admin.timekeeping.exportOne', $timekeeping->timekeeping_code) }}">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                        </a>
-                        <a href="{{ route('admin.timekeeping.delete', $timekeeping->timekeeping_code) }}" class="btn btn-outline-danger btn-sm"
-                            onclick="return confirmDelete()">
-                            <i class="fa-solid fa-trash-can text-danger"></i>
-                        </a>
-
+                            class="mx-1"><i class="fa-solid fa-eye"></i></a>
+                        <a href="{{ route('admin.timekeeping.restore', $timekeeping->timekeeping_code) }}" class="mx-1"
+                            onclick="return confirmRestore()"><i class="fa-solid fa-arrow-rotate-left"></i></a>
                     </td>
                 </tr>
             @endforeach

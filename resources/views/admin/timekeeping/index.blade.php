@@ -60,18 +60,17 @@
                             <input type="month" name="month" class="form-control"
                                 value="{{ session('timekeeping.month') }}">
                         </td>
-                        <td style="width: 25vw;">
+                        <td style="width: 20vw;">
                             <a class='btn btn-outline-primary' href='{{ url('admin/timekeeping') }}' id='search_btn'>
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </a>
                             <a href="{{ route('admin.timekeeping.list') }}" class="btn btn-outline-primary">
                                 <i class="fa-solid fa-plus"></i>
                             </a>
-                            <a href=""  class="btn btn-outline-primary">
+                            <a href="{{ route('admin.timekeeping.recycle-bin') }}" class="btn btn-outline-primary">
                                 <i class="fa-solid fa-eye-slash"></i>
                             </a>
-                            <a class="btn btn-outline-primary float-end"
-                                href="{{ route('admin.timekeeping.export') }}">
+                            <a class="btn btn-outline-primary float-end" href="{{ route('admin.timekeeping.export') }}">
                                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                             </a>
                             <a class="btn btn-outline-primary float-end" href="" data-toggle="modal"
@@ -83,7 +82,7 @@
                 </tr>
             </tbody>
         </table>
-       
+
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">

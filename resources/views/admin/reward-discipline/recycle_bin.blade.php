@@ -4,6 +4,10 @@
     <title>Quản lý thưởng phạt</title>
 @endsection
 
+@section('header_page')
+    Danh sách các quyết định thưởng phạt đã xóa
+@endsection
+
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/users/btn-clear-value-input.css') }}">
 @endsection
@@ -59,17 +63,11 @@
                             <input type="date" name="date_created" class="form-control"
                                 value="{{ Session('reward_and_discipline.date_created') }}">
                         </td>
-                        <td style="width: 25vw;">
+                        <td>
                             <a class='btn btn-outline-primary' href='{{ url('admin/reward-discipline') }}' id='search_btn'>
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </a>
-                            <a href="{{ route('admin.reward-discipline.recycle-bin') }}" class="btn btn-outline-primary">
-                                <i class="fa-solid fa-eye-slash"></i>
-                            </a>
-                            <a href="{{ route('admin.reward-discipline.list') }}" class="btn btn-outline-primary">
-                                <i class="fa-solid fa-plus"></i></a>
-                            <a href="{{ route('admin.reasion') }}" class="btn btn-outline-primary">
-                                Quyết định</a>
+                            <a href="{{ route('admin.reward-discipline') }}" class="btn btn-outline-dark">Thoát</a>
                         </td>
                     </form>
                 </tr>
@@ -78,39 +76,22 @@
 
         {{-- Kết quả tìm kiếm --}}
         <div id="pagination_data">
-            @include('admin.reward-discipline.index_page_data', [
+            @include('admin.reward-discipline.recycle_bin_page_data', [
                 'reward_and_disciplines' => $reward_and_disciplines,
             ])
         </div>
     </div>
+    
+    {{-- Xác nhận khôi phục quyết dịnh thưởng phạt --}}
     <script>
-        function confirmDelete() {
-            if (confirm("xóa quyết định này ?") == true) {
+        function confirmRestore() {
+            if (confirm("Khôi phục lại quyết định này ?") == true) {
                 return true;
             } else {
                 return false;
             }
         }
     </script>
-
-    @if (blank(session('reward_and_discipline')))
-    @else
-        <script>
-            $(function() {
-                var page = '{{ Session('reward_and_discipline.page') }}';
-                if (page == "") {
-                    var finalURL = "reward-discipline?" + $("#searchform").serialize();
-                } else {
-                    var finalURL = "reward-discipline?page=" + page + "&" + $("#searchform").serialize();
-                }
-
-                $.get(finalURL, function(data) {
-                    $("#pagination_data").html(data);
-                });
-                return false;
-            });
-        </script>
-    @endif
 
     {{-- Search --}}
     <script>

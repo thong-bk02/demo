@@ -4,11 +4,12 @@
     <title>Thông tin nhân sự</title>
 @endsection
 
+@section('header_page')
+    Thông tin nhân sự
+@endsection
+
 @section('content')
-    <div class="container">
-        <h2 class="text-center p-3">
-            Thông tin nhân sự:
-        </h2>
+    <div class="container pt-4">
         @foreach ($users as $user)
             <form action="{{ route('admin.user.update', $user->user_id) }}" method="post">
                 @csrf
@@ -17,15 +18,16 @@
                         <div class="form-group">
                             <label for="name">Tên nhân viên</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                                id="name" placeholder="Họ tên" value="{{old('name', $user->name)}}">
+                                id="name" placeholder="Họ tên" value="{{ old('name', $user->name) }}">
                             @error('name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="birthday">Ngày sinh</label>
-                            <input type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday"
-                                id="birthday" placeholder="Họ tên" value="{{old('birthday', $user->birthday)}}">
+                            <input type="date" class="form-control @error('birthday') is-invalid @enderror"
+                                name="birthday" id="birthday" placeholder="Họ tên"
+                                value="{{ old('birthday', $user->birthday) }}">
                             @error('birthday')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -33,14 +35,15 @@
                         <div class="form-group">
                             <label for="">Giới tính</label>
                             <select name="gender" class="form-control">
-                                <option value="1" {{ old('status', $user->gender) == 1 ? 'selected' : '' }}>nam</option>
+                                <option value="1" {{ old('status', $user->gender) == 1 ? 'selected' : '' }}>nam
+                                </option>
                                 <option value="2" {{ old('status', $user->gender) == 2 ? 'selected' : '' }}>nữ</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="address">Quê quán</label>
                             <input type="text" class="form-control @error('address') is-invalid @enderror" name="address"
-                                id="address" placeholder="Quê quán" value="{{old('address', $user->address)}}">
+                                id="address" placeholder="Quê quán" value="{{ old('address', $user->address) }}">
                             @error('address')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -50,7 +53,8 @@
                         <div class="form-group">
                             <label for="phone">Số điện thoại</label>
                             <input type="text" class="form-control @error('phone') is-invalid @enderror" name="phone"
-                                id="phone" placeholder="Số điện thoại" value="{{old('phone', $user->phone)}}" pattern="(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b">
+                                id="phone" placeholder="Số điện thoại" value="{{ old('phone', $user->phone) }}"
+                                pattern="(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b">
                             @error('phone')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -58,7 +62,7 @@
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                                id="email" placeholder="email@example.com" value="{{old('email', $user->email)}}">
+                                id="email" placeholder="email@example.com" value="{{ old('email', $user->email) }}">
                             @error('email')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror

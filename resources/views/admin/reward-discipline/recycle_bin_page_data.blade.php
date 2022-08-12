@@ -3,12 +3,12 @@
         <tr>
             <th scope="col">Stt</th>
             <th scope="col">Tên nhân viên</th>
-            <th scope="col">Giới tính</th>
+            <th scope="col">Mã nhân viên</th>
             <th scope="col">chức vụ</th>
-            <th scope="col">phòng ban</th>
             <th scope="col">Hình thức</th>
             <th scope="col">Số tiền</th>
             <th scope="col">Ngày tạo</th>
+            <th scope="col">Ngày xóa</th>
             <th scope="col">Thao tác</th>
         </tr>
     </thead>
@@ -37,9 +37,6 @@
                         {{ $reward_and_discipline->position_name }}
                     </td>
                     <td>
-                        {{ $reward_and_discipline->department }}
-                    </td>
-                    <td>
                         {{ $reward_and_discipline->genre }}
                     </td>
                     <td>
@@ -49,10 +46,14 @@
                         {{ date('d/m/Y', strtotime($reward_and_discipline->date_created)) }}
                     </td>
                     <td>
+                        {{ date('H:i:s d/m/Y', strtotime($reward_and_discipline->deleted_at)) }}
+                    </td>
+                    <td>
                         <a href="{{ route('admin.reward-discipline.show', $reward_and_discipline->id) }}"
-                            class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-eye"></i></a>
-                        <a href="{{ route('admin.reward-discipline.delete', $reward_and_discipline->id) }}"
-                            class="btn btn-outline-danger btn-sm" onclick="return confirmDelete()"><i class="fa-solid fa-trash-can"></i></a>
+                            class="mx-1"><i class="fa-solid fa-eye"></i></a>
+                        <a href="{{ route('admin.reward-discipline.restore', $reward_and_discipline->id) }}"
+                            class="mx-1" onclick="return confirmRestore()">
+                            <i class="fa-solid fa-arrow-rotate-left"></i></a>
                     </td>
                 </tr>
             @endforeach

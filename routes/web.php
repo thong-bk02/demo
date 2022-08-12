@@ -70,6 +70,8 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/admin/timekeeping-import', 'import')->name('admin.timekeeping.import');
     });
     Route::get('/admin/timekeeping/delete/{id}', [TimekeepingController::class, 'destroy'])->name('admin.timekeeping.delete');
+    Route::get('/admin/timekeeping/recycle-bin', [TimekeepingController::class, 'recycleBin'])->name('admin.timekeeping.recycle-bin');
+    Route::get('/admin/timekeeping/{timekeeping_code}/restore', [TimekeepingController::class, 'restore'])->name('admin.timekeeping.restore');
 
     //quản lí thưởng phạt
     Route::get('/admin/reward-discipline', [RewardAndDisciplineController::class, 'index'])->name('admin.reward-discipline');
@@ -79,6 +81,8 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('/admin/reward-discipline/{id}/create', [RewardAndDisciplineController::class, 'store'])->name('admin.reward-discipline.store');
     Route::get('/admin/reward-discipline/list-users', [RewardAndDisciplineController::class, 'list'])->name('admin.reward-discipline.list');
     Route::get('/admin/reward-discipline/delete/{id}', [RewardAndDisciplineController::class, 'destroy'])->name('admin.reward-discipline.delete');
+    Route::get('/admin/reward-discipline/recycle-bin', [RewardAndDisciplineController::class, 'recycleBin'])->name('admin.reward-discipline.recycle-bin');
+    Route::get('/admin/reward-discipline/{id}/restore', [RewardAndDisciplineController::class, 'restore'])->name('admin.reward-discipline.restore');
 
     // quản lí lý do thưởng phạt
     Route::get('/admin/reward-discipline/reasion', [ReasionController::class, 'index'])->name('admin.reasion');
@@ -98,6 +102,8 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/admin/salary-exportOne/{id}', 'exportOne')->name('admin.salary.exportOne');
         Route::post('/admin/salary-import', 'import')->name('admin.salary.import');
     });
+    Route::get('/admin/salary/recycle-bin', [SalaryController::class, 'recycleBin'])->name('admin.salary.recycle-bin');
+    Route::get('/admin/salary/{salary_month}/restore', [SalaryController::class, 'restore'])->name('admin.salary.restore');
 
     //quản lí lương cơ bản
     Route::get('/admin/salary/basic-salary', [BasicSalaryController::class, 'index'])->name('admin.basic-salary');

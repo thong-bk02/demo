@@ -4,11 +4,12 @@
     <title>Thêm Lương</title>
 @endsection
 
+@section('header_page')
+    Thêm lương
+@endsection
+
 @section('content')
-    <div class="container">
-        <h2 class="text-center py-3">
-            Thêm Lương
-        </h2>
+    <div class="container pt-4">
         <form action="{{ route('admin.salary.store', $salarys[0]->user_id) }}" method="post">
             @csrf
             <div class="row mx-lg-5 mx-2">

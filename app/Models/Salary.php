@@ -5,6 +5,7 @@ namespace App\Models;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +13,7 @@ use Illuminate\Support\Str;
 
 class Salary extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'salary';
 
@@ -41,16 +42,19 @@ class Salary extends Model
             ->join('payments', 'salary.payment', 'payments.id')
             ->join('profile_users', 'salary.user_id', 'profile_users.user_id')
             ->join('positions', 'profile_users.position', 'positions.id')
+            ->join('departments', 'profile_users.department', 'departments.id')
             ->join('gender', 'profile_users.gender', 'gender.id')
             ->select(
                 'users.*',
                 'salary.*',
                 'payments.payment',
-                'profile_users.position',
+                'profile_users.user_code',
                 'positions.position_name',
+                'departments.department',
                 'gender.gender',
             )
             ->whereNull('profile_users.deleted_at')
+            ->whereNull('salary.deleted_at')
             ->when($request->has("name"), function ($q) use ($request) {
                 $q->where("name", "like", "%" . $request->get("name") . "%");
             })
@@ -151,7 +155,8 @@ class Salary extends Model
                 ->join('users', 'profile_users.user_id', 'users.id')
                 ->join('positions', 'profile_users.position', 'positions.id')
                 ->join('departments', 'profile_users.department', 'departments.id')
-                ->select('users.*', 'profile_users.*', 'positions.position_name', 'departments.department')
+                ->join('gender', 'profile_users.gender', 'gender.id')
+                ->select('users.*', 'profile_users.*','gender.gender', 'positions.position_name', 'departments.department')
                 ->whereNull('profile_users.deleted_at')
                 ->when($request->has("name"), function ($q) use ($request) {
                     $q->where("name", "like", "%" . $request->get("name") . "%");
@@ -233,6 +238,53 @@ class Salary extends Model
     {
         try {
             Salary::where('salary_code', $salary_code)->delete();
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    /**
+     * lấy dữ liệu những lương đã xóa tạm thời
+     */
+    protected static function deletedSalary($request){
+        $salarys = Salary::onlyTrashed()
+            ->join('users', 'salary.user_id', 'users.id')
+            ->join('payments', 'salary.payment', 'payments.id')
+            ->join('profile_users', 'salary.user_id', 'profile_users.user_id')
+            ->join('positions', 'profile_users.position', 'positions.id')
+            ->join('departments', 'profile_users.department', 'departments.id')
+            ->join('gender', 'profile_users.gender', 'gender.id')
+            ->select(
+                'users.*',
+                'salary.*',
+                'payments.payment',
+                'profile_users.user_code',
+                'positions.position_name',
+                'departments.department',
+                'gender.gender',
+            )
+            ->whereNull('profile_users.deleted_at')
+            ->when($request->has("name"), function ($q) use ($request) {
+                $q->where("name", "like", "%" . $request->get("name") . "%");
+            })
+            ->when($request->get('position'), function ($q) use ($request) {
+                $q->where("profile_users.position", $request->get("position"));
+            })
+            ->when($request->get('department'), function ($q) use ($request) {
+                $q->where('profile_users.department', $request->get('department'));
+            })
+            ->when($request->get('month'), function ($q) use ($request) {
+                $q->where('month', 'like', $request->get('month') . "%");
+            });
+        return $salarys->orderByDesc('month')->orderBy('name')->paginate(8);
+    }
+
+    /**
+     * khôi phục lại lương đã được chọn
+     */
+    protected static function restoreSalary($salary_code){
+        try {
+            Salary::onlyTrashed()->where('salary_code', $salary_code)->restore();
         } catch (Exception $ex) {
             throw $ex;
         }

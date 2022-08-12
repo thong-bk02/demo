@@ -1,16 +1,21 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Quản lý thưởng phạt</title>
+    <title>Quản lí chấm công</title>
 @endsection
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/users/btn-clear-value-input.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/input-file.css') }}">
+@endsection
+
+@section('header_page')
+    Dữ liệu chấm công đã xóa
 @endsection
 
 @section('content')
     <div class="container">
-
+        {{-- Thông báo --}}
         @include('layouts.message')
 
         <table class="table">
@@ -19,18 +24,18 @@
                     <th scope="col">Tên nhân viên</th>
                     <th scope="col">Chức vụ</th>
                     <th scope="col">Phòng ban</th>
-                    <th scope="col">Ngày phạt</th>
+                    <th scope="col">Tháng công</th>
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <form id="searchform" name="searchform" method="post">
+                    <form id="searchform" name="searchform">
+                        @csrf
                         <td>
                             <span class="deleteicon w-100">
                                 <input type="text" name="name" id="search_name" placeholder="Họ và tên"
-                                    value="{{ Session('reward_and_discipline.name') }}" class="form-control"
-                                    autocomplete="off">
+                                    value="{{ Session('timekeeping.name') }}" class="form-control" autocomplete="off">
                                 <span
                                     onclick="var input = this.previousElementSibling; input.value = ''; input.focus();">X</span>
                             </span>
@@ -40,7 +45,7 @@
                                 <option value="">tất cả</option>
                                 @foreach ($positions as $position)
                                     <option value="{{ $position->id }}"
-                                        {{ Session('reward_and_discipline.position') == $position->id ? 'selected' : '' }}>
+                                        {{ Session('timekeeping.position') == $position->id ? 'selected' : '' }}>
                                         {{ $position->position_name }}</option>
                                 @endforeach
                             </select>
@@ -50,42 +55,59 @@
                                 <option value="">tất cả</option>
                                 @foreach ($departments as $department)
                                     <option value="{{ $department->id }}"
-                                        {{ Session('reward_and_discipline.department') == $department->id ? 'selected' : '' }}>
+                                        {{ Session('timekeeping.department') == $department->id ? 'selected' : '' }}>
                                         {{ $department->department }}</option>
                                 @endforeach
                             </select>
                         </td>
                         <td>
-                            <input type="date" name="date_created" class="form-control"
-                                value="{{ Session('reward_and_discipline.date_created') }}">
+                            <input type="month" name="month" class="form-control"
+                                value="{{ session('timekeeping.month') }}">
                         </td>
-                        <td style="width: 25vw;">
-                            <a class='btn btn-outline-primary' href='{{ url('admin/reward-discipline') }}' id='search_btn'>
+                        <td>
+                            <a class='btn btn-outline-primary' href='{{ url('admin/timekeeping') }}' id='search_btn'>
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </a>
-                            <a href="{{ route('admin.reward-discipline.recycle-bin') }}" class="btn btn-outline-primary">
-                                <i class="fa-solid fa-eye-slash"></i>
-                            </a>
-                            <a href="{{ route('admin.reward-discipline.list') }}" class="btn btn-outline-primary">
-                                <i class="fa-solid fa-plus"></i></a>
-                            <a href="{{ route('admin.reasion') }}" class="btn btn-outline-primary">
-                                Quyết định</a>
+                            <a href="{{ route('admin.timekeeping') }}" class="btn btn-secondary mx-2">Thoát</a>
                         </td>
                     </form>
                 </tr>
             </tbody>
         </table>
 
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form action="{{ route('admin.timekeeping.import') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Cập nhật thông tin chấm công</h5>
+                        </div>
+                        <div class="modal-body">
+                            <input type="file" class="" id="customFile" name="cham_cong" accept=".xlsx, .xls, .csv"
+                                required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <input type="submit" value="Tải lên" class="btn btn-primary">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         {{-- Kết quả tìm kiếm --}}
         <div id="pagination_data">
-            @include('admin.reward-discipline.index_page_data', [
-                'reward_and_disciplines' => $reward_and_disciplines,
-            ])
+            @include('admin.timekeeping.recycle_bin_page_data', ['timekeepings' => $timekeepings])
         </div>
+
     </div>
+
+    {{-- Xác nhận khôi phục bảng chấm công --}}
     <script>
-        function confirmDelete() {
-            if (confirm("xóa quyết định này ?") == true) {
+        function confirmRestore() {
+            if (confirm("Khôi phục lại bảng chấm công của nhân sự này ?") == true) {
                 return true;
             } else {
                 return false;
@@ -93,43 +115,13 @@
         }
     </script>
 
-    @if (blank(session('reward_and_discipline')))
-    @else
-        <script>
-            $(function() {
-                var page = '{{ Session('reward_and_discipline.page') }}';
-                if (page == "") {
-                    var finalURL = "reward-discipline?" + $("#searchform").serialize();
-                } else {
-                    var finalURL = "reward-discipline?page=" + page + "&" + $("#searchform").serialize();
-                }
-
-                $.get(finalURL, function(data) {
-                    $("#pagination_data").html(data);
-                });
-                return false;
-            });
-        </script>
-    @endif
-
-    {{-- Search --}}
     <script>
         $(function() {
-            //sự kiện nhấn enter khi nhập tên nhân viên
-            var input = document.getElementById("search_name");
-            input.addEventListener("keypress", function(event) {
-                if (event.key === "Enter") {
-                    event.preventDefault();
-                    document.getElementById("search_btn").click();
-                }
-            });
-            // sử dụng ajax đẻ tìm kiếm khi click phân trang nút tìm kiếm
             $(document).on("click", "#pagination a,#search_btn", function() {
                 var url = $(this).attr("href");
                 var append = url.indexOf("?") == -1 ? "?" : "&";
                 var finalURL = url + append + $("#searchform").serialize();
 
-                event.preventDefault();
                 $.get(finalURL, function(data) {
                     $("#pagination_data").html(data);
                 });
@@ -138,4 +130,5 @@
 
         });
     </script>
+
 @endsection

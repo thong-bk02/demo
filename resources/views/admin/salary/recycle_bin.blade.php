@@ -1,11 +1,15 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Quản lý thưởng phạt</title>
+    <title>Quản lí lương</title>
 @endsection
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/users/btn-clear-value-input.css') }}">
+@endsection
+
+@section('header_page')
+    Danh sách lương đã xóa
 @endsection
 
 @section('content')
@@ -19,7 +23,7 @@
                     <th scope="col">Tên nhân viên</th>
                     <th scope="col">Chức vụ</th>
                     <th scope="col">Phòng ban</th>
-                    <th scope="col">Ngày phạt</th>
+                    <th scope="col">Tháng lương</th>
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
@@ -29,47 +33,39 @@
                         <td>
                             <span class="deleteicon w-100">
                                 <input type="text" name="name" id="search_name" placeholder="Họ và tên"
-                                    value="{{ Session('reward_and_discipline.name') }}" class="form-control"
-                                    autocomplete="off">
+                                    value="{{ Session('salary.name') }}" class="form-control" autocomplete="off">
                                 <span
                                     onclick="var input = this.previousElementSibling; input.value = ''; input.focus();">X</span>
                             </span>
                         </td>
                         <td>
-                            <select class="form-control" name="position" id="position">
+                            <select class="form-control" name="position">
                                 <option value="">tất cả</option>
                                 @foreach ($positions as $position)
                                     <option value="{{ $position->id }}"
-                                        {{ Session('reward_and_discipline.position') == $position->id ? 'selected' : '' }}>
+                                        {{ Session('salary.position') == $position->id ? 'selected' : '' }}>
                                         {{ $position->position_name }}</option>
                                 @endforeach
                             </select>
                         </td>
                         <td>
-                            <select class="form-control" name="department" id="department">
+                            <select class="form-control" name="department">
                                 <option value="">tất cả</option>
                                 @foreach ($departments as $department)
                                     <option value="{{ $department->id }}"
-                                        {{ Session('reward_and_discipline.department') == $department->id ? 'selected' : '' }}>
+                                        {{ Session('salary.department') == $department->id ? 'selected' : '' }}>
                                         {{ $department->department }}</option>
                                 @endforeach
                             </select>
                         </td>
                         <td>
-                            <input type="date" name="date_created" class="form-control"
-                                value="{{ Session('reward_and_discipline.date_created') }}">
+                            <input type="month" name="month" class="form-control" value="{{ Session('salary.month') }}">
                         </td>
-                        <td style="width: 25vw;">
-                            <a class='btn btn-outline-primary' href='{{ url('admin/reward-discipline') }}' id='search_btn'>
+                        <td>
+                            <a class='btn btn-outline-primary' href='{{ url('admin/salary') }}' id='search_btn'>
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </a>
-                            <a href="{{ route('admin.reward-discipline.recycle-bin') }}" class="btn btn-outline-primary">
-                                <i class="fa-solid fa-eye-slash"></i>
-                            </a>
-                            <a href="{{ route('admin.reward-discipline.list') }}" class="btn btn-outline-primary">
-                                <i class="fa-solid fa-plus"></i></a>
-                            <a href="{{ route('admin.reasion') }}" class="btn btn-outline-primary">
-                                Quyết định</a>
+                            <a href="{{ route('admin.salary') }}" class="btn btn-outline-dark">Thoát</a>
                         </td>
                     </form>
                 </tr>
@@ -78,14 +74,17 @@
 
         {{-- Kết quả tìm kiếm --}}
         <div id="pagination_data">
-            @include('admin.reward-discipline.index_page_data', [
-                'reward_and_disciplines' => $reward_and_disciplines,
+            @include('admin.salary.recycle_bin_page_data', [
+                'salarys' => $salarys,
             ])
         </div>
+
     </div>
+
+    {{-- Xác nhận khôi phục lương --}}
     <script>
-        function confirmDelete() {
-            if (confirm("xóa quyết định này ?") == true) {
+        function confirmRestore() {
+            if (confirm("Khôi phục lại lương tháng của nhân viên này ?") == true) {
                 return true;
             } else {
                 return false;
@@ -93,26 +92,6 @@
         }
     </script>
 
-    @if (blank(session('reward_and_discipline')))
-    @else
-        <script>
-            $(function() {
-                var page = '{{ Session('reward_and_discipline.page') }}';
-                if (page == "") {
-                    var finalURL = "reward-discipline?" + $("#searchform").serialize();
-                } else {
-                    var finalURL = "reward-discipline?page=" + page + "&" + $("#searchform").serialize();
-                }
-
-                $.get(finalURL, function(data) {
-                    $("#pagination_data").html(data);
-                });
-                return false;
-            });
-        </script>
-    @endif
-
-    {{-- Search --}}
     <script>
         $(function() {
             //sự kiện nhấn enter khi nhập tên nhân viên
@@ -123,7 +102,7 @@
                     document.getElementById("search_btn").click();
                 }
             });
-            // sử dụng ajax đẻ tìm kiếm khi click phân trang nút tìm kiếm
+
             $(document).on("click", "#pagination a,#search_btn", function() {
                 var url = $(this).attr("href");
                 var append = url.indexOf("?") == -1 ? "?" : "&";

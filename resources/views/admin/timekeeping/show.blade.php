@@ -4,11 +4,12 @@
     <title>Thông tin chấm công</title>
 @endsection
 
+@section('header_page')
+    Thông tin chấm công
+@endsection
+
 @section('content')
-    <div class="container">
-        <h2 class="text-center mb-5">
-            Thông tin chấm công nhân viên
-        </h2>
+    <div class="container pt-4">
         @foreach ($timekeepings as $timekeeping)
             <form action="{{ route('admin.timekeeping.update', $timekeeping->timekeeping_code) }}" method="post">
                 @csrf

@@ -4,6 +4,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/users/btn-clear-value-input.css') }}">
 @endsection
 
+@section('header_page')
+    Danh sách nhân sự 
+@endsection
+
 @section('content')
     <div class="container">
 

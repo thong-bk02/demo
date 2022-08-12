@@ -35,41 +35,40 @@
                             </span>
                         </td>
                         <td>
-                            <div class="form-group">
-                                <select class="form-control" name="position">
-                                    <option value="">tất cả</option>
-                                    @foreach ($positions as $position)
-                                        <option value="{{ $position->id }}"
-                                            {{ Session('salary.position') == $position->id ? 'selected' : '' }}>
-                                            {{ $position->position_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            <select class="form-control" name="position">
+                                <option value="">tất cả</option>
+                                @foreach ($positions as $position)
+                                    <option value="{{ $position->id }}"
+                                        {{ Session('salary.position') == $position->id ? 'selected' : '' }}>
+                                        {{ $position->position_name }}</option>
+                                @endforeach
+                            </select>
                         </td>
                         <td>
-                            <div class="form-group">
-                                <select class="form-control" name="department">
-                                    <option value="">tất cả</option>
-                                    @foreach ($departments as $department)
-                                        <option value="{{ $department->id }}"
-                                            {{ Session('salary.department') == $department->id ? 'selected' : '' }}>
-                                            {{ $department->department }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            <select class="form-control" name="department">
+                                <option value="">tất cả</option>
+                                @foreach ($departments as $department)
+                                    <option value="{{ $department->id }}"
+                                        {{ Session('salary.department') == $department->id ? 'selected' : '' }}>
+                                        {{ $department->department }}</option>
+                                @endforeach
+                            </select>
                         </td>
                         <td>
                             <input type="month" name="month" class="form-control" value="{{ Session('salary.month') }}">
                         </td>
                         <td style="width: 25vw;">
-                            <a class='btn btn-primary' href='{{ url('admin/salary') }}' id='search_btn'>
+                            <a class='btn btn-outline-primary' href='{{ url('admin/salary') }}' id='search_btn'>
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </a>
-                            <a href="{{ route('admin.salary.list') }}" class="btn btn-primary">
+                            <a href="{{ route('admin.salary.list') }}" class="btn btn-outline-primary">
                                 <i class="fa-solid fa-plus"></i>
                             </a>
-                            <a href="{{ route('admin.basic-salary') }}" class="btn p-0 text-primary">
+                            {{-- <a href="{{ route('admin.basic-salary') }}" class="btn p-0 text-primary">
                                 <i class="fa-solid fa-money-check-dollar" style="font-size: 50px;"></i>
+                            </a> --}}
+                            <a href="{{ route('admin.salary.recycle-bin') }}" class="btn btn-outline-primary">
+                                <i class="fa-solid fa-eye-slash"></i>
                             </a>
                             <a href="{{ route('admin.salary.export') }}" class="btn btn-outline-primary">Xuất Excel</a>
                         </td>
